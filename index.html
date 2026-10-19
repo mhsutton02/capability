@@ -9,8 +9,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <script>
-  // set theme before paint to avoid a flash
-  try{var _t=localStorage.getItem('capstmt-theme'); if(_t) document.documentElement.setAttribute('data-theme',_t);}catch(e){}
+  // set theme before paint to avoid a flash; dark unless the viewer chose light
+  var _t=null; try{_t=localStorage.getItem('capstmt-theme');}catch(e){}
+  document.documentElement.setAttribute('data-theme', _t||'dark');
 </script>
 <style>
   :root{
@@ -90,11 +91,12 @@
   .panel-back{margin:40px 0 4px; text-align:center}
   .panel-back a{display:inline-block; font-weight:600; border:1px solid var(--accent); border-radius:999px; padding:8px 18px}
   .panel-back a:hover{background:var(--accent-tint); text-decoration:none}
-  .ident{display:flex; align-items:baseline; gap:10px; margin-right:auto}
+  .ident{display:flex; align-items:center; gap:10px; margin-right:auto}
+  .ident .id-txt{display:flex; flex-direction:column; line-height:1.2}  /* role sits under the name */
   .ident .who{font-family:var(--disp); font-weight:600; font-size:15px; letter-spacing:.01em; white-space:nowrap}
   .ph{background:var(--accent-tint); color:var(--accent-ink); border:1px dashed var(--accent);
       padding:1px 8px; border-radius:5px; font-family:var(--disp); font-weight:600; font-size:13px}
-  .ident .role{font-size:12.5px; color:var(--ink-45)}
+  .ident .role{font-size:12.5px; color:var(--ink-45); white-space:nowrap}
   .live{width:7px; height:7px; border-radius:50%; background:var(--accent); position:relative}
   .live::after{content:""; position:absolute; inset:-4px; border-radius:50%;
                border:1px solid var(--accent); opacity:.5; animation:ping 2.4s var(--step) infinite}
@@ -552,8 +554,7 @@
   <div class="bar-in">
     <div class="ident">
       <span class="live" aria-hidden="true"></span>
-      <span class="who">Capability Statement</span>
-      <span class="role">AI Transformation &amp; Enablement</span>
+      <span class="id-txt"><span class="who">Capability Statement</span><span class="role">AI Transformation &amp; Enablement</span></span>
     </div>
     <nav class="tabs" role="tablist" aria-label="Sections">
       <button class="tab" role="tab" id="t-map"         aria-controls="p-map"         aria-selected="true"><span class="ix">00</span>Map</button>
@@ -573,7 +574,7 @@
 <section class="panel on" id="p-map" role="tabpanel" aria-labelledby="t-map" tabindex="0">
   <div class="wrap map-head">
     <p class="eyebrow">Capability statement</p>
-    <h1 class="h-sec">How the work flows into AI transformation &amp; enablement</h1>
+    <h1 class="h-sec">How My Career Leads to AI Transformation and Enablement</h1>
     <p class="sec-lead">Each bubble is a section of this statement. Follow the arrows from where the work started to where it lands. Hover over a bubble to see what it carries; click it to open that section.</p>
     <div class="stage">
       <svg class="dag" id="dag" role="group" aria-label="Directed graph: Experience flows into Disciplines, Adoption, and the goal; Disciplines into Projects and Adoption; Projects into Adoption and the goal, and back into Disciplines as lessons learned; Adoption into the goal, AI Transformation and Enablement."></svg>
