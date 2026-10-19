@@ -591,7 +591,7 @@
     <h1 class="h-sec">How My Career Leads to AI Transformation and Enablement</h1>
     <p class="sec-lead">Each bubble is a section of this statement. Follow the arrows from where the work started to where it lands. Hover over a bubble to see what it carries; click it to open that section.</p>
     <div class="stage">
-      <svg class="dag" id="dag" role="group" aria-label="Directed graph: Overview flows into Experience and Disciplines; Experience flows into Disciplines, Adoption, and the goal; Disciplines into Projects and Adoption; Projects into Adoption and the goal, and back into Disciplines as lessons learned; Adoption into the goal, AI Transformation and Enablement."></svg>
+      <svg class="dag" id="dag" role="group" aria-label="Directed graph: Overview flows into Experience and Disciplines; Experience flows into Disciplines, Adoption, and the goal; Disciplines into Projects and Adoption; Projects into Adoption and the goal, and back into Experience as lessons learned; Adoption into the goal, AI Transformation and Enablement."></svg>
     </div>
     <div class="detail" id="detail" aria-live="polite"></div>
   </div>
@@ -1064,9 +1064,8 @@
     { f:'experience',  t:'adoption',    lbl:'leading people through change' },
     { f:'experience',  t:'transformation', lbl:'transformation know-how',
       ctl:{ h:[40,250,-60,300], v:[150,150,260,-120] } },
-    // feedback: what the builds teach flows back into the craft
-    { f:'projects',    t:'disciplines', lbl:'Lessons Learned', loop:true,
-      ctl:{ h:[-40,-150,40,-150], v:[-100,-60,-100,60] } },
+    // feedback: what the builds teach flows back into experience
+    { f:'projects',    t:'experience',  lbl:'Lessons Learned', loop:true },
     { f:'disciplines', t:'projects',    lbl:'applied in' },
     { f:'disciplines', t:'adoption',    lbl:'what champions do' },
     { f:'projects',    t:'adoption',    lbl:'proof at team scale' },
