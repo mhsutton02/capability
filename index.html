@@ -102,9 +102,9 @@
                border:1px solid var(--accent); opacity:.5; animation:ping 2.4s var(--step) infinite}
   @keyframes ping{0%{transform:scale(.6);opacity:.6}70%,100%{transform:scale(1.7);opacity:0}}
   .tabs{display:flex; gap:2px}
-  .tab{font-family:var(--sans); font-size:14px; color:var(--ink-70); background:none; border:0;
-       padding:8px 13px; border-radius:7px; cursor:pointer; line-height:1;
-       display:inline-flex; align-items:center; gap:8px; transition:background .18s, color .18s}
+  .tab{white-space:nowrap; font-family:var(--sans); font-size:14px; color:var(--ink-70); background:none; border:0;
+       padding:8px 9px; border-radius:7px; cursor:pointer; line-height:1;
+       display:inline-flex; align-items:center; gap:6px; transition:background .18s, color .18s}
   .tab .ix{font-family:var(--disp); font-size:11.5px; color:var(--ink-45); font-variant-numeric:tabular-nums}
   .tab:hover{background:var(--surface); color:var(--ink)}
   .tab[aria-selected="true"]{background:var(--ink); color:var(--paper)}
@@ -287,7 +287,7 @@
 
   .jump-h{font-family:var(--disp); font-weight:500; font-size:1.1rem; margin:52px 0 4px}
   .jump-sub{color:var(--ink-70); font-size:14px; margin:0 0 18px}
-  .jumps{display:grid; grid-template-columns:repeat(3,1fr); gap:16px}
+  .jumps{display:grid; grid-template-columns:repeat(2,1fr); gap:16px}
   @media(max-width:760px){.jumps{grid-template-columns:1fr}}
   .jc{position:relative; text-align:left; cursor:pointer; background:var(--surface);
       border:1px solid var(--line); border-radius:12px; padding:22px 22px 20px; color:inherit;
@@ -563,6 +563,7 @@
       <button class="tab" role="tab" id="t-disciplines" aria-controls="p-disciplines" aria-selected="false"><span class="ix">03</span>Disciplines</button>
       <button class="tab" role="tab" id="t-experience"  aria-controls="p-experience"  aria-selected="false"><span class="ix">04</span>Experience</button>
       <button class="tab" role="tab" id="t-projects"    aria-controls="p-projects"    aria-selected="false"><span class="ix">05</span>Projects</button>
+      <button class="tab" role="tab" id="t-transformation" aria-controls="p-transformation" aria-selected="false"><span class="ix">06</span>AI Transformation</button>
     </nav>
     <button class="theme-btn" id="themeBtn" type="button" aria-label="Toggle light or dark theme" title="Toggle theme">
       <svg class="ic i-moon"><use href="#i-moon"/></svg><svg class="ic i-sun"><use href="#i-sun"/></svg>
@@ -577,7 +578,7 @@
     <h1 class="h-sec">How My Career Leads to AI Transformation and Enablement</h1>
     <p class="sec-lead">Each bubble is a section of this statement. Follow the arrows from where the work started to where it lands. Hover over a bubble to see what it carries; click it to open that section.</p>
     <div class="stage">
-      <svg class="dag" id="dag" role="group" aria-label="Directed graph: Experience flows into Disciplines, Adoption, and the goal; Disciplines into Projects and Adoption; Projects into Adoption and the goal, and back into Disciplines as lessons learned; Adoption into the goal, AI Transformation and Enablement."></svg>
+      <svg class="dag" id="dag" role="group" aria-label="Directed graph: Overview flows into Experience and Disciplines; Experience flows into Disciplines, Adoption, and the goal; Disciplines into Projects and Adoption; Projects into Adoption and the goal, and back into Disciplines as lessons learned; Adoption into the goal, AI Transformation and Enablement."></svg>
     </div>
     <div class="detail" id="detail" aria-live="polite"></div>
   </div>
@@ -649,66 +650,15 @@
   </div>
 
   <div class="wrap">
-    <div class="matrix">
-      <p class="matrix-h">What AI transformation needs, and what I bring</p>
-      <p class="matrix-sub">Click what I hold to jump to the proof.</p>
-      <table class="skmap">
-        <thead><tr><th>AI transformation skill needed</th><th>AI transformation skill held</th></tr></thead>
-        <tbody>
-          <tr class="sub"><td colspan="2">Technical &amp; engineering</td></tr>
-          <tr>
-            <td class="need" tabindex="0"><span class="need-t">Reliable, auditable model output</span><span class="need-why">A model that can't be trusted to run unwatched, or explain itself in an audit, never leaves the pilot. Enterprises adopt what they can depend on and review.</span></td>
-            <td class="held"><div class="held-in"><button class="xlink" data-jump="d1">Reliability &amp; observability</button><button class="xlink" data-jump="d7">Guardrails &amp; HITL</button></div></td>
-          </tr>
-          <tr>
-            <td class="need" tabindex="0"><span class="need-t">Agentic workflows, not chatbots</span><span class="need-why">The value is AI that does multi-step work with tools and checks, not a chat box. That takes engineered control flow, not a clever prompt.</span></td>
-            <td class="held"><div class="held-in"><button class="xlink" data-jump="d2">Agentic workflow design</button></div></td>
-          </tr>
-          <tr>
-            <td class="need" tabindex="0"><span class="need-t">Grounded answers, no hallucination</span><span class="need-why">In a regulated business, a confident wrong answer is a liability. The system has to cite its source or say it does not know.</span></td>
-            <td class="held"><div class="held-in"><button class="xlink" data-jump="p-brain">Dept Brain (retrieval)</button></div></td>
-          </tr>
-          <tr>
-            <td class="need" tabindex="0"><span class="need-t">Cost control at scale</span><span class="need-why">At enterprise volume, token cost decides whether a use case ships. What goes into the model's window is a budget, not an afterthought.</span></td>
-            <td class="held"><div class="held-in"><button class="xlink" data-jump="d3">Context engineering &amp; token efficiency</button></div></td>
-          </tr>
-          <tr>
-            <td class="need" tabindex="0"><span class="need-t">Proven quality before shipping</span><span class="need-why">Before a workflow touches production, someone has to show it works, and keep showing it. Evals and tests are how you gate that.</span></td>
-            <td class="held"><div class="held-in"><button class="xlink" data-jump="d9">Spec-driven development</button><button class="xlink" data-jump="p-fabrica">Fabrica</button></div></td>
-          </tr>
-          <tr>
-            <td class="need" tabindex="0"><span class="need-t">AI inside real operations</span><span class="need-why">AI that lives in a demo changes nothing. It has to run inside the tools and platforms the business already uses.</span></td>
-            <td class="held"><div class="held-in"><button class="xlink" data-jump="d10">Enterprise integration</button><button class="xlink" data-jump="p-sales">Sales Enablement</button></div></td>
-          </tr>
-          <tr class="sub"><td colspan="2">Human &amp; leadership — the soft skills the work also needs</td></tr>
-          <tr>
-            <td class="need" tabindex="0"><span class="need-t">Team fluency and adoption</span><span class="need-why">A model helps one person until that person leaves. Transformation is measured by whether the whole team's work changed, and stayed changed.</span></td>
-            <td class="held"><div class="held-in"><button class="xlink" data-jump="d4">Skill &amp; enablement creation</button><button class="xlink" data-jump="p-enable">Weekly AI Enablement</button></div></td>
-          </tr>
-          <tr>
-            <td class="need" tabindex="0"><span class="need-t">Staying current in a field that moves weekly</span><span class="need-why">AI changes faster than any training cycle. Staying useful means a standing habit for finding what's new and worth acting on, not a one-time course.</span></td>
-            <td class="held"><div class="held-in"><button class="xlink" data-jump="p-enrichment">Enrichment — AI-news feed</button><span class="held-note">podcasts · continuous learning</span></div></td>
-          </tr>
-          <tr>
-            <td class="need" tabindex="0"><span class="need-t">Change management at enterprise scale</span><span class="need-why">A model transforms nothing on its own. Getting hundreds of people to work differently, and keep at it, is a change-management job as much as a technical one.</span></td>
-            <td class="held"><div class="held-in"><button class="xlink" data-jump="ap-current">Practice leadership</button><button class="xlink" data-jump="ap-modernize">Modernization programs</button></div></td>
-          </tr>
-          <tr>
-            <td class="need" tabindex="0"><span class="need-t">Executive alignment and the ROI case</span><span class="need-why">AI budgets are approved and defended in front of leadership. Finding the workflow worth automating and proving its return is the core skill.</span></td>
-            <td class="held"><div class="held-in"><button class="xlink" data-jump="ap-strategy">Solution strategy</button><button class="xlink" data-jump="ap-current">Practice leadership</button></div></td>
-          </tr>
-          <tr>
-            <td class="need" tabindex="0"><span class="need-t">Consultative discovery and winning buy-in</span><span class="need-why">The hardest part is often finding the right problem and getting the room to commit to it. That is consultative discovery, and the ability to sell a plan on its merits — two decades of it, in advisory and B2B sales.</span></td>
-            <td class="held"><div class="held-in"><button class="xlink" data-jump="ap-strategy">Advisory &amp; discovery</button><button class="xlink" data-jump="ap-modernize">Transformation delivery</button></div></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
     <p class="jump-h">Where to go next</p>
     <p class="jump-sub">Hover for a hint, click to dive in.</p>
     <div class="jumps">
-      <button class="jc feature" data-goto="adoption">
+      <button class="jc feature" data-goto="transformation">
+        <span class="jt">What AI transformation needs, and what I bring <span class="cnt">11 needs</span></span>
+        <span class="hint">Each need an enterprise AI program runs into, matched to the experience, discipline, or project that covers it.</span>
+        <span class="go">Open AI Transformation &rarr;</span>
+      </button>
+      <button class="jc" data-goto="adoption">
         <span class="jt">How I'd help scale AI adoption <span class="cnt">1 page</span></span>
         <span class="hint">The operating model, the four decisions that make or break it, how I'd measure it, and where I've tried a version of it.</span>
         <span class="go">Open Adoption &rarr;</span>
@@ -915,6 +865,71 @@
   </div>
 </section>
 
+<!-- ============ AI TRANSFORMATION (what it needs, what I bring) ============ -->
+<section class="panel" id="p-transformation" role="tabpanel" aria-labelledby="t-transformation" tabindex="0">
+  <div class="wrap" style="padding-top:44px">
+    <p class="eyebrow">AI transformation &amp; enablement</p>
+    <h2 class="h-sec">What AI transformation needs, and what I bring</h2>
+    <p class="sec-lead">Everything on the map lands here. Each need on the left is matched to the work that covers it; click one to jump to the proof.</p>
+    <div class="matrix" style="margin-top:22px">
+      <table class="skmap">
+        <thead><tr><th>AI transformation skill needed</th><th>AI transformation skill held</th></tr></thead>
+        <tbody>
+          <tr class="sub"><td colspan="2">Technical &amp; engineering</td></tr>
+          <tr>
+            <td class="need" tabindex="0"><span class="need-t">Reliable, auditable model output</span><span class="need-why">A model that can't be trusted to run unwatched, or explain itself in an audit, never leaves the pilot. Enterprises adopt what they can depend on and review.</span></td>
+            <td class="held"><div class="held-in"><button class="xlink" data-jump="d1">Reliability &amp; observability</button><button class="xlink" data-jump="d7">Guardrails &amp; HITL</button></div></td>
+          </tr>
+          <tr>
+            <td class="need" tabindex="0"><span class="need-t">Agentic workflows, not chatbots</span><span class="need-why">The value is AI that does multi-step work with tools and checks, not a chat box. That takes engineered control flow, not a clever prompt.</span></td>
+            <td class="held"><div class="held-in"><button class="xlink" data-jump="d2">Agentic workflow design</button></div></td>
+          </tr>
+          <tr>
+            <td class="need" tabindex="0"><span class="need-t">Grounded answers, no hallucination</span><span class="need-why">In a regulated business, a confident wrong answer is a liability. The system has to cite its source or say it does not know.</span></td>
+            <td class="held"><div class="held-in"><button class="xlink" data-jump="p-brain">Dept Brain (retrieval)</button></div></td>
+          </tr>
+          <tr>
+            <td class="need" tabindex="0"><span class="need-t">Cost control at scale</span><span class="need-why">At enterprise volume, token cost decides whether a use case ships. What goes into the model's window is a budget, not an afterthought.</span></td>
+            <td class="held"><div class="held-in"><button class="xlink" data-jump="d3">Context engineering &amp; token efficiency</button></div></td>
+          </tr>
+          <tr>
+            <td class="need" tabindex="0"><span class="need-t">Proven quality before shipping</span><span class="need-why">Before a workflow touches production, someone has to show it works, and keep showing it. Evals and tests are how you gate that.</span></td>
+            <td class="held"><div class="held-in"><button class="xlink" data-jump="d9">Spec-driven development</button><button class="xlink" data-jump="p-fabrica">Fabrica</button></div></td>
+          </tr>
+          <tr>
+            <td class="need" tabindex="0"><span class="need-t">AI inside real operations</span><span class="need-why">AI that lives in a demo changes nothing. It has to run inside the tools and platforms the business already uses.</span></td>
+            <td class="held"><div class="held-in"><button class="xlink" data-jump="d10">Enterprise integration</button><button class="xlink" data-jump="p-sales">Sales Enablement</button></div></td>
+          </tr>
+          <tr class="sub"><td colspan="2">Human &amp; leadership — the soft skills the work also needs</td></tr>
+          <tr>
+            <td class="need" tabindex="0"><span class="need-t">Team fluency and adoption</span><span class="need-why">A model helps one person until that person leaves. Transformation is measured by whether the whole team's work changed, and stayed changed.</span></td>
+            <td class="held"><div class="held-in"><button class="xlink" data-jump="d4">Skill &amp; enablement creation</button><button class="xlink" data-jump="p-enable">Weekly AI Enablement</button></div></td>
+          </tr>
+          <tr>
+            <td class="need" tabindex="0"><span class="need-t">Staying current in a field that moves weekly</span><span class="need-why">AI changes faster than any training cycle. Staying useful means a standing habit for finding what's new and worth acting on, not a one-time course.</span></td>
+            <td class="held"><div class="held-in"><button class="xlink" data-jump="p-enrichment">Enrichment — AI-news feed</button><span class="held-note">podcasts · continuous learning</span></div></td>
+          </tr>
+          <tr>
+            <td class="need" tabindex="0"><span class="need-t">Change management at enterprise scale</span><span class="need-why">A model transforms nothing on its own. Getting hundreds of people to work differently, and keep at it, is a change-management job as much as a technical one.</span></td>
+            <td class="held"><div class="held-in"><button class="xlink" data-jump="ap-current">Practice leadership</button><button class="xlink" data-jump="ap-modernize">Modernization programs</button></div></td>
+          </tr>
+          <tr>
+            <td class="need" tabindex="0"><span class="need-t">Executive alignment and the ROI case</span><span class="need-why">AI budgets are approved and defended in front of leadership. Finding the workflow worth automating and proving its return is the core skill.</span></td>
+            <td class="held"><div class="held-in"><button class="xlink" data-jump="ap-strategy">Solution strategy</button><button class="xlink" data-jump="ap-current">Practice leadership</button></div></td>
+          </tr>
+          <tr>
+            <td class="need" tabindex="0"><span class="need-t">Consultative discovery and winning buy-in</span><span class="need-why">The hardest part is often finding the right problem and getting the room to commit to it. That is consultative discovery, and the ability to sell a plan on its merits — two decades of it, in advisory and B2B sales.</span></td>
+            <td class="held"><div class="held-in"><button class="xlink" data-jump="ap-strategy">Advisory &amp; discovery</button><button class="xlink" data-jump="ap-modernize">Transformation delivery</button></div></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="panel-back"><a class="mapback-lk" href="#map">&larr; Back to the map</a></p>
+  </div>
+</section>
+
+
 <footer>
   <div class="wrap">
     <span>Capability statement · prepared for the AI Transformation &amp; Enablement group</span>
@@ -947,7 +962,7 @@
 
   var tabs=[].slice.call(document.querySelectorAll('.tab'));
   var panels=[].slice.call(document.querySelectorAll('.panel'));
-  var TABS=/^(map|overview|adoption|disciplines|experience|projects)$/;
+  var TABS=/^(map|overview|adoption|disciplines|experience|projects|transformation)$/;
   function show(name, focus, fromHistory){
     // each tab has its own URL (#experience) so links can point at it and Back returns to the last tab
     if(!fromHistory && location.hash!=='#'+name){ try{ history.pushState(null,'','#'+name); }catch(e){} }
@@ -970,9 +985,9 @@
   var drawMap=function(){};
   (function(){
 
-  // ---- nodes: one per tab; the sink is the Overview ----
+  // ---- nodes: one per tab; Overview is the source, AI Transformation the sink ----
   var N = {
-    experience:{ ix:'04', name:'Experience', tag:'where it started', r:78,
+    experience:{ ix:'04', name:'Experience', tag:'where it started', r:72,
       lede:'A 25-year career getting organizations to adopt new ways of working, and measuring whether the change stuck.',
       items:[
         '<b>2000 – 2021</b> · Enterprise software transformation and outcome delivery',
@@ -980,7 +995,7 @@
         '<b>Today</b> · Associate Director, leading 25 engineers',
         '<b>90%+</b> of projects delivered on time and on budget'
       ]},
-    disciplines:{ ix:'03', name:'Disciplines', tag:'the craft', r:78,
+    disciplines:{ ix:'03', name:'Disciplines', tag:'the craft', r:72,
       lede:'Seven applied-AI disciplines, built on deep engineering roots.',
       items:[
         'Reliability, looping &amp; observability',
@@ -991,7 +1006,7 @@
         'Spec-driven development',
         'Enterprise integration'
       ]},
-    projects:{ ix:'05', name:'Projects', tag:'the proof', r:78,
+    projects:{ ix:'05', name:'Projects', tag:'the proof', r:72,
       lede:'Systems that were built and run, not just planned. Each one proves a discipline.',
       items:[
         '<b>Weekly AI Enablement Program</b> · enablement as an operating rhythm',
@@ -1001,7 +1016,7 @@
         '<b>Sales-Enablement Platform</b> · $1M+ recurring benefit',
         '<b>Impact-Assessment Program</b> · 500+ consultants, 100% response'
       ]},
-    adoption:{ ix:'02', name:'Adoption', tag:'the operating model', r:78,
+    adoption:{ ix:'02', name:'Adoption', tag:'the operating model', r:72,
       lede:'Adoption at scale is an operating-model problem, not a tools problem.',
       items:[
         '<b>Central AI team ⇄ champions ⇄ teams</b> · direction, carry-in, daily use',
@@ -1009,43 +1024,52 @@
         '<b>Measure</b> · use cases in daily use, not licenses issued',
         '<b>Already started</b> · a team-level version runs in a 25-person practice'
       ]},
-    overview:{ ix:'01', name:['AI Transformation','& Enablement'], tag:'the goal', r:104, sink:true,
+    overview:{ ix:'01', name:'Overview', tag:'the short version', r:72,
       lede:'Getting an enterprise to actually use AI. Transformation and enablement, measured and managed to the goal.',
       items:[
         '<b>25+ yrs</b> · enterprise transformation &amp; engineering leadership',
         '<b>25</b> · engineers led today across an enterprise practice',
-        '<b>Hands-on</b> · designs and codes agentic systems, harnesses, evals, and RAG'
+        '<b>Hands-on</b> · designs and codes agentic systems, harnesses, evals, and RAG',
+        '<b>Roles held</b> · engineer, consultant, architect, sales, practice owner, mentor'
+      ]},
+    transformation:{ ix:'06', name:['AI Transformation','& Enablement'], tag:'the goal', r:100, sink:true, tabLabel:'AI Transformation',
+      lede:'What an enterprise AI program needs, matched need by need to what this career brings.',
+      items:[
+        '<b>Technical &amp; engineering</b> · reliable output, agentic workflows, grounded answers, cost control, proven quality, AI inside real operations',
+        '<b>Human &amp; leadership</b> · team fluency, staying current, change management, executive alignment, winning buy-in',
+        '<b>11 needs</b> · each one linked to the proof that covers it'
       ]}
   };
 
   // ---- edges (from -> to), each with what it carries ----
   var E = [
+    { f:'overview',    t:'experience',  lbl:'the career in brief' },
+    { f:'overview',    t:'disciplines', lbl:'hands-on depth' },
     { f:'experience',  t:'disciplines', lbl:'engineering roots' },
-    { f:'experience',  t:'adoption',    lbl:'leading people through change', at:.42,
-      ctl:{ h:[60,250,-330,40], v:[190,120,40,-330] } },
-    { f:'experience',  t:'overview',    lbl:'transformation know-how',
-      ctl:{ h:[30,-480,-30,-480], v:[-300,170,-300,-170] } },
+    { f:'experience',  t:'adoption',    lbl:'leading people through change' },
+    { f:'experience',  t:'transformation', lbl:'transformation know-how',
+      ctl:{ h:[40,250,-60,300], v:[150,150,260,-120] } },
     // feedback: what the builds teach flows back into the craft
     { f:'projects',    t:'disciplines', lbl:'Lessons Learned', loop:true,
       ctl:{ h:[-40,-150,40,-150], v:[-100,-60,-100,60] } },
     { f:'disciplines', t:'projects',    lbl:'applied in' },
     { f:'disciplines', t:'adoption',    lbl:'what champions do' },
     { f:'projects',    t:'adoption',    lbl:'proof at team scale' },
-    { f:'projects',    t:'overview',    lbl:'hands-on builds' },
-    { f:'adoption',    t:'overview',    lbl:'the operating model' }
+    { f:'projects',    t:'transformation', lbl:'hands-on builds' },
+    { f:'adoption',    t:'transformation', lbl:'the operating model' }
   ];
 
   // ---- two layouts: wide (left→right) and narrow (top→bottom) ----
   var L = {
-    wide:{ vb:[0,-92,1120,692], dir:'h', pos:{
-      experience:[120,320], disciplines:[390,140], projects:[680,140], adoption:[700,465], overview:[975,310] } },
-    narrow:{ vb:[-90,0,510,1060], dir:'v', pos:{
-      experience:[210,95], disciplines:[115,300], projects:[92,540], adoption:[312,738], overview:[210,945] } }
+    wide:{ vb:[0,-20,1120,680], dir:'h', pos:{
+      overview:[100,260], experience:[290,450], disciplines:[480,150], projects:[745,150], adoption:[760,470], transformation:[1010,320] } },
+    narrow:{ vb:[-70,0,540,1130], dir:'v', pos:{
+      overview:[200,80], experience:[320,250], disciplines:[110,420], projects:[90,650], adoption:[320,800], transformation:[210,1010] } }
   };
 
   var svg = document.getElementById('dag'), NS='http://www.w3.org/2000/svg';
   var detail = document.getElementById('detail');
-  var selected = 'overview', mode = null;
+  var selected = 'transformation', mode = null;
 
   function el(tag, attrs, parent){
     var e=document.createElementNS(NS, tag);
@@ -1123,7 +1147,7 @@
       var n=N[id], c=lay.pos[id];
       // each bubble is a real link to its tab in the full statement
       var g=el('a',{class:'node'+(n.sink?' sink':''), href:'#'+id,
-        'aria-label':'Open '+(n.sink?'Overview':n.name)+' tab: '+n.tag},gNodes);
+        'aria-label':'Open '+(n.tabLabel||n.name)+' tab: '+n.tag},gNodes);
       g.dataset.id=id;
       el('circle',{class:'halo', cx:c[0], cy:c[1], r:n.r+12},g);
       el('circle',{class:'body', cx:c[0], cy:c[1], r:n.r},g);
@@ -1155,12 +1179,12 @@
     var loops=E.filter(function(e){return e.loop && (e.f===id || e.t===id);}).map(function(e){
       return ' &nbsp;·&nbsp; <b>'+e.lbl+'</b> '+(e.t===id?'from '+names([e.f]):'back into '+names([e.t]));
     }).join('');
-    var tab = n.sink ? 'overview' : id;
+    var tab = id;
     detail.innerHTML =
       '<div><div class="ix">'+n.ix+' · '+n.tag+'</div><h2>'+title+'</h2><p>'+n.lede+'</p>'+
       '<p class="flows">'+(ins.length?'<b>Fed by</b> '+names(ins):'<b>Starting point</b>')+
       (outs.length?' &nbsp;·&nbsp; <b>Flows into</b> '+names(outs):' &nbsp;·&nbsp; <b>Where everything lands</b>')+loops+'</p>'+
-      '<a class="open" data-tab="'+tab+'" href="#'+tab+'">Open the '+(n.sink?'Overview':title)+' tab &rarr;</a></div>'+
+      '<a class="open" data-tab="'+tab+'" href="#'+tab+'">Open the '+(n.tabLabel||title)+' tab &rarr;</a></div>'+
       '<ul>'+n.items.map(function(s){return '<li>'+s+'</li>';}).join('')+'</ul>';
   }
 
