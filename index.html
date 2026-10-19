@@ -234,6 +234,7 @@
 
   /* even tile grids — works across / roles held / education */
   .tileset{margin:26px 0 0; display:flex; flex-direction:column; gap:16px}
+  .tileset.edu-tiles{margin:22px 0 28px}
   .tilecap{display:block; font-family:var(--disp); font-size:11.5px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-70); margin:0 0 8px}
   .tiles{display:grid; grid-template-columns:repeat(6,1fr); gap:8px}
   .tiles.three{grid-template-columns:repeat(3,1fr)}
@@ -588,7 +589,7 @@
 <section class="panel" id="p-overview" role="tabpanel" aria-labelledby="t-overview" tabindex="0">
   <div class="hero">
     <div class="wrap">
-      <h1 class="reveal">Getting an enterprise to actually use AI.<span class="two">Transformation and enablement, measured and managed to the goal.</span></h1>
+      <h1 class="reveal">Transformation and enablement, measured and managed to the goal.</h1>
       <p class="deck reveal d2">I have spent a career getting people and organizations to adopt new ways of working, and measuring whether the change stuck. AI transformation is that same job around a faster-moving tool: help people actually use AI, measure the progress, and manage the effort to a goal. What I add is the hands-on side: I can build and check the systems underneath, so the plan and the tooling stay honest with each other.</p>
       <button class="hook reveal d2" data-goto="adoption">Adoption at scale is an operating-model problem, not a tools problem. Here is how I would help &rarr;</button>
 
@@ -620,13 +621,6 @@
             <button class="tile tap" data-jump="p-sales">B2B Sales Representative</button>
             <button class="tile tap" data-jump="ap-current">Practice Owner</button>
             <button class="tile tap" data-jump="p-enable">Technical Mentor</button>
-          </div>
-        </div>
-        <div>
-          <span class="tilecap">Degrees</span>
-          <div class="tiles two">
-            <div class="tile deg">M.S., Software Systems Engineering<span class="sub">George Mason University</span></div>
-            <div class="tile deg">B.A., Computer Science<span class="sub">University of California, San Diego</span></div>
           </div>
         </div>
         <div>
@@ -790,6 +784,15 @@
         <div class="tl-seg role" style="flex:12"><span class="tl-role">Principal Systems Engineer</span><span class="tl-dates">Mar 2022 – Mar 2023</span></div>
         <div class="tl-seg role now" style="flex:42"><span class="tl-role">Associate Director</span><span class="tl-dates">Mar 2023 – now</span></div>
       </div>
+    </div>
+    <div class="tileset edu-tiles">
+    <div>
+      <span class="tilecap">Education</span>
+      <div class="tiles two">
+        <div class="tile deg">M.S., Software Systems Engineering<span class="sub">George Mason University</span></div>
+        <div class="tile deg">B.A., Computer Science<span class="sub">University of California, San Diego</span></div>
+      </div>
+    </div>
     </div>
 
     <div class="apply">
@@ -1025,7 +1028,7 @@
         '<b>Already started</b> · a team-level version runs in a 25-person practice'
       ]},
     overview:{ ix:'01', name:'Overview', tag:'the short version', r:72,
-      lede:'Getting an enterprise to actually use AI. Transformation and enablement, measured and managed to the goal.',
+      lede:'Transformation and enablement, measured and managed to the goal.',
       items:[
         '<b>25+ yrs</b> · enterprise transformation &amp; engineering leadership',
         '<b>25</b> · engineers led today across an enterprise practice',
