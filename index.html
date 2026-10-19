@@ -243,6 +243,18 @@
         height:56px; padding:8px 10px; border:1px solid var(--line-strong); border-radius:10px;
         background:var(--surface); color:var(--ink); font-family:var(--sans); font-size:13px; line-height:1.25; overflow:hidden}
   button.tile{font:inherit; font-size:13px}
+  .tile.tap{overflow:visible}  /* let the hover tip escape the tile */
+  /* tips on the outer columns open inward so they never run off the screen */
+  .tiles.three > .tile.tap:nth-child(3n+1) .tip{left:0; transform:translateY(4px)}
+  .tiles.three > .tile.tap:nth-child(3n) .tip{left:auto; right:0; transform:translateY(4px)}
+  .tiles.three > .tile.tap:nth-child(3n+1):hover .tip, .tiles.three > .tile.tap:nth-child(3n+1):focus-visible .tip,
+  .tiles.three > .tile.tap:nth-child(3n):hover .tip, .tiles.three > .tile.tap:nth-child(3n):focus-visible .tip{transform:none}
+  @media(max-width:480px){
+    .tiles.three > .tile.tap .tip{transform:translateY(4px)}
+    .tiles.three > .tile.tap:nth-child(2n+1) .tip{left:0; right:auto}
+    .tiles.three > .tile.tap:nth-child(2n) .tip{left:auto; right:0}
+    .tiles.three > .tile.tap:hover .tip, .tiles.three > .tile.tap:focus-visible .tip{transform:none}
+  }
   button.tile, .tile.tap{cursor:pointer; transition:border-color .18s, background .18s, color .18s, transform .18s var(--step)}
   button.tile:hover, button.tile:focus-visible, .tile.tap:hover, .tile.tap:focus-visible{
         border-color:var(--accent); background:var(--accent-tint); color:var(--accent-ink); transform:translateY(-2px); outline:none}
@@ -623,22 +635,6 @@
             <button class="tile tap" data-jump="p-enable">Technical Mentor</button>
           </div>
         </div>
-        <div>
-          <span class="tilecap">Certifications</span>
-          <div class="tiles three">
-            <div class="tile">Certified SAFe Agilist</div>
-            <div class="tile">Microsoft Azure Fundamentals</div>
-            <div class="tile">Engineering Leadership (eCornell)</div>
-          </div>
-        </div>
-        <div>
-          <span class="tilecap">Training</span>
-          <div class="tiles three">
-            <span class="tile tap" tabindex="0">Decker Communications<span class="tip">Decker Communications. High-stakes communication and executive presence: how to deliver a message that lands and moves a room.</span></span>
-            <span class="tile tap" tabindex="0">Solution Selling<span class="tip">A consultative sales method: diagnose the buyer's real problem, then map the solution to it. Value over features.</span></span>
-            <span class="tile tap" tabindex="0">Think! Inc. Negotiation<span class="tip">Negotiation training. Interests over positions, planned trades, and protecting the relationship while you close.</span></span>
-          </div>
-        </div>
       </div>
     </div>
   </div>
@@ -791,6 +787,22 @@
       <div class="tiles two">
         <div class="tile deg">M.S., Software Systems Engineering<span class="sub">George Mason University</span></div>
         <div class="tile deg">B.A., Computer Science<span class="sub">University of California, San Diego</span></div>
+      </div>
+    </div>
+    <div>
+      <span class="tilecap">Certifications</span>
+      <div class="tiles three">
+        <div class="tile">Certified SAFe Agilist</div>
+        <div class="tile">Microsoft Azure Fundamentals</div>
+        <div class="tile">Engineering Leadership (eCornell)</div>
+      </div>
+    </div>
+    <div>
+      <span class="tilecap">Training</span>
+      <div class="tiles three">
+        <span class="tile tap" tabindex="0">Decker Communications<span class="tip">Decker Communications. High-stakes communication and executive presence: how to deliver a message that lands and moves a room.</span></span>
+        <span class="tile tap" tabindex="0">Solution Selling<span class="tip">A consultative sales method: diagnose the buyer's real problem, then map the solution to it. Value over features.</span></span>
+        <span class="tile tap" tabindex="0">Think! Inc. Negotiation<span class="tip">Negotiation training. Interests over positions, planned trades, and protecting the relationship while you close.</span></span>
       </div>
     </div>
     </div>
