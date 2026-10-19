@@ -4,53 +4,63 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Capability Statement — How the Work Flows</title>
+<title>Capability Statement — AI Transformation &amp; Enablement</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script>
+  // set theme before paint to avoid a flash
+  try{var _t=localStorage.getItem('capstmt-theme'); if(_t) document.documentElement.setAttribute('data-theme',_t);}catch(e){}
+</script>
 <style>
-  /* tokens mirror capability-statement-folded.html */
   :root{
     color-scheme:light;
     --paper:#D8D0C2; --surface:#EDEFF3; --surface-2:#E1E5EC;
-    --ink:#14213A; --ink-70:#2F3F47; --ink-45:#52626A;
+    --ink:#14213A; --ink-70:#2E3B52; --ink-45:#4E5A6E;
     --line:#B8BFCB; --line-strong:#8E9BAF;
-    --accent:#2A5C9A; --accent-ink:#1F4778; --accent-tint:#F6E3E3; --accent-tint-2:#EFD0D2;
-    --rose:#B5636E;
+    --accent:#2A5C9A; --accent-ink:#1F4778; --accent-tint:#F6E3E3; --accent-tint-2:#EFD0D2; --rose:#B5636E;
+    --bar-bg:rgba(216,208,194,.92);
     --grid:rgba(42,92,154,.05); --glow:rgba(201,122,130,.10);
+    --shadow:0 14px 34px -22px rgba(20,33,58,.55); --shadow-soft:0 0 0 3px var(--accent-tint);
     --card-shadow:0 1px 2px rgba(20,33,58,.08), 0 12px 30px -18px rgba(20,33,58,.30);
+    --maxw:1080px; --readw:64ch;
     --sans:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
     --disp:"Space Grotesk","IBM Plex Sans",sans-serif;
+    --step:cubic-bezier(.2,.7,.2,1);
   }
+  /* ---- dark: system default (no explicit choice) ---- */
   @media (prefers-color-scheme:dark){
     :root:not([data-theme="light"]){
       color-scheme:dark;
       --paper:#111827; --surface:#22304A; --surface-2:#1A253A;
       --ink:#F1F5F8; --ink-70:#C3D0D7; --ink-45:#98A8B2;
       --line:#34445F; --line-strong:#4D5F7D;
-      --accent:#7EAEEB; --accent-ink:#A9CBF5; --accent-tint:rgba(232,160,170,.14); --accent-tint-2:rgba(232,160,170,.26);
-      --rose:#E8A0AA;
+      --accent:#7EAEEB; --accent-ink:#A9CBF5; --accent-tint:rgba(232,160,170,.14); --accent-tint-2:rgba(232,160,170,.26); --rose:#E8A0AA;
+      --bar-bg:rgba(17,24,39,.88);
       --grid:rgba(150,175,215,.055); --glow:rgba(232,160,170,.08);
-      --card-shadow:0 2px 10px rgba(0,0,0,.5);
+      --shadow:0 18px 40px -22px rgba(0,0,0,.7); --card-shadow:0 2px 10px rgba(0,0,0,.5);
     }
   }
+  /* ---- dark: explicit toggle ---- */
   :root[data-theme="dark"]{
     color-scheme:dark;
     --paper:#111827; --surface:#22304A; --surface-2:#1A253A;
     --ink:#F1F5F8; --ink-70:#C3D0D7; --ink-45:#98A8B2;
     --line:#34445F; --line-strong:#4D5F7D;
-    --accent:#7EAEEB; --accent-ink:#A9CBF5; --accent-tint:rgba(232,160,170,.14); --accent-tint-2:rgba(232,160,170,.26);
-    --rose:#E8A0AA;
+    --accent:#7EAEEB; --accent-ink:#A9CBF5; --accent-tint:rgba(232,160,170,.14); --accent-tint-2:rgba(232,160,170,.26); --rose:#E8A0AA;
+    --bar-bg:rgba(17,24,39,.88);
     --grid:rgba(150,175,215,.055); --glow:rgba(232,160,170,.08);
-    --card-shadow:0 2px 10px rgba(0,0,0,.5);
+    --shadow:0 18px 40px -22px rgba(0,0,0,.7); --card-shadow:0 2px 10px rgba(0,0,0,.5);
   }
 
   *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
   body{
     margin:0; background:var(--paper); color:var(--ink);
-    font-family:var(--sans); font-size:16.5px; line-height:1.6;
-    -webkit-font-smoothing:antialiased;
+    font-family:var(--sans); font-size:16.5px; line-height:1.62;
+    -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
   }
+  /* subtle high-tech background: faint grid + a soft accent glow */
   body::before{
     content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
     background:
@@ -58,109 +68,906 @@
       radial-gradient(900px 500px at 0% 108%, var(--glow), transparent 72%),
       linear-gradient(var(--grid) 1px, transparent 1px) 0 0 / 46px 46px,
       linear-gradient(90deg, var(--grid) 1px, transparent 1px) 0 0 / 46px 46px;
+    -webkit-mask-image:linear-gradient(180deg, #000, #000);
   }
   a{color:var(--accent-ink); text-decoration:none}
   a:hover{text-decoration:underline; text-underline-offset:3px}
-  .wrap{max-width:1180px; margin:0 auto; padding:0 28px}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 28px}
+  p{margin:0 0 1rem}
+  .sprite{position:absolute; width:0; height:0; overflow:hidden}
+  .ic{width:40px; height:40px; fill:none; stroke:var(--accent); stroke-width:1.7;
+      stroke-linecap:round; stroke-linejoin:round}
 
-  header{padding:34px 0 6px; display:flex; gap:20px; align-items:flex-start; justify-content:space-between}
-  .kicker{font-family:var(--disp); font-size:12.5px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--accent)}
-  h1{font-family:var(--disp); font-weight:600; font-size:clamp(26px,3.4vw,40px); line-height:1.12; margin:8px 0 10px; letter-spacing:-.01em; max-width:22ch}
-  .sub{color:var(--ink-70); margin:0; max-width:62ch}
-  .theme{flex:none; border:1px solid var(--line-strong); background:var(--surface); color:var(--ink); border-radius:999px; padding:7px 14px; font:500 13px var(--sans); cursor:pointer}
-  .theme:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+  /* ---------- spec bar / tabs ---------- */
+  .bar{position:sticky; top:0; z-index:40; background:var(--bar-bg);
+       backdrop-filter:saturate(1.2) blur(8px); border-bottom:1px solid var(--line)}
+  .bar-in{max-width:var(--maxw); margin:0 auto; padding:0 28px; height:60px;
+          display:flex; align-items:center; gap:22px}
+  /* back to the map tab: the foot of every tab */
+  .mapback{flex:none; font:600 13px var(--disp); letter-spacing:.02em; color:var(--accent-ink);
+           border:1px solid var(--line-strong); border-radius:999px; padding:5px 12px; background:var(--surface)}
+  .mapback:hover{border-color:var(--accent); background:var(--accent-tint); text-decoration:none}
+  .panel-back{margin:40px 0 4px; text-align:center}
+  .panel-back a{display:inline-block; font-weight:600; border:1px solid var(--accent); border-radius:999px; padding:8px 18px}
+  .panel-back a:hover{background:var(--accent-tint); text-decoration:none}
+  .ident{display:flex; align-items:baseline; gap:10px; margin-right:auto}
+  .ident .who{font-family:var(--disp); font-weight:600; font-size:15px; letter-spacing:.01em; white-space:nowrap}
+  .ph{background:var(--accent-tint); color:var(--accent-ink); border:1px dashed var(--accent);
+      padding:1px 8px; border-radius:5px; font-family:var(--disp); font-weight:600; font-size:13px}
+  .ident .role{font-size:12.5px; color:var(--ink-45)}
+  .live{width:7px; height:7px; border-radius:50%; background:var(--accent); position:relative}
+  .live::after{content:""; position:absolute; inset:-4px; border-radius:50%;
+               border:1px solid var(--accent); opacity:.5; animation:ping 2.4s var(--step) infinite}
+  @keyframes ping{0%{transform:scale(.6);opacity:.6}70%,100%{transform:scale(1.7);opacity:0}}
+  .tabs{display:flex; gap:2px}
+  .tab{font-family:var(--sans); font-size:14px; color:var(--ink-70); background:none; border:0;
+       padding:8px 13px; border-radius:7px; cursor:pointer; line-height:1;
+       display:inline-flex; align-items:center; gap:8px; transition:background .18s, color .18s}
+  .tab .ix{font-family:var(--disp); font-size:11.5px; color:var(--ink-45); font-variant-numeric:tabular-nums}
+  .tab:hover{background:var(--surface); color:var(--ink)}
+  .tab[aria-selected="true"]{background:var(--ink); color:var(--paper)}
+  .tab[aria-selected="true"] .ix{color:var(--paper); opacity:.7}
+  .theme-btn{margin-left:6px; width:46px; height:46px; border:1px solid var(--line); border-radius:10px;
+             background:var(--surface); color:var(--ink-70); cursor:pointer; display:flex;
+             align-items:center; justify-content:center; transition:border-color .18s, color .18s}
+  .theme-btn:hover{border-color:var(--accent); color:var(--accent-ink)}
+  .theme-btn .ic{width:34px; height:34px; stroke:currentColor}
+  .theme-btn .i-sun{display:none}
+  :root[data-theme="dark"] .theme-btn .i-sun{display:block}
+  :root[data-theme="dark"] .theme-btn .i-moon{display:none}
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]) .theme-btn .i-sun{display:block}
+    :root:not([data-theme="light"]) .theme-btn .i-moon{display:none}
+  }
+  @media(max-width:820px){
+    .bar-in{height:auto; flex-wrap:wrap; padding:10px 20px; gap:12px}
+    .ident{width:100%; margin:0}
+    .tabs{flex:1; overflow-x:auto; -webkit-overflow-scrolling:touch}
+  }
 
-  /* ---- graph ---- */
-  .stage{margin:18px 0 0; background:color-mix(in srgb, var(--surface) 55%, transparent); border:1px solid var(--line); border-radius:18px; box-shadow:var(--card-shadow); padding:10px}
-  svg.dag{display:block; width:100%; height:auto; overflow:visible}
+  /* ---------- map (landing graph) ---------- */
+/* ---- graph ---- */
+  #p-map .stage{margin:18px 0 0; background:color-mix(in srgb, var(--surface) 55%, transparent); border:1px solid var(--line); border-radius:18px; box-shadow:var(--card-shadow); padding:10px}
+  #p-map svg.dag{display:block; width:100%; height:auto; overflow:visible}
 
-  .edge path.base{fill:none; stroke:var(--line-strong); stroke-width:2.2; transition:stroke .25s, opacity .25s}
-  .edge path.flow{fill:none; stroke:var(--accent); stroke-width:2.2; stroke-dasharray:3 13; stroke-linecap:round; opacity:.55; animation:flow 1.6s linear infinite; transition:opacity .25s}
+  #p-map .edge path.base{fill:none; stroke:var(--line-strong); stroke-width:2.2; transition:stroke .25s, opacity .25s}
+  #p-map .edge path.flow{fill:none; stroke:var(--accent); stroke-width:2.2; stroke-dasharray:3 13; stroke-linecap:round; opacity:.55; animation:flow 1.6s linear infinite; transition:opacity .25s}
   @keyframes flow{to{stroke-dashoffset:-16}}
-  .lbl rect{fill:var(--paper); stroke:var(--line); stroke-width:1}
-  .lbl text{font:500 12.5px var(--sans); fill:var(--ink-70)}
-  .edge.hot path.base{stroke:var(--accent)}
-  .edge.loop path.base{stroke:var(--rose); stroke-dasharray:7 6}
-  .edge.loop path.flow{stroke:var(--rose)}
-  .lbl.loop text{fill:var(--rose); font-style:italic}
-  .edge.hot path.flow{opacity:1; stroke:var(--rose); stroke-width:2.6}
-  .lbl.hot rect{fill:var(--accent-tint); stroke:var(--accent-tint-2)}
-  .lbl.hot text{fill:var(--ink)}
+  #p-map .lbl rect{fill:var(--paper); stroke:var(--line); stroke-width:1}
+  #p-map .lbl text{font:500 12.5px var(--sans); fill:var(--ink-70)}
+  #p-map .edge.lit path.base{stroke:var(--accent)}
+  #p-map .edge.loop path.base{stroke:var(--rose); stroke-dasharray:7 6}
+  #p-map .edge.loop path.flow{stroke:var(--rose)}
+  #p-map .lbl.loop text{fill:var(--rose); font-style:italic}
+  #p-map .edge.lit path.flow{opacity:1; stroke:var(--rose); stroke-width:2.6}
+  #p-map .lbl.lit rect{fill:var(--accent-tint); stroke:var(--accent-tint-2)}
+  #p-map .lbl.lit text{fill:var(--ink)}
 
-  .node{cursor:pointer; outline:none}
-  a.node:hover{text-decoration:none}
-  .node circle.halo{fill:var(--accent-tint); opacity:0; transition:opacity .25s}
-  .node circle.body{fill:var(--surface); stroke:var(--line-strong); stroke-width:1.6; transition:stroke .25s, fill .25s}
-  .node .ix{font:600 12px var(--disp); letter-spacing:.14em; fill:var(--accent)}
-  .node .nm{font:600 19px var(--disp); fill:var(--ink)}
-  .node .tg{font:400 12.5px var(--sans); fill:var(--ink-45)}
-  .node.sink circle.body{fill:var(--accent); stroke:var(--accent-ink)}
-  .node.sink .ix, .node.sink .nm, .node.sink .tg{fill:#fff}
-  :root[data-theme="dark"] .node.sink .nm, :root[data-theme="dark"] .node.sink .ix, :root[data-theme="dark"] .node.sink .tg{fill:#0E1626}
-  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) .node.sink :is(.nm,.ix,.tg){fill:#0E1626} }
-  .node.hot circle.halo{opacity:1}
-  .node.hot circle.body{stroke:var(--accent); stroke-width:2.4}
-  .node.sel circle.body{stroke:var(--rose); stroke-width:3}
-  .node:focus-visible circle.body{stroke:var(--accent); stroke-width:3.2}
+  #p-map .node{cursor:pointer; outline:none}
+  #p-map a.node:hover{text-decoration:none}
+  #p-map .node circle.halo{fill:var(--accent-tint); opacity:0; transition:opacity .25s}
+  #p-map .node circle.body{fill:var(--surface); stroke:var(--line-strong); stroke-width:1.6; transition:stroke .25s, fill .25s}
+  #p-map .node .ix{font:600 12px var(--disp); letter-spacing:.14em; fill:var(--accent)}
+  #p-map .node .nm{font:600 19px var(--disp); fill:var(--ink)}
+  #p-map .node .tg{font:400 12.5px var(--sans); fill:var(--ink-45)}
+  #p-map .node.sink circle.body{fill:var(--accent); stroke:var(--accent-ink)}
+  #p-map .node.sink .ix,#p-map .node.sink .nm,#p-map .node.sink .tg{fill:#fff}
+  :root[data-theme="dark"] #p-map .node.sink .nm, :root[data-theme="dark"] #p-map .node.sink .ix, :root[data-theme="dark"] #p-map .node.sink .tg{fill:#0E1626}
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) #p-map .node.sink :is(.nm,.ix,.tg){fill:#0E1626} }
+  #p-map .node.lit circle.halo{opacity:1}
+  #p-map .node.lit circle.body{stroke:var(--accent); stroke-width:2.4}
+  #p-map .node.sel circle.body{stroke:var(--rose); stroke-width:3}
+  #p-map .node:focus-visible circle.body{stroke:var(--accent); stroke-width:3.2}
 
-  .dimmed .node:not(.hot){opacity:.38}
-  .dimmed .edge:not(.hot){opacity:.25}
-  .node, .edge{transition:opacity .25s}
+  #p-map .dimmed .node:not(.lit){opacity:.38}
+  #p-map .dimmed .edge:not(.lit){opacity:.25}
+  #p-map .node,#p-map .edge{transition:opacity .25s}
 
   /* ---- detail panel ---- */
-  .detail{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.25fr); gap:26px; margin:18px 0 0; background:var(--surface); border:1px solid var(--line); border-radius:16px; padding:22px 26px; box-shadow:var(--card-shadow)}
-  .detail .ix{font-family:var(--disp); font-size:12.5px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--accent)}
-  .detail h2{font-family:var(--disp); font-weight:600; font-size:24px; margin:4px 0 8px; line-height:1.2}
-  .detail p{margin:0 0 12px; color:var(--ink-70)}
-  .detail .flows{font-size:14px; color:var(--ink-45); margin:0 0 14px}
-  .detail .flows b{color:var(--ink-70); font-weight:600}
-  .detail ul{list-style:none; margin:0; padding:0; display:grid; gap:8px}
-  .detail li{background:var(--surface-2); border:1px solid var(--line); border-radius:10px; padding:9px 13px; font-size:15px}
-  .detail li b{font-weight:600}
-  .open{display:inline-block; margin-top:4px; font-weight:600; border:1px solid var(--accent); border-radius:999px; padding:7px 16px}
-  .open:hover{background:var(--accent-tint); text-decoration:none}
+  #p-map .detail{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.25fr); gap:26px; margin:18px 0 0; background:var(--surface); border:1px solid var(--line); border-radius:16px; padding:22px 26px; box-shadow:var(--card-shadow)}
+  #p-map .detail .ix{font-family:var(--disp); font-size:12.5px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--accent)}
+  #p-map .detail h2{font-family:var(--disp); font-weight:600; font-size:24px; margin:4px 0 8px; line-height:1.2}
+  #p-map .detail p{margin:0 0 12px; color:var(--ink-70)}
+  #p-map .detail .flows{font-size:14px; color:var(--ink-45); margin:0 0 14px}
+  #p-map .detail .flows b{color:var(--ink-70); font-weight:600}
+  #p-map .detail ul{list-style:none; margin:0; padding:0; display:grid; gap:8px}
+  #p-map .detail li{background:var(--surface-2); border:1px solid var(--line); border-radius:10px; padding:9px 13px; font-size:15px}
+  #p-map .detail li b{font-weight:600}
+  #p-map .open{display:inline-block; margin-top:4px; font-weight:600; border:1px solid var(--accent); border-radius:999px; padding:7px 16px}
+  #p-map .open:hover{background:var(--accent-tint); text-decoration:none}
 
-  footer{padding:26px 0 40px; color:var(--ink-45); font-size:14px; display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap}
-
+  #p-map .map-head{padding-top:40px}
+  #p-map .stage{margin-top:6px}
   @media (max-width:760px){
-    .wrap{padding:0 16px}
-    header{padding-top:22px}
-    .detail{grid-template-columns:1fr; padding:18px 18px; gap:14px}
-    .lbl{display:none}
-    .lbl.hot{display:inline}
+    #p-map .detail{grid-template-columns:1fr; padding:18px 18px; gap:14px}
+    #p-map .lbl{display:none}
+    #p-map .lbl.lit{display:inline}
   }
-  @media (prefers-reduced-motion:reduce){
-    .edge path.flow{animation:none}
-    *{transition:none !important}
+  @media (prefers-reduced-motion:reduce){ #p-map .edge path.flow{animation:none} }
+
+  /* ---------- panels ---------- */
+  .panel{padding:0 0 84px}
+  html.js .panel{display:none}
+  html.js .panel.on{display:block; animation:fade .4s var(--step)}
+  @keyframes fade{from{opacity:0; transform:translateY(6px)}to{opacity:1; transform:none}}
+
+  .eyebrow{font-family:var(--disp); font-size:13px; color:var(--accent-ink); font-weight:600; margin:0 0 6px}
+  .h-sec{font-family:var(--disp); font-weight:500; font-size:clamp(1.5rem,2.6vw,2rem);
+         letter-spacing:-.01em; margin:0 0 10px; line-height:1.12}
+  .sec-lead{color:var(--ink-70); max-width:var(--readw); margin:0 0 30px}
+
+  /* ---------- overview hero ---------- */
+  .hero{padding:64px 0 30px; border-bottom:1px solid var(--line)}
+  .hero h1{font-family:var(--disp); font-weight:600; letter-spacing:-.02em; line-height:1.06;
+           font-size:clamp(1.6rem,5vw,3.1rem); margin:0}
+  .hero h1 .two{display:block; font-weight:400; color:var(--ink-45)}
+  .hero .deck{font-size:clamp(1.05rem,1.7vw,1.28rem); color:var(--ink-70); max-width:60ch;
+              margin:22px 0 0; line-height:1.5}
+  .reveal{opacity:0; transform:translateY(10px)}
+  html.js .reveal{animation:rise .7s var(--step) forwards}
+  html.js .reveal.d2{animation-delay:.09s}
+  html.js .reveal.d3{animation-delay:.18s}
+  @keyframes rise{to{opacity:1; transform:none}}
+
+  .strip{display:grid; grid-template-columns:repeat(4,1fr); margin:40px 0 0;
+         border:1px solid var(--line); border-radius:12px; overflow:hidden; background:var(--surface); box-shadow:var(--card-shadow)}
+  .cell{padding:18px 20px; border-left:1px solid var(--line)}
+  .cell:first-child{border-left:0}
+  .cell .v{font-family:var(--disp); font-weight:600; font-size:1.7rem; letter-spacing:-.01em;
+           font-variant-numeric:tabular-nums; line-height:1}
+  .cell .v .u{font-size:1rem; color:var(--accent-ink); font-weight:500}
+  .cell .k{font-size:13px; color:var(--ink-70); margin-top:8px; line-height:1.35}
+  @media(max-width:720px){.strip{grid-template-columns:repeat(2,1fr)} .cell:nth-child(3){border-left:0}}
+
+  .skills{display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin:22px 0 0}
+  .skills .lab{font-size:13px; color:var(--ink-45)}
+  .pill{font-size:13.5px; color:var(--ink); background:var(--surface); border:1px solid var(--line-strong);
+        border-radius:999px; padding:4px 13px}
+  .rolepill{font-size:13.5px; color:var(--accent-ink); background:var(--accent-tint); border:1px solid transparent;
+        border-radius:999px; padding:4px 13px; cursor:pointer; font-family:var(--sans); display:inline-flex;
+        align-items:center; gap:7px; transition:background .18s, border-color .18s, transform .18s var(--step)}
+  .rolepill::after{content:"→"; font-size:12px; opacity:0; margin-left:-4px; transition:opacity .18s, margin .2s}
+  .rolepill:hover{background:var(--accent-tint-2); border-color:var(--accent); transform:translateY(-1px)}
+  .rolepill:hover::after{opacity:.8; margin-left:0}
+
+  /* even tile grids — works across / roles held / education */
+  .tileset{margin:26px 0 0; display:flex; flex-direction:column; gap:16px}
+  .tilecap{display:block; font-family:var(--disp); font-size:11.5px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-70); margin:0 0 8px}
+  .tiles{display:grid; grid-template-columns:repeat(6,1fr); gap:8px}
+  .tiles.three{grid-template-columns:repeat(3,1fr)}
+  .tiles.two{grid-template-columns:repeat(2,1fr)}
+  .tile{position:relative; display:flex; align-items:center; justify-content:center; text-align:center;
+        height:56px; padding:8px 10px; border:1px solid var(--line-strong); border-radius:10px;
+        background:var(--surface); color:var(--ink); font-family:var(--sans); font-size:13px; line-height:1.25; overflow:hidden}
+  button.tile{font:inherit; font-size:13px}
+  button.tile, .tile.tap{cursor:pointer; transition:border-color .18s, background .18s, color .18s, transform .18s var(--step)}
+  button.tile:hover, button.tile:focus-visible, .tile.tap:hover, .tile.tap:focus-visible{
+        border-color:var(--accent); background:var(--accent-tint); color:var(--accent-ink); transform:translateY(-2px); outline:none}
+  .tile.deg{flex-direction:column; align-items:flex-start; justify-content:center; text-align:left; gap:2px;
+        height:56px; font-family:var(--disp); font-weight:500; font-size:13.5px}
+  .tile.deg .sub{font-family:var(--sans); font-weight:400; font-size:12px; color:var(--ink-45)}
+  .tile .tip{position:absolute; left:50%; bottom:calc(100% + 8px); width:min(260px,74vw); z-index:20;
+        background:var(--surface); color:var(--ink-70); border:1px solid var(--line-strong); border-radius:9px;
+        padding:10px 12px; font-size:12.5px; line-height:1.5; box-shadow:var(--shadow); text-align:left; font-weight:400;
+        opacity:0; transform:translateX(-50%) translateY(4px); pointer-events:none; transition:opacity .2s, transform .2s var(--step)}
+  .tile.tap:hover .tip, .tile.tap:focus-visible .tip{opacity:1; transform:translateX(-50%)}
+  .edu-body{padding:16px 20px; display:flex; flex-direction:column; gap:16px}
+  @media(max-width:820px){ .tiles{grid-template-columns:repeat(3,1fr)} }
+  @media(max-width:480px){ .tiles, .tiles.three{grid-template-columns:repeat(2,1fr)} }
+
+  .edu{margin:30px 0 0; border:1px solid var(--line); border-radius:12px; background:var(--surface); overflow:hidden; box-shadow:var(--card-shadow)}
+  .edu-h{display:flex; align-items:center; gap:10px; padding:14px 20px; border-bottom:1px solid var(--line); background:var(--surface-2)}
+  .edu-h .ic{width:36px; height:36px}
+  .edu-h span{font-family:var(--disp); font-weight:600; font-size:.95rem}
+  .edu-grid{display:grid; grid-template-columns:1fr 1fr; gap:0}
+  @media(max-width:640px){.edu-grid{grid-template-columns:1fr}}
+  .deg{display:flex; gap:13px; padding:18px 20px; border-left:1px solid var(--line)}
+  .deg:first-child{border-left:0}
+  @media(max-width:640px){.deg{border-left:0; border-top:1px solid var(--line)} .deg:first-child{border-top:0}}
+  .deg .ic{flex:none; margin-top:2px}
+  .deg .d-deg{font-family:var(--disp); font-weight:500; font-size:1rem; line-height:1.25}
+  .deg .d-org{font-size:13px; color:var(--ink-45); margin-top:3px}
+  .certs{display:flex; flex-wrap:wrap; align-items:center; gap:8px; padding:16px 20px; border-top:1px solid var(--line)}
+  .certs .clab{display:flex; align-items:center; gap:8px; font-size:13px; color:var(--ink-45); margin-right:4px}
+  .certs .clab .ic{width:34px; height:34px}
+  .cert{font-size:13px; color:var(--accent-ink); background:var(--accent-tint); border-radius:999px; padding:4px 12px}
+  .train{display:flex; flex-wrap:wrap; align-items:center; gap:8px; padding:14px 20px; border-top:1px solid var(--line)}
+  .train .clab{display:flex; align-items:center; gap:8px; font-size:13px; color:var(--ink-45); margin-right:4px}
+  .train .clab .ic{width:34px; height:34px}
+  .trainpill{position:relative; font-size:13px; color:var(--accent-ink); background:var(--accent-tint);
+             border:1px solid transparent; border-radius:999px; padding:4px 12px; cursor:help}
+  .trainpill:hover, .trainpill:focus-visible{border-color:var(--accent); outline:none}
+  .trainpill .tip{position:absolute; left:0; bottom:calc(100% + 8px); width:min(260px,74vw); z-index:20;
+                  background:var(--surface); color:var(--ink-70); border:1px solid var(--line-strong);
+                  border-radius:9px; padding:10px 12px; font-size:12.5px; line-height:1.5; box-shadow:var(--shadow);
+                  opacity:0; transform:translateY(4px); pointer-events:none; transition:opacity .2s, transform .2s var(--step)}
+  .trainpill:hover .tip, .trainpill:focus-visible .tip{opacity:1; transform:none}
+
+  .jump-h{font-family:var(--disp); font-weight:500; font-size:1.1rem; margin:52px 0 4px}
+  .jump-sub{color:var(--ink-70); font-size:14px; margin:0 0 18px}
+  .jumps{display:grid; grid-template-columns:repeat(3,1fr); gap:16px}
+  @media(max-width:760px){.jumps{grid-template-columns:1fr}}
+  .jc{position:relative; text-align:left; cursor:pointer; background:var(--surface);
+      border:1px solid var(--line); border-radius:12px; padding:22px 22px 20px; color:inherit;
+      font:inherit; overflow:hidden; box-shadow:var(--card-shadow); transition:border-color .2s, box-shadow .25s, transform .25s var(--step)}
+  .jc::before{content:""; position:absolute; left:0; top:0; bottom:0; width:3px; background:var(--accent);
+              transform:scaleY(0); transform-origin:top; transition:transform .28s var(--step)}
+  .jc:hover,.jc:focus-visible{border-color:var(--line-strong); box-shadow:var(--shadow); transform:translateY(-3px); outline:none}
+  .jc:hover::before,.jc:focus-visible::before{transform:scaleY(1)}
+  .jc .jt{font-family:var(--disp); font-weight:600; font-size:1.18rem; display:flex; justify-content:space-between; align-items:center}
+  .jc .cnt{font-size:12.5px; color:var(--ink-45); font-variant-numeric:tabular-nums}
+  .jc .hint{color:var(--ink-70); font-size:14px; margin-top:12px}
+  .jc .go{margin-top:14px; font-size:13px; color:var(--accent-ink); font-weight:600}
+
+
+  /* ---------- adoption (how I'd help scale) ---------- */
+  .hook{display:inline-flex; align-items:center; gap:8px; margin:22px 0 0; font:inherit; font-size:15px; font-weight:500;
+        color:var(--accent-ink); background:var(--surface); border:1px solid var(--line-strong); border-radius:10px;
+        padding:10px 16px; cursor:pointer; box-shadow:var(--card-shadow); transition:border-color .18s, background .18s}
+  .hook:hover, .hook:focus-visible{border-color:var(--accent); background:var(--accent-tint); outline:none}
+  .jc.feature{grid-column:1/-1; border-color:var(--accent)}
+  .om{display:grid; grid-template-columns:1fr 92px 1fr 92px 1fr; align-items:stretch; margin:0 0 34px}
+  .om-node{background:var(--surface); border:1px solid var(--line-strong); border-radius:12px; padding:16px 18px; box-shadow:var(--card-shadow)}
+  .om-node.mid{border:2px solid var(--accent); background:var(--accent-tint)}
+  .om-k{font-family:var(--disp); font-weight:600; font-size:11.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--accent-ink)}
+  .om-t{font-family:var(--disp); font-weight:600; font-size:1.05rem; margin:4px 0 4px; line-height:1.2}
+  .om-d{font-size:13.5px; color:var(--ink-70); line-height:1.45}
+  .om-link{display:flex; flex-direction:column; justify-content:center; gap:10px; padding:0 6px; font-size:11.5px; line-height:1.25; color:var(--ink-70); text-align:center}
+  .om-link span::before{display:block; font-size:16px; color:var(--accent); line-height:1}
+  .om-link .dn::before{content:"\2192"} .om-link .up::before{content:"\2190"}
+  @media(max-width:760px){ .om{grid-template-columns:1fr} .om-link{flex-direction:row; justify-content:center; padding:8px 0}
+    .om-link .dn::before{content:"\2193"} .om-link .up::before{content:"\2191"} }
+  .ad-h{font-family:var(--disp); font-weight:600; font-size:1.08rem; margin:0 0 12px}
+  .dec{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin:0 0 34px; counter-reset:dec}
+  @media(max-width:860px){ .dec{grid-template-columns:1fr 1fr} }
+  @media(max-width:520px){ .dec{grid-template-columns:1fr} }
+  .dec-c{background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:16px 16px 14px; box-shadow:var(--card-shadow)}
+  .dec-c::before{counter-increment:dec; content:"0" counter(dec); font-family:var(--disp); font-weight:600; font-size:12px; color:var(--accent-ink)}
+  .dec-t{display:block; font-family:var(--disp); font-weight:600; font-size:1rem; margin:2px 0 6px}
+  .dec-d{display:block; font-size:13.5px; color:var(--ink-70); line-height:1.5}
+  .gc{width:100%; border-collapse:separate; border-spacing:0; border:1px solid var(--line); border-radius:12px; overflow:hidden;
+      background:var(--surface); box-shadow:var(--card-shadow); margin:0 0 34px}
+  .gc td{padding:12px 18px; border-bottom:1px solid var(--line); vertical-align:middle}
+  .gc tr:last-child td{border-bottom:0}
+  .gc td.what{width:58%; border-right:1px solid var(--line)}
+  .gc .w-t{display:block; font-weight:600; font-size:14.5px}
+  .gc .w-d{display:block; font-size:13px; color:var(--ink-70); margin-top:2px}
+  .gc tr td{transition:background .18s}
+  .gc tr:hover td{background:var(--accent-tint-2)}
+  .ad-two{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:0 0 22px}
+  @media(max-width:760px){ .ad-two{grid-template-columns:1fr} }
+  .ad-box{background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:16px 20px; box-shadow:var(--card-shadow)}
+  .ad-box ul{margin:0; padding:0 0 0 18px}
+  .ad-box li{font-size:14px; color:var(--ink-70); margin:4px 0}
+  .ad-box li::marker{color:var(--accent)}
+  .ad-box.avoid li::marker{content:"\2715  "; color:var(--ink-45)}
+  .proof{border:2px solid var(--accent); background:var(--accent-tint); border-radius:12px; padding:16px 20px; margin:0 0 22px}
+  .proof p{margin:0; color:var(--ink)}
+  .proof .links{margin-top:10px}
+  .whynow{font-size:14px; color:var(--ink-70); border-left:3px solid var(--accent); padding:4px 0 4px 14px; margin:0}
+  .whynow strong{color:var(--ink)}
+
+  /* jump controls are real links (so the printed PDF keeps them clickable) */
+  a.xlink, a.arr-chip, a.tile, a.jc, a.hook{text-decoration:none !important}
+  a.xlink{display:inline-block} a.jc{display:block}
+
+  /* ---------- needs / held matrix ---------- */
+  .matrix{margin:54px 0 0}
+  .matrix-h{font-family:var(--disp); font-weight:500; font-size:1.1rem; margin:0 0 4px}
+  .matrix-sub{color:var(--ink-70); font-size:14px; margin:0 0 18px}
+  .skmap{width:100%; border-collapse:separate; border-spacing:0; border:1px solid var(--line);
+         border-radius:12px; overflow:hidden; background:var(--surface); box-shadow:var(--card-shadow)}
+  .skmap th{font-family:var(--disp); font-weight:600; font-size:12px; letter-spacing:.06em; text-transform:uppercase; text-align:left;
+            color:var(--ink-70); padding:12px 18px; background:var(--surface-2); border-bottom:1px solid var(--line)}
+  .skmap td{padding:13px 18px; border-bottom:1px solid var(--line); vertical-align:top}
+  .skmap tr:last-child td{border-bottom:0}
+  
+  .skmap td.need{width:46%; border-right:1px solid var(--line)}
+  .skmap td.need:focus-visible{outline:2px solid var(--accent); outline-offset:-2px}
+  .need-t{font-weight:500; color:var(--ink); display:block; font-size:14.5px}
+  .need-why{display:block; color:var(--ink-70); font-size:13px; line-height:1.5; margin-top:5px}
+  .skmap tr:not(.sub) td{transition:background .18s, color .18s}
+  .skmap tr:not(.sub):hover td, .skmap tr:not(.sub):focus-within td{background:var(--accent-tint-2)}
+  .skmap tr:not(.sub):hover .need-t{color:var(--accent-ink)}
+  .skmap tr:not(.sub):hover .need-why{color:var(--ink)}
+  .held-in{display:flex; flex-wrap:wrap; gap:6px; align-items:center}
+  .held-note{font-size:12.5px; color:var(--ink-45)}
+  .skmap tr.sub td{background:var(--surface-2); font-family:var(--disp); font-weight:600; font-size:11px;
+                   letter-spacing:.05em; text-transform:uppercase; color:var(--accent-ink); padding:8px 18px}
+  .skmap tr.sub:hover td{background:var(--surface-2)}
+  @media(max-width:640px){ .skmap th,.skmap td{padding:11px 12px} .skmap td.need{width:50%} }
+
+  /* ---------- experience ---------- */
+  .arc{display:flex; flex-wrap:wrap; gap:0; margin:0 0 36px; border:1px solid var(--line);
+       border-radius:12px; background:var(--surface); overflow:hidden}
+  .arc .node{flex:1 1 0; min-width:150px; padding:16px 18px; border-left:1px solid var(--line)}
+  .arc .node:first-child{border-left:0}
+  .arc .node .stg{font-size:12px; color:var(--ink-45)}
+  .arc .node .ttl{font-family:var(--disp); font-weight:500; font-size:1rem; margin-top:4px}
+  .arc .node.now{background:var(--accent-tint)}
+  .arc .node.now .stg{color:var(--accent-ink)}
+
+  /* timelines (career from 2000, current roles) */
+  .tl{margin:0 0 16px}
+  .tl-cap{font-family:var(--disp); font-size:11.5px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-70); margin:0 0 8px}
+  .tl-bar{display:flex; gap:5px; align-items:stretch}
+  .tl-seg{flex:1 1 0; min-width:0; background:var(--surface); border:1px solid var(--line-strong);
+          border-radius:9px; padding:11px 13px; display:flex; flex-direction:column; justify-content:center; box-shadow:var(--card-shadow)}
+  .tl-seg.now{background:var(--accent-tint); border-color:var(--accent)}
+  .tl-yr{font-family:var(--disp); font-weight:600; font-size:12px; color:var(--accent-ink); font-variant-numeric:tabular-nums}
+  .tl-lab{font-size:12.5px; color:var(--ink-70); line-height:1.35; margin-top:3px}
+  .tl-role{font-family:var(--disp); font-weight:500; font-size:13.5px; line-height:1.2}
+  .tl-dates{font-size:11.5px; color:var(--ink-45); margin-top:4px; font-variant-numeric:tabular-nums}
+  @media(max-width:640px){ .tl-bar{flex-direction:column} }
+
+  /* expand / collapse all */
+  .secbar{display:flex; justify-content:flex-end; margin:-16px 0 16px}
+  .expandall{font-size:13px; color:var(--accent-ink); background:var(--accent-tint); border:1px solid transparent;
+             border-radius:8px; padding:6px 13px; cursor:pointer; font-family:var(--sans);
+             transition:border-color .18s, background .18s}
+  .expandall:hover, .expandall:focus-visible{border-color:var(--accent); background:var(--accent-tint-2); outline:none}
+  .apply{display:grid; grid-template-columns:1fr 1fr; gap:18px}
+  @media(max-width:760px){.apply{grid-template-columns:1fr}}
+  .ap{position:relative; border:1px solid var(--line); border-radius:12px; background:var(--surface); padding:20px 22px; box-shadow:var(--card-shadow)}
+  .ap.wide{grid-column:1/-1}
+  .ap.hot{border-color:var(--accent); box-shadow:var(--shadow-soft)}
+  .ap-head{display:flex; align-items:center; gap:12px; margin-bottom:10px}
+  .ap-ic{flex:none; width:64px; height:64px; border:1px solid var(--line); border-radius:12px;
+          display:flex; align-items:center; justify-content:center; background:var(--surface-2);
+          transition:opacity .22s var(--step), transform .25s var(--step)}
+  .ap .tag{display:inline-block; font-size:12px; color:var(--accent-ink); background:var(--accent-tint);
+           border-radius:6px; padding:2px 9px}
+  .ap h3{font-family:var(--disp); font-weight:600; font-size:1.06rem; margin:6px 0 0}
+  .ap-body{color:var(--ink-70); margin:0; max-width:72ch}
+  .ap-body strong{color:var(--ink)}
+  .ap-hint{color:var(--accent-ink); font-size:13.5px; font-weight:500; margin:0 0 10px}
+
+  /* ---------- disclosure list ---------- */
+  .stack{display:flex; flex-direction:column; gap:10px}
+  .item{position:relative; border:1px solid var(--line); border-radius:12px; background:var(--surface); overflow:hidden;
+        box-shadow:var(--card-shadow); transition:border-color .2s, box-shadow .25s}
+  .item::before{content:""; position:absolute; left:0; top:0; bottom:0; width:3px; background:var(--accent); opacity:0; transition:opacity .18s}
+  .item:hover{border-color:var(--line-strong); box-shadow:var(--shadow)}
+  .item:hover::before, .item.open::before{opacity:1}
+  .item:hover .chev{color:var(--accent-ink)}
+  .item.hot{border-color:var(--accent); box-shadow:var(--shadow-soft)}
+  .item-head{width:100%; text-align:left; background:none; border:0; font:inherit; color:inherit;
+             cursor:pointer; padding:15px 18px; display:grid; grid-template-columns:56px 1fr auto;
+             gap:14px; align-items:center}
+  .item-head:focus-visible{outline:2px solid var(--accent); outline-offset:-2px}
+  .lead{width:56px; display:flex; align-items:center; justify-content:center; align-self:start; margin-top:1px}
+  .lead .ic{transition:transform .2s var(--step)}
+  .it-main{min-width:0}
+  .it-title{display:block; font-family:var(--disp); font-weight:500; font-size:1.08rem; line-height:1.25}
+  .it-role{display:block; font-size:13px; color:var(--ink-45); font-weight:500; margin-top:3px}
+  .it-hint{display:block; color:var(--ink-70); font-size:14px; margin-top:5px}
+  .tail{display:flex; align-items:center; gap:12px; align-self:start; margin-top:3px}
+  .rank-tag{font-family:var(--disp); font-weight:600; font-size:11.5px; color:var(--accent-ink);
+            background:var(--accent-tint); border-radius:6px; padding:3px 8px; font-variant-numeric:tabular-nums}
+  .chev{color:var(--ink-45); transition:transform .3s var(--step); font-size:18px; line-height:1}
+  .item.open .chev{transform:rotate(90deg); color:var(--accent-ink)}
+  .item-body{max-height:0; overflow:hidden; transition:max-height .4s var(--step)}
+  .item.open .item-body{max-height:680px}
+  html:not(.js) .item-body{max-height:none}
+  .ib-in{padding:2px 18px 18px 72px; border-top:1px solid var(--line)}
+  .ib-in p{color:var(--ink-70); margin:14px 0 0; max-width:72ch}
+  .metric{color:var(--accent-ink); font-weight:600}
+  .links{display:flex; flex-wrap:wrap; gap:7px; margin-top:16px; align-items:baseline}
+  .links .lk-lab{font-size:12px; color:var(--ink-45); margin-right:2px}
+  .ev-text{font-size:13.5px; color:var(--ink-70)}
+  .xlink{font-size:12.5px; color:var(--accent-ink); background:var(--accent-tint); border:1px solid transparent;
+         border-radius:999px; padding:4px 11px; cursor:pointer; font-family:var(--sans);
+         transition:background .18s, border-color .18s}
+  .xlink:hover{background:var(--accent-tint-2); border-color:var(--accent)}
+
+  /* coverage arrays (disciplines + experience): highlight relevant, gray the rest */
+  .arr{display:flex; flex-wrap:wrap; gap:6px; align-items:center; margin-top:14px}
+  .arr .lk-lab{font-size:12px; color:var(--ink-45); margin-right:2px}
+  .arr-chip{font-family:var(--sans); font-size:12px; line-height:1.2; border-radius:999px; padding:4px 10px}
+  button.arr-chip{font-size:12px}
+  .arr-chip.off{background:var(--surface-2); color:var(--ink-45); border:1px dashed var(--line-strong)}
+  .arr-chip.on{background:var(--accent-tint); color:var(--accent-ink); border:1px solid var(--accent); cursor:pointer}
+  .arr-chip.on:hover, .arr-chip.on:focus-visible{background:var(--accent-tint-2); outline:none}
+
+  .grouplab{font-family:var(--disp); font-weight:600; font-size:1.02rem; margin:8px 0 3px; display:flex; align-items:center; gap:10px}
+  .grouplab .n{font-size:12px; color:var(--ink-45); font-weight:500}
+  .grouplab::before{content:""; width:22px; height:2px; background:var(--accent)}
+  .groupnote{color:var(--ink-70); font-size:13.5px; margin:0 0 16px}
+
+  footer{border-top:1px solid var(--line); padding:26px 0 40px; color:var(--ink-45); font-size:13px}
+  footer .wrap{display:flex; flex-wrap:wrap; gap:8px 20px; justify-content:space-between}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important; transition:none !important; scroll-behavior:auto !important}
+    html.js .reveal{opacity:1; transform:none}
+  }
+  .print-head{display:none}
+  @media print{
+    @page{size:Letter; margin:.55in .6in}
+    :root{--shadow:none}
+    html{background:transparent; -webkit-print-color-adjust:exact; print-color-adjust:exact}
+    .bar,.jump-h,.jump-sub,.jumps,footer .cta,.secbar,.chev,.tip,.matrix-sub{display:none !important}
+    .print-head{display:flex; align-items:baseline; justify-content:space-between; border-bottom:2px solid var(--accent);
+                padding:0 0 8px; margin:0 0 4px}
+    .print-head .who{font-family:var(--disp); font-weight:700; font-size:20pt; color:var(--ink)}
+    .print-head .role{font-family:var(--disp); font-size:11pt; color:var(--accent-ink)}
+    .wrap{padding:0; max-width:none}
+    html.js .panel{display:block !important; animation:none !important; padding:0 0 18px}
+    html.js .reveal{opacity:1 !important; transform:none !important; animation:none !important}
+    .hero{padding:18px 0 14px}
+    .item-body{max-height:none !important} .it-hint{max-height:none; opacity:1}
+    .need-why{max-height:none !important; opacity:1 !important; margin-top:4px}
+    .item,.ap,.tl,.strip,.skmap tr,.tiles{break-inside:avoid; page-break-inside:avoid}
+    #p-adoption,#p-disciplines,#p-experience,#p-projects{break-before:page}
+    #p-adoption .wrap{padding-top:10px !important} #p-adoption .om,#p-adoption .dec,#p-adoption .gc{margin-bottom:12px} #p-adoption .h-sec{font-size:1.45rem; margin-bottom:4px} #p-adoption .eyebrow{margin-bottom:2px}
+    #p-adoption .om{grid-template-columns:1fr 92px 1fr 92px 1fr !important} #p-adoption .dec{grid-template-columns:repeat(4,1fr) !important}
+    #p-adoption .ad-two{grid-template-columns:1fr 1fr !important} .hook{display:none !important}
+    #p-adoption .om-link{flex-direction:column !important; padding:0 4px !important}
+    #p-adoption .om-link .dn::before{content:"\2192" !important} #p-adoption .om-link .up::before{content:"\2190" !important}
+    #p-adoption .sec-lead{margin-bottom:14px} #p-adoption .ad-h{margin-bottom:8px}
+    #p-adoption .dec-c,#p-adoption .om-node{padding:10px 12px} #p-adoption .dec-d,#p-adoption .om-d{font-size:12px; line-height:1.4}
+    #p-adoption .gc td{padding:7px 12px} #p-adoption .proof,#p-adoption .ad-box{padding:10px 14px} #p-adoption .ad-two,#p-adoption .proof{margin-bottom:12px}
+    #p-adoption .ad-box li{margin:1px 0; font-size:12.5px}
+    body{background:transparent; font-size:10.5pt; -webkit-print-color-adjust:exact; print-color-adjust:exact; zoom:.8} body::before{display:none}
+    .tiles{grid-template-columns:repeat(6,1fr) !important} .tiles.three{grid-template-columns:repeat(3,1fr) !important} .tiles.two{grid-template-columns:repeat(2,1fr) !important}
+    .strip{grid-template-columns:repeat(4,1fr) !important} .cell:nth-child(3){border-left:1px solid var(--line)}
+    .apply{grid-template-columns:1fr 1fr !important} .tl-bar{flex-direction:row !important}
+    .item-head{padding:10px 14px} .ib-in{padding:0 14px 12px 70px} .stack{gap:7px}
+    footer{display:none} .matrix{break-before:page; margin-top:0} .matrix-h{break-after:avoid}
   }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header>
-    <div>
-      <div class="kicker">Capability statement</div>
-      <h1>How the work flows into AI transformation &amp; enablement</h1>
-      <p class="sub">Each bubble is a section of the statement. Follow the arrows from where the work started to where it lands. Hover over a bubble to see what it carries; click it to open that section.</p>
-    </div>
-    <button class="theme" id="theme" type="button" aria-label="Toggle light or dark theme">Theme</button>
-  </header>
 
-  <div class="stage">
-    <svg class="dag" id="dag" role="group" aria-label="Directed graph: Experience flows into Disciplines, Adoption, and the goal; Disciplines into Projects and Adoption; Projects into Adoption and the goal, and back into Disciplines as lessons learned; Adoption into the goal, AI Transformation and Enablement."></svg>
+<!-- ============ ICON SPRITE ============ -->
+<svg class="sprite" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><defs>
+  <symbol id="i-loop" viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/><path d="M3 21v-5h5"/></symbol>
+  <symbol id="i-flow" viewBox="0 0 24 24"><circle cx="6" cy="6" r="2.4"/><circle cx="6" cy="18" r="2.4"/><circle cx="18" cy="12" r="2.4"/><path d="M8.2 7.2 15.6 11M8.2 16.8 15.6 13"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24"><path d="M12 3 2 8l10 5 10-5-10-5Z"/><path d="M2 12l10 5 10-5"/><path d="M2 16l10 5 10-5"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3.5l1.9 5.1 5.1 1.9-5.1 1.9L12 17.5l-1.9-5.1L5 10.5l5.1-1.9Z"/></symbol>
+  <symbol id="i-network" viewBox="0 0 24 24"><circle cx="12" cy="5" r="2.2"/><circle cx="5" cy="18" r="2.2"/><circle cx="19" cy="18" r="2.2"/><path d="M12 7.2v3.3M11 12l-4.5 4M13 12l4.5 4"/></symbol>
+  <symbol id="i-quote" viewBox="0 0 24 24"><path d="M6 3.5h9l3 3v14H6Z"/><path d="M9.5 12l2 2 3.5-3.5"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.5-3 7.6-7 9-4-1.4-7-4.5-7-9V6l7-3Z"/><path d="M9 12l2 2 4-4"/></symbol>
+  <symbol id="i-gauge" viewBox="0 0 24 24"><path d="M4 16a8 8 0 1 1 16 0"/><path d="M12 16l4.5-3.2"/><circle cx="12" cy="16" r="1.1"/></symbol>
+  <symbol id="i-clipboard" viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="16" rx="2"/><path d="M9 5V3.5h6V5"/><path d="M8.5 11h7M8.5 15h5"/></symbol>
+  <symbol id="i-blocks" viewBox="0 0 24 24"><rect x="3" y="3" width="7.5" height="7.5" rx="1.2"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="1.2"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="1.2"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.2"/></symbol>
+  <symbol id="i-cog" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5 5l2.1 2.1M16.9 16.9 19 19M19 5l-2.1 2.1M7.1 16.9 5 19"/></symbol>
+  <symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15.8 8.2 13 13l-4.8 2.8L11 11Z"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 4v16h16"/><path d="M8 16v-3.5M12 16V9M16 16v-6"/></symbol>
+  <symbol id="i-inbox" viewBox="0 0 24 24"><path d="M4 13l2.4-8h11.2L20 13v6H4Z"/><path d="M4 13h5l1.4 2.2h3L15 13h5"/></symbol>
+  <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="16" rx="2"/><path d="M4 9.5h16M8 3v4M16 3v4"/><path d="M9 14.5l2 2 4-4"/></symbol>
+  <symbol id="i-link" viewBox="0 0 24 24"><path d="M9.5 14.5l5-5"/><path d="M11 6.5 12.6 5a3.7 3.7 0 0 1 5.2 5.2L16 12"/><path d="M13 17.5 11.4 19a3.7 3.7 0 0 1-5.2-5.2L8 12"/></symbol>
+  <symbol id="i-infinity" viewBox="0 0 24 24"><path d="M8 9a3 3 0 1 0 0 6c1.8 0 2.8-1.4 4-3s2.2-3 4-3a3 3 0 1 1 0 6c-1.8 0-2.8-1.4-4-3S9.8 9 8 9Z"/></symbol>
+  <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M7.5 18a4 4 0 0 1-.3-8 5 5 0 0 1 9.5-1.3A3.6 3.6 0 0 1 17 18Z"/></symbol>
+  <symbol id="i-cap" viewBox="0 0 24 24"><path d="M12 4 2 9l10 5 10-5-10-5Z"/><path d="M6 11v4.2c0 1.5 2.7 3 6 3s6-1.5 6-3V11"/><path d="M22 9v5"/></symbol>
+  <symbol id="i-badge" viewBox="0 0 24 24"><circle cx="12" cy="9" r="5"/><path d="M8.5 13 7.5 21l4.5-2.6L16.5 21l-1-8"/><path d="M10 9l1.4 1.4L15 7"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M19.1 4.9l-1.8 1.8M6.7 17.3l-1.8 1.8"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5Z"/></symbol>
+</defs></svg>
+
+<div class="print-head"><span class="who">Capability Statement</span><span class="role">AI Transformation &amp; Enablement</span></div>
+
+<!-- ============ SPEC BAR ============ -->
+<div class="bar">
+  <div class="bar-in">
+    <div class="ident">
+      <span class="live" aria-hidden="true"></span>
+      <span class="who">Capability Statement</span>
+      <span class="role">AI Transformation &amp; Enablement</span>
+    </div>
+    <nav class="tabs" role="tablist" aria-label="Sections">
+      <button class="tab" role="tab" id="t-map"         aria-controls="p-map"         aria-selected="true"><span class="ix">00</span>Map</button>
+      <button class="tab" role="tab" id="t-overview"    aria-controls="p-overview"    aria-selected="false"><span class="ix">01</span>Overview</button>
+      <button class="tab" role="tab" id="t-adoption"    aria-controls="p-adoption"    aria-selected="false"><span class="ix">02</span>Adoption</button>
+      <button class="tab" role="tab" id="t-disciplines" aria-controls="p-disciplines" aria-selected="false"><span class="ix">03</span>Disciplines</button>
+      <button class="tab" role="tab" id="t-experience"  aria-controls="p-experience"  aria-selected="false"><span class="ix">04</span>Experience</button>
+      <button class="tab" role="tab" id="t-projects"    aria-controls="p-projects"    aria-selected="false"><span class="ix">05</span>Projects</button>
+    </nav>
+    <button class="theme-btn" id="themeBtn" type="button" aria-label="Toggle light or dark theme" title="Toggle theme">
+      <svg class="ic i-moon"><use href="#i-moon"/></svg><svg class="ic i-sun"><use href="#i-sun"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- ============ MAP (landing graph: how the sections flow) ============ -->
+<section class="panel on" id="p-map" role="tabpanel" aria-labelledby="t-map" tabindex="0">
+  <div class="wrap map-head">
+    <p class="eyebrow">Capability statement</p>
+    <h1 class="h-sec">How the work flows into AI transformation &amp; enablement</h1>
+    <p class="sec-lead">Each bubble is a section of this statement. Follow the arrows from where the work started to where it lands. Hover over a bubble to see what it carries; click it to open that section.</p>
+    <div class="stage">
+      <svg class="dag" id="dag" role="group" aria-label="Directed graph: Experience flows into Disciplines, Adoption, and the goal; Disciplines into Projects and Adoption; Projects into Adoption and the goal, and back into Disciplines as lessons learned; Adoption into the goal, AI Transformation and Enablement."></svg>
+    </div>
+    <div class="detail" id="detail" aria-live="polite"></div>
+  </div>
+</section>
+
+<!-- ============ OVERVIEW ============ -->
+<section class="panel" id="p-overview" role="tabpanel" aria-labelledby="t-overview" tabindex="0">
+  <div class="hero">
+    <div class="wrap">
+      <h1 class="reveal">Getting an enterprise to actually use AI.<span class="two">Transformation and enablement, measured and managed to the goal.</span></h1>
+      <p class="deck reveal d2">I have spent a career getting people and organizations to adopt new ways of working, and measuring whether the change stuck. AI transformation is that same job around a faster-moving tool: help people actually use AI, measure the progress, and manage the effort to a goal. What I add is the hands-on side: I can build and check the systems underneath, so the plan and the tooling stay honest with each other.</p>
+      <button class="hook reveal d2" data-goto="adoption">Adoption at scale is an operating-model problem, not a tools problem. Here is how I would help &rarr;</button>
+
+      <div class="strip reveal d3">
+        <div class="cell"><div class="v">25<span class="u">+ yrs</span></div><div class="k">Enterprise transformation &amp; engineering leadership</div></div>
+        <div class="cell"><div class="v">25</div><div class="k">Engineers led today across an enterprise practice</div></div>
+        <div class="cell"><div class="v">90<span class="u">%+</span></div><div class="k">Of projects delivered on time and on budget</div></div>
+        <div class="cell"><div class="v" style="font-size:1.25rem;letter-spacing:0">Hands-on</div><div class="k">I design and code agentic systems, harnesses, evals, and RAG</div></div>
+      </div>
+
+      <div class="tileset reveal d3">
+        <div>
+          <span class="tilecap">Works across</span>
+          <div class="tiles">
+            <span class="tile">AI &amp; Agentic</span>
+            <span class="tile">Cloud</span>
+            <span class="tile">Agile / DevOps</span>
+            <span class="tile">Sales &amp; Enablement</span>
+            <span class="tile">Low-Code Automation</span>
+            <span class="tile">Data Engineering</span>
+          </div>
+        </div>
+        <div>
+          <span class="tilecap">Roles held</span>
+          <div class="tiles">
+            <button class="tile tap" data-jump="ap-roots">Software Engineer</button>
+            <button class="tile tap" data-jump="ap-strategy">Consultant</button>
+            <button class="tile tap" data-jump="p-frontdoor">Solution Architect</button>
+            <button class="tile tap" data-jump="p-sales">B2B Sales Representative</button>
+            <button class="tile tap" data-jump="ap-current">Practice Owner</button>
+            <button class="tile tap" data-jump="p-enable">Technical Mentor</button>
+          </div>
+        </div>
+        <div>
+          <span class="tilecap">Degrees</span>
+          <div class="tiles two">
+            <div class="tile deg">M.S., Software Systems Engineering<span class="sub">George Mason University</span></div>
+            <div class="tile deg">B.A., Computer Science<span class="sub">University of California, San Diego</span></div>
+          </div>
+        </div>
+        <div>
+          <span class="tilecap">Certifications</span>
+          <div class="tiles three">
+            <div class="tile">Certified SAFe Agilist</div>
+            <div class="tile">Microsoft Azure Fundamentals</div>
+            <div class="tile">Engineering Leadership (eCornell)</div>
+          </div>
+        </div>
+        <div>
+          <span class="tilecap">Training</span>
+          <div class="tiles three">
+            <span class="tile tap" tabindex="0">Decker Communications<span class="tip">Decker Communications. High-stakes communication and executive presence: how to deliver a message that lands and moves a room.</span></span>
+            <span class="tile tap" tabindex="0">Solution Selling<span class="tip">A consultative sales method: diagnose the buyer's real problem, then map the solution to it. Value over features.</span></span>
+            <span class="tile tap" tabindex="0">Think! Inc. Negotiation<span class="tip">Negotiation training. Interests over positions, planned trades, and protecting the relationship while you close.</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <section class="detail" id="detail" aria-live="polite"></section>
+  <div class="wrap">
+    <div class="matrix">
+      <p class="matrix-h">What AI transformation needs, and what I bring</p>
+      <p class="matrix-sub">Click what I hold to jump to the proof.</p>
+      <table class="skmap">
+        <thead><tr><th>AI transformation skill needed</th><th>AI transformation skill held</th></tr></thead>
+        <tbody>
+          <tr class="sub"><td colspan="2">Technical &amp; engineering</td></tr>
+          <tr>
+            <td class="need" tabindex="0"><span class="need-t">Reliable, auditable model output</span><span class="need-why">A model that can't be trusted to run unwatched, or explain itself in an audit, never leaves the pilot. Enterprises adopt what they can depend on and review.</span></td>
+            <td class="held"><div class="held-in"><button class="xlink" data-jump="d1">Reliability &amp; observability</button><button class="xlink" data-jump="d7">Guardrails &amp; HITL</button></div></td>
+          </tr>
+          <tr>
+            <td class="need" tabindex="0"><span class="need-t">Agentic workflows, not chatbots</span><span class="need-why">The value is AI that does multi-step work with tools and checks, not a chat box. That takes engineered control flow, not a clever prompt.</span></td>
+            <td class="held"><div class="held-in"><button class="xlink" data-jump="d2">Agentic workflow design</button></div></td>
+          </tr>
+          <tr>
+            <td class="need" tabindex="0"><span class="need-t">Grounded answers, no hallucination</span><span class="need-why">In a regulated business, a confident wrong answer is a liability. The system has to cite its source or say it does not know.</span></td>
+            <td class="held"><div class="held-in"><button class="xlink" data-jump="p-brain">Dept Brain (retrieval)</button></div></td>
+          </tr>
+          <tr>
+            <td class="need" tabindex="0"><span class="need-t">Cost control at scale</span><span class="need-why">At enterprise volume, token cost decides whether a use case ships. What goes into the model's window is a budget, not an afterthought.</span></td>
+            <td class="held"><div class="held-in"><button class="xlink" data-jump="d3">Context engineering &amp; token efficiency</button></div></td>
+          </tr>
+          <tr>
+            <td class="need" tabindex="0"><span class="need-t">Proven quality before shipping</span><span class="need-why">Before a workflow touches production, someone has to show it works, and keep showing it. Evals and tests are how you gate that.</span></td>
+            <td class="held"><div class="held-in"><button class="xlink" data-jump="d9">Spec-driven development</button><button class="xlink" data-jump="p-fabrica">Fabrica</button></div></td>
+          </tr>
+          <tr>
+            <td class="need" tabindex="0"><span class="need-t">AI inside real operations</span><span class="need-why">AI that lives in a demo changes nothing. It has to run inside the tools and platforms the business already uses.</span></td>
+            <td class="held"><div class="held-in"><button class="xlink" data-jump="d10">Enterprise integration</button><button class="xlink" data-jump="p-sales">Sales Enablement</button></div></td>
+          </tr>
+          <tr class="sub"><td colspan="2">Human &amp; leadership — the soft skills the work also needs</td></tr>
+          <tr>
+            <td class="need" tabindex="0"><span class="need-t">Team fluency and adoption</span><span class="need-why">A model helps one person until that person leaves. Transformation is measured by whether the whole team's work changed, and stayed changed.</span></td>
+            <td class="held"><div class="held-in"><button class="xlink" data-jump="d4">Skill &amp; enablement creation</button><button class="xlink" data-jump="p-enable">Weekly AI Enablement</button></div></td>
+          </tr>
+          <tr>
+            <td class="need" tabindex="0"><span class="need-t">Staying current in a field that moves weekly</span><span class="need-why">AI changes faster than any training cycle. Staying useful means a standing habit for finding what's new and worth acting on, not a one-time course.</span></td>
+            <td class="held"><div class="held-in"><button class="xlink" data-jump="p-enrichment">Enrichment — AI-news feed</button><span class="held-note">podcasts · continuous learning</span></div></td>
+          </tr>
+          <tr>
+            <td class="need" tabindex="0"><span class="need-t">Change management at enterprise scale</span><span class="need-why">A model transforms nothing on its own. Getting hundreds of people to work differently, and keep at it, is a change-management job as much as a technical one.</span></td>
+            <td class="held"><div class="held-in"><button class="xlink" data-jump="ap-current">Practice leadership</button><button class="xlink" data-jump="ap-modernize">Modernization programs</button></div></td>
+          </tr>
+          <tr>
+            <td class="need" tabindex="0"><span class="need-t">Executive alignment and the ROI case</span><span class="need-why">AI budgets are approved and defended in front of leadership. Finding the workflow worth automating and proving its return is the core skill.</span></td>
+            <td class="held"><div class="held-in"><button class="xlink" data-jump="ap-strategy">Solution strategy</button><button class="xlink" data-jump="ap-current">Practice leadership</button></div></td>
+          </tr>
+          <tr>
+            <td class="need" tabindex="0"><span class="need-t">Consultative discovery and winning buy-in</span><span class="need-why">The hardest part is often finding the right problem and getting the room to commit to it. That is consultative discovery, and the ability to sell a plan on its merits — two decades of it, in advisory and B2B sales.</span></td>
+            <td class="held"><div class="held-in"><button class="xlink" data-jump="ap-strategy">Advisory &amp; discovery</button><button class="xlink" data-jump="ap-modernize">Transformation delivery</button></div></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-  <footer>
-    <span>Trial landing page. The full statement has every detail behind these bubbles.</span>
-    <a href="statement.html">Read the full statement &rarr;</a>
-  </footer>
-</div>
+    <p class="jump-h">Where to go next</p>
+    <p class="jump-sub">Hover for a hint, click to dive in.</p>
+    <div class="jumps">
+      <button class="jc feature" data-goto="adoption">
+        <span class="jt">How I'd help scale AI adoption <span class="cnt">1 page</span></span>
+        <span class="hint">The operating model, the four decisions that make or break it, how I'd measure it, and where I've tried a version of it.</span>
+        <span class="go">Open Adoption &rarr;</span>
+      </button>
+      <button class="jc" data-goto="disciplines">
+        <span class="jt">Disciplines <span class="cnt">7 ranked</span></span>
+        <span class="hint">Seven applied-AI disciplines, ranked, each rooted in an experience and proven by a project.</span>
+        <span class="go">Open Disciplines →</span>
+      </button>
+      <button class="jc" data-goto="experience">
+        <span class="jt">Experience <span class="cnt">4 lenses</span></span>
+        <span class="hint">Twenty-five years of enterprise delivery, from systems engineering to leading an AI practice — the ground the disciplines grew from.</span>
+        <span class="go">Open Experience →</span>
+      </button>
+      <button class="jc" data-goto="projects">
+        <span class="jt">Projects <span class="cnt">13</span></span>
+        <span class="hint">All the work behind the disciplines, ordered by relevance to an AI-transformation role.</span>
+        <span class="go">Open Projects →</span>
+      </button>
+    </div>
+    <p class="panel-back"><a class="mapback-lk" href="#map">&larr; Back to the map</a></p>
+  </div>
+</section>
+
+<!-- ============ ADOPTION (how I'd help scale) ============ -->
+<section class="panel" id="p-adoption" role="tabpanel" aria-labelledby="t-adoption" tabindex="0">
+  <div class="wrap" style="padding-top:44px">
+    <p class="eyebrow">Adoption at scale</p>
+    <h2 class="h-sec">How I'd help scale AI adoption</h2>
+    <p class="sec-lead">Tools are rarely the bottleneck. A good use of AI tends to stay with the person who found it. The work is getting it to spread across teams, and stay spread.</p>
+
+    <div class="om" aria-label="Operating model">
+      <div class="om-node"><div class="om-k">Central AI team</div><div class="om-t">Sets the direction</div><div class="om-d">Platforms, guardrails, priorities, and the hard builds.</div></div>
+      <div class="om-link"><span class="dn">guardrails, tools, training</span><span class="up">real use cases, feedback</span></div>
+      <div class="om-node mid"><div class="om-k">Champions in each team</div><div class="om-t">Carry it into the work</div><div class="om-d">They do the team's real work, one step ahead in AI, and move peers without needing authority.</div></div>
+      <div class="om-link"><span class="dn">use cases that fit the work</span><span class="up">what works, what's missing</span></div>
+      <div class="om-node"><div class="om-k">Teams</div><div class="om-t">Use it every day</div><div class="om-d">Measured by changed work, not by logins.</div></div>
+    </div>
+
+    <p class="ad-h">Four decisions that decide whether it works</p>
+    <div class="dec">
+      <div class="dec-c"><span class="dec-t">Purpose</span><span class="dec-d">Decide what champions are for: surfacing real use cases to the central team, building inside their teams, or somewhere between. Write it down and agree it with IT and security.</span></div>
+      <div class="dec-c"><span class="dec-t">People</span><span class="dec-d">Self-starters their peers already ask, whose managers will give them real time. Not chosen by title, as a reward, or before they know the business.</span></div>
+      <div class="dec-c"><span class="dec-t">Training</span><span class="dec-d">On their own team's work. A champion is ready when they have delivered one real use case.</span></div>
+      <div class="dec-c"><span class="dec-t">The day after</span><span class="dec-d">Where most programs stall. Named sponsors, a short briefing for each champion's manager, a network that is easy to join and leave, and learning that doesn't stop.</span></div>
+    </div>
+
+    <p class="ad-h">What a good champion does, and where I do it</p>
+    <table class="gc">
+      <tr><td class="what"><span class="w-t">Asks "should we build this at all?"</span><span class="w-d">Reuse, buy, build, or wait, judged on frequency, value, and the cost of a mistake.</span></td>
+          <td><div class="held-in"><button class="xlink" data-jump="ap-strategy">Solution strategy</button></div></td></tr>
+      <tr><td class="what"><span class="w-t">Builds the simplest thing that works</span><span class="w-d">A shared prompt, then a skill, then an automation, and an agent only when it is justified.</span></td>
+          <td><div class="held-in"><button class="xlink" data-jump="d4">Skill &amp; enablement creation</button><button class="xlink" data-jump="d2">Agentic workflow design</button></div></td></tr>
+      <tr><td class="what"><span class="w-t">Writes the spec before the build</span><span class="w-d">Who it is for, what it must never do, and who checks the output.</span></td>
+          <td><div class="held-in"><button class="xlink" data-jump="d9">Spec-driven development</button><button class="xlink" data-jump="d7">Guardrails &amp; HITL</button></div></td></tr>
+      <tr><td class="what"><span class="w-t">Owns the sign-off</span><span class="w-d">Knows when the output can be trusted, and when it can't.</span></td>
+          <td><div class="held-in"><button class="xlink" data-jump="d1">Reliability &amp; observability</button></div></td></tr>
+    </table>
+
+    <div class="proof">
+      <p><strong>A small version of this runs in my practice today.</strong> In a 25-person practice: a weekly AI enablement segment, in-house usage aids, and a few tools built for the team's own work. It's a team-level start; doing it across many teams is the next step.</p>
+      <div class="links"><button class="xlink" data-jump="p-enable">Weekly AI Enablement</button><button class="xlink" data-jump="p-aids">AI Usage Aids</button><button class="xlink" data-jump="ap-current">Leading AI delivery</button></div>
+    </div>
+
+    <div class="ad-two">
+      <div class="ad-box"><p class="ad-h" style="margin-bottom:6px">How I'd measure it</p><ul>
+        <li>Use cases in daily use, not licenses issued</li>
+        <li>Weekly active use, team by team</li>
+        <li>A business number that moved</li>
+        <li>Solutions reused, not rebuilt</li>
+        <li>Champions who still have the time</li></ul></div>
+      <div class="ad-box avoid"><p class="ad-h" style="margin-bottom:6px">What I'd steer away from</p><ul>
+        <li>Chasing the tool of the quarter</li>
+        <li>Training everyone the same way</li>
+        <li>An agent where a prompt would do</li>
+        <li>Champions chosen by title</li></ul></div>
+    </div>
+
+    <p class="whynow"><strong>Why now:</strong> people outside engineering are building with AI coding agents. That multiplies both the value and the risk. The answer is enablement and guardrails, not a shutdown, and champions are how that happens safely.</p>
+    <p class="panel-back"><a class="mapback-lk" href="#map">&larr; Back to the map</a></p>
+  </div>
+</section>
+
+<!-- ============ DISCIPLINES (patterns folded into evidence) ============ -->
+<section class="panel" id="p-disciplines" role="tabpanel" aria-labelledby="t-disciplines" tabindex="0">
+  <div class="wrap" style="padding-top:44px">
+    <p class="eyebrow">Disciplines</p>
+    <h2 class="h-sec">Seven applied-AI disciplines I bring</h2>
+    <p class="sec-lead">Seven applied-AI disciplines, ranked, each grounded in a working system.</p>
+    <div class="secbar"><button class="expandall" data-scope="p-disciplines" aria-expanded="false">Expand all</button></div>
+
+    <div class="stack">
+      <article class="item" id="d1"><button class="item-head" aria-expanded="false"><span class="lead"><svg class="ic"><use href="#i-loop"/></svg></span><span class="it-main"><span class="it-title">Reliability, looping &amp; observability</span><span class="it-hint">Loops that end on purpose, and runs that can't fail silently.</span></span><span class="tail"><span class="rank-tag">01</span><span class="chev">›</span></span></button><div class="item-body"><div class="ib-in"><p>Every loop gets a bound and a named exit. Review-then-fix cycles escalate instead of hanging, evaluation gates check quality as the work proceeds, and a watchdog alarms when a run goes silent, because silence is not success.</p><div class="links"><span class="lk-lab">Rooted in</span><button class="xlink" data-jump="ap-roots">Deep engineering roots</button></div><div class="links"><span class="lk-lab">Evidenced in</span><button class="xlink" data-jump="p-fabrica">Fabrica</button><span class="ev-text">— staged agents with bounded loops, run receipts, and evaluation gates.</span></div></div></div></article>
+
+      <article class="item" id="d2"><button class="item-head" aria-expanded="false"><span class="lead"><svg class="ic"><use href="#i-flow"/></svg></span><span class="it-main"><span class="it-title">Agentic workflow design</span><span class="it-hint">The model is a component; I build the control flow around it.</span></span><span class="tail"><span class="rank-tag">02</span><span class="chev">›</span></span></button><div class="item-body"><div class="ib-in"><p>I treat a model as an unreliable component and build the control flow and the gates around it: defined steps, in an order I set. Nearly everything I build is agentic in that narrow, engineered sense.</p><div class="links"><span class="lk-lab">Rooted in</span><button class="xlink" data-jump="ap-current">Leading AI delivery</button></div><div class="links"><span class="lk-lab">Evidenced in</span><button class="xlink" data-jump="p-agentic">Agentic Intelligence Pipeline</button><button class="xlink" data-jump="p-compiler">Graph Compiler</button></div></div></div></article>
+
+      <article class="item" id="d3"><button class="item-head" aria-expanded="false"><span class="lead"><svg class="ic"><use href="#i-layers"/></svg></span><span class="it-main"><span class="it-title">Context engineering &amp; token efficiency</span><span class="it-hint">Deciding what occupies the window, in tiers, per role.</span></span><span class="tail"><span class="rank-tag">03</span><span class="chev">›</span></span></button><div class="item-body"><div class="ib-in"><p>Deciding what occupies the model's window, in tiers, on a per-role contract: a short handoff, then an overview, then signatures, then specific ranges. It started as cost control. It turned out to drive accuracy, and it made runs cheaper to scale.</p><div class="links"><span class="lk-lab">Rooted in</span><button class="xlink" data-jump="ap-current">Leading AI delivery</button></div><div class="links"><span class="lk-lab">Evidenced in</span><button class="xlink" data-jump="p-aids">AI Usage Aids</button><button class="xlink" data-jump="p-brain">Dept Brain</button></div></div></div></article>
+
+      <article class="item" id="d4"><button class="item-head" aria-expanded="false"><span class="lead"><svg class="ic"><use href="#i-spark"/></svg></span><span class="it-main"><span class="it-title">Skill &amp; enablement-artifact creation</span><span class="it-hint">A skill someone else can run without me in the room.</span></span><span class="tail"><span class="rank-tag">04</span><span class="chev">›</span></span></button><div class="item-body"><div class="ib-in"><p>Packaging one judgment per skill so someone else can run the workflow without me in the room: a training artifact and a piece of tooling in the same file. Enablement that survives the person who wrote it.</p><div class="links"><span class="lk-lab">Rooted in</span><button class="xlink" data-jump="ap-current">Leading AI delivery</button></div><div class="links"><span class="lk-lab">Evidenced in</span><button class="xlink" data-jump="p-compiler">Graph Compiler</button><button class="xlink" data-jump="p-enable">Weekly AI Enablement</button><span class="ev-text">— and an authored skill-and-command library.</span></div></div></div></article>
+
+      <article class="item" id="d7"><button class="item-head" aria-expanded="false"><span class="lead"><svg class="ic"><use href="#i-shield"/></svg></span><span class="it-main"><span class="it-title">Guardrails, HITL &amp; fail-closed safety</span><span class="it-hint">Governance built into the code, not bolted on.</span></span><span class="tail"><span class="rank-tag">05</span><span class="chev">›</span></span></button><div class="item-body"><div class="ib-in"><p>Governance built into the code: human approval gates in the graph, and capabilities made structurally impossible instead of merely switched off. Refuse over guess, by default. That is what a regulated enterprise needs.</p><div class="links"><span class="lk-lab">Rooted in</span><button class="xlink" data-jump="ap-roots">Deep engineering roots</button></div><div class="links"><span class="lk-lab">Evidenced in</span><button class="xlink" data-jump="p-sbd">Spec-Based Development</button><span class="ev-text">— specifications that make unspecified behavior fail the build.</span></div></div></div></article>
+
+      <article class="item" id="d9"><button class="item-head" aria-expanded="false"><span class="lead"><svg class="ic"><use href="#i-clipboard"/></svg></span><span class="it-main"><span class="it-title">Spec-driven development</span><span class="it-hint">Falsifiable, test-bound criteria that gate the build.</span></span><span class="tail"><span class="rank-tag">06</span><span class="chev">›</span></span></button><div class="item-body"><div class="ib-in"><p>Specifications as the thing you direct AI coding agents with: falsifiable, test-bound acceptance criteria and a traceability check that fails the build when a requirement has no test attached to it.</p><div class="links"><span class="lk-lab">Rooted in</span><button class="xlink" data-jump="ap-roots">Deep engineering roots</button></div><div class="links"><span class="lk-lab">Evidenced in</span><button class="xlink" data-jump="p-sbd">Spec-Based Development</button><button class="xlink" data-jump="p-compiler">Graph Compiler</button></div></div></div></article>
+
+      <article class="item" id="d10"><button class="item-head" aria-expanded="false"><span class="lead"><svg class="ic"><use href="#i-blocks"/></svg></span><span class="it-main"><span class="it-title">Enterprise integration</span><span class="it-hint">AI value landing where the work actually happens.</span></span><span class="tail"><span class="rank-tag">07</span><span class="chev">›</span></span></button><div class="item-body"><div class="ib-in"><p>Delivering business outcomes on the platforms an enterprise already runs — Power Apps, Power Automate, API integration, and data pipelines — so AI value lands where the work actually happens.</p><div class="links"><span class="lk-lab">Rooted in</span><button class="xlink" data-jump="ap-modernize">Enterprise modernization</button></div><div class="links"><span class="lk-lab">Evidenced in</span><button class="xlink" data-jump="p-sales">Sales Enablement</button><button class="xlink" data-jump="p-impact">Impact-Assessment</button><button class="xlink" data-jump="p-frontdoor">Front Door</button></div></div></div></article>
+    </div>
+    <p class="panel-back"><a class="mapback-lk" href="#map">&larr; Back to the map</a></p>
+  </div>
+</section>
+
+<!-- ============ EXPERIENCE ============ -->
+<section class="panel" id="p-experience" role="tabpanel" aria-labelledby="t-experience" tabindex="0">
+  <div class="wrap" style="padding-top:44px">
+    <p class="eyebrow">Experience</p>
+    <h2 class="h-sec">How my experience applies to AI transformation</h2>
+    <p class="sec-lead">Twenty-five years of enterprise delivery, mapped to AI transformation.</p>
+
+    <div class="tl" aria-label="Career timeline from 2000">
+      <div class="tl-cap">Career &middot; 2000 to now</div>
+      <div class="tl-bar">
+        <div class="tl-seg" style="flex:21"><span class="tl-yr">2000 – 2021</span><span class="tl-lab">Enterprise software transformation and outcome delivery</span></div>
+        <div class="tl-seg now" style="flex:5"><span class="tl-yr">AT&amp;T &middot; 2021 – now</span><span class="tl-lab">Transformation - DevOps, GigaPower, TDP</span></div>
+      </div>
+    </div>
+    <div class="tl" aria-label="Current roles timeline">
+      <div class="tl-cap">Current roles &middot; May 2021 to now</div>
+      <div class="tl-bar">
+        <div class="tl-seg role" style="flex:10"><span class="tl-role">Senior Software Engineer</span><span class="tl-dates">May 2021 – Mar 2022</span></div>
+        <div class="tl-seg role" style="flex:12"><span class="tl-role">Principal Systems Engineer</span><span class="tl-dates">Mar 2022 – Mar 2023</span></div>
+        <div class="tl-seg role now" style="flex:42"><span class="tl-role">Associate Director</span><span class="tl-dates">Mar 2023 – now</span></div>
+      </div>
+    </div>
+
+    <div class="apply">
+      <div class="ap wide" id="ap-current">
+        <div class="ap-head"><span class="ap-ic"><svg class="ic"><use href="#i-spark"/></svg></span><span class="tag">Current — AI &amp; agentic delivery</span></div>
+        <h3>Leading AI &amp; agentic delivery inside the enterprise</h3>
+        <p class="ap-hint">AI enablement is part of how I lead my team today.</p>
+        <p class="ap-body">I lead the enablement of a 25-person engineering practice delivering across generative AI, agentic workflows, LLM-based solutions, low-code (Power Platform), data engineering, and cloud operations, on an Agile cadence, consistently landing more than 90% of projects on time and on budget. I also run a weekly AI enablement segment to build the team's fluency in generative AI and agentic workflows.</p>
+        <div class="links"><span class="lk-lab">Projects</span><button class="xlink" data-jump="p-enable">Weekly AI Enablement</button><button class="xlink" data-jump="p-aids">AI Usage Aids</button><button class="xlink" data-jump="p-match">Resource Matching</button></div>
+      </div>
+      <div class="ap" id="ap-modernize">
+        <div class="ap-head"><span class="ap-ic"><svg class="ic"><use href="#i-cog"/></svg></span><span class="tag">Transformation</span></div>
+        <h3>Enterprise modernization &amp; delivery</h3>
+        <p class="ap-hint">A change-management program with a model in the middle.</p>
+        <p class="ap-body">Before AI was the headline, I led large-scale software-modernization, Agile, DevOps, and value-stream programs for Fortune 500 and public-sector organizations, plus the cost-benefit modeling that gets investment approved. An AI-transformation program is a change-management program with a model in the middle. The discipline transfers directly.</p>
+        <div class="links"><span class="lk-lab">Projects</span><button class="xlink" data-jump="p-impact">Impact-Assessment</button><button class="xlink" data-jump="p-sales">Sales Enablement</button><button class="xlink" data-jump="p-frontdoor">Front Door</button><button class="xlink" data-jump="p-event">Event Resourcing</button></div>
+      </div>
+      <div class="ap" id="ap-roots">
+        <div class="ap-head"><span class="ap-ic"><svg class="ic"><use href="#i-layers"/></svg></span><span class="tag">Foundation</span></div>
+        <h3>Deep engineering roots</h3>
+        <p class="ap-hint">Why I trust structure and tests over hope.</p>
+        <p class="ap-body">I started in aerospace and defense systems engineering, building automation that improved review quality by an order of magnitude while cutting effort. That grounding is why I trust structure and tests over hope, and why the systems I build now stop when an input is missing instead of guessing.</p>
+        <div class="links"><span class="lk-lab">Projects</span><button class="xlink" data-jump="p-fabrica">Fabrica</button><button class="xlink" data-jump="p-agentic">Agentic Pipeline</button><button class="xlink" data-jump="p-compiler">Graph Compiler</button><button class="xlink" data-jump="p-brain">Dept Brain</button><button class="xlink" data-jump="p-sbd">Spec-Based Dev</button><button class="xlink" data-jump="p-enrichment">Enrichment</button></div>
+      </div>
+      <div class="ap wide" id="ap-strategy">
+        <div class="ap-head"><span class="ap-ic"><svg class="ic"><use href="#i-compass"/></svg></span><span class="tag">Advisory</span></div>
+        <h3>Solution strategy &amp; the business case</h3>
+        <p class="ap-hint">Find the workflow worth automating; prove value before you scale.</p>
+        <p class="ap-body">For two decades advising enterprises, I surfaced the real need — stated and latent — and proved it with a cost-and-benefit proof of concept before the rollout. AI transformation lives on the same skill: finding the workflow worth automating, then proving the value before anyone scales it, in terms leadership acts on.</p>
+        <div class="links"><span class="lk-lab">Projects</span><button class="xlink" data-jump="p-sales">Sales Enablement</button><button class="xlink" data-jump="p-impact">Impact-Assessment</button></div>
+      </div>
+    </div>
+    <p class="panel-back"><a class="mapback-lk" href="#map">&larr; Back to the map</a></p>
+  </div>
+</section>
+
+<!-- ============ WORK (enterprise only) ============ -->
+<section class="panel" id="p-projects" role="tabpanel" aria-labelledby="t-projects" tabindex="0">
+  <div class="wrap" style="padding-top:44px">
+    <p class="eyebrow">Projects</p>
+    <h2 class="h-sec">Selected projects</h2>
+    <p class="sec-lead">All the work behind the disciplines, ordered top-down by relevance to an AI-transformation role.</p>
+    <div class="secbar"><button class="expandall" data-scope="p-projects" aria-expanded="false">Expand all</button></div>
+
+    <div class="stack">
+      <article class="item" id="p-enable"><button class="item-head" aria-expanded="false"><span class="lead"><svg class="ic"><use href="#i-spark"/></svg></span><span class="it-main"><span class="it-title">Weekly AI Enablement Program</span><span class="it-role">AI enablement · adoption</span><span class="it-hint">Enablement as an operating rhythm, not a one-off training.</span></span><span class="tail"><span class="chev">›</span></span></button><div class="item-body"><div class="ib-in"><p>A standing weekly segment delivering tradecraft and applied know-how to the engineering practice, raising team-wide fluency in generative AI and agentic workflows and <span class="metric">accelerating adoption</span> across the group.</p><div class="links"><span class="lk-lab">Proves</span><button class="xlink" data-jump="d4">Skill &amp; enablement creation</button></div></div></div></article>
+
+      <article class="item" id="p-aids"><button class="item-head" aria-expanded="false"><span class="lead"><svg class="ic"><use href="#i-spark"/></svg></span><span class="it-main"><span class="it-title">AI Usage Aids</span><span class="it-role">In-house · enablement content</span><span class="it-hint">Token-efficiency training, concept explainers, and quick tips for the team.</span></span><span class="tail"><span class="chev">›</span></span></button><div class="item-body"><div class="ib-in"><p>In-house enablement content that raises the team's efficient use of AI: token-efficiency training, concept explainers, and quick tips people can apply the same day.</p><div class="links"><span class="lk-lab">Proves</span><button class="xlink" data-jump="d3">Context engineering</button><button class="xlink" data-jump="d4">Skill &amp; enablement</button></div></div></div></article>
+
+      <article class="item" id="p-fabrica"><button class="item-head" aria-expanded="false"><span class="lead"><svg class="ic"><use href="#i-flow"/></svg></span><span class="it-main"><span class="it-title">Fabrica — AI coding lifecycle</span><span class="it-role">Orchestration · looping · evaluation</span><span class="it-hint">Staged agents pass context through files; bounded loops and eval gates between.</span></span><span class="tail"><span class="chev">›</span></span></button><div class="item-body"><div class="ib-in"><p>An AI coding lifecycle that breaks a task into stages, each handled by a focused agent, with context passed through files. Bounded review-then-fix loops, run receipts, and evaluation gates keep a long job from hanging or drifting.</p><div class="links"><span class="lk-lab">Proves</span><button class="xlink" data-jump="d1">Reliability &amp; looping</button></div></div></div></article>
+
+      <article class="item" id="p-agentic"><button class="item-head" aria-expanded="false"><span class="lead"><svg class="ic"><use href="#i-network"/></svg></span><span class="it-main"><span class="it-title">Agentic Intelligence Pipeline</span><span class="it-role">Multi-model agentic · anti-fabrication</span><span class="it-hint">Discovery to scored brief, with tool use and a refusal to promote degraded runs.</span></span><span class="tail"><span class="chev">›</span></span></button><div class="item-body"><div class="ib-in"><p>A multi-stage agentic pipeline that moves items through discovery, enrichment, and scoring with tool use at each step, backed by a ledger and an anti-fabrication gate that refuses to promote a degraded-mode run.</p><div class="links"><span class="lk-lab">Proves</span><button class="xlink" data-jump="d2">Agentic workflow design</button></div></div></div></article>
+
+      <article class="item" id="p-brain"><button class="item-head" aria-expanded="false"><span class="lead"><svg class="ic"><use href="#i-quote"/></svg></span><span class="it-main"><span class="it-title">Dept Brain — retrieval knowledge base</span><span class="it-role">RAG · cited answers</span><span class="it-hint">Ask the department's knowledge; get a cited answer or an honest "not found".</span></span><span class="tail"><span class="chev">›</span></span></button><div class="item-body"><div class="ib-in"><p>A retrieval knowledge base for the department. It answers with quoted, cited source text or abstains when the source isn't there, so people query it instead of hunting through documents.</p><div class="links"><span class="lk-lab">Proves</span><button class="xlink" data-jump="d3">Context engineering</button></div></div></div></article>
+
+      <article class="item" id="p-compiler"><button class="item-head" aria-expanded="false"><span class="lead"><svg class="ic"><use href="#i-terminal"/></svg></span><span class="it-main"><span class="it-title">Graph Compiler for agent workflows</span><span class="it-role">Language design · static verification</span><span class="it-hint">Checks 24 invariants before a token is spent; binds graph nodes to skill files.</span></span><span class="tail"><span class="chev">›</span></span></button><div class="item-body"><div class="ib-in"><p>A compiler that models an agent workflow as a typed directed graph and checks <span class="metric">24 static invariants before a token is spent</span>. It binds each graph node to the skill file it runs, so a diagram and its prompts can't drift apart.</p><div class="links"><span class="lk-lab">Proves</span><button class="xlink" data-jump="d4">Skill creation</button><button class="xlink" data-jump="d9">Spec-driven dev</button></div></div></div></article>
+
+      <article class="item" id="p-sbd"><button class="item-head" aria-expanded="false"><span class="lead"><svg class="ic"><use href="#i-clipboard"/></svg></span><span class="it-main"><span class="it-title">Spec-Based Development</span><span class="it-role">Methodology · traceability</span><span class="it-hint">Test-bound specs; the build fails when a requirement has no test.</span></span><span class="tail"><span class="chev">›</span></span></button><div class="item-body"><div class="ib-in"><p>A stack-agnostic way to direct AI coding agents through specifications, with test-bound acceptance criteria and a traceability check that fails the build when a requirement has no test attached to it.</p><div class="links"><span class="lk-lab">Proves</span><button class="xlink" data-jump="d7">Guardrails &amp; HITL</button><button class="xlink" data-jump="d9">Spec-driven dev</button></div></div></div></article>
+
+      <article class="item" id="p-sales"><button class="item-head" aria-expanded="false"><span class="lead"><svg class="ic"><use href="#i-chart"/></svg></span><span class="it-main"><span class="it-title">Sales-Enablement Intelligence Platform</span><span class="it-role">Power Apps · Power Automate · analytics</span><span class="it-hint">Intelligence at the point of need — $1M+ recurring benefit.</span></span><span class="tail"><span class="chev">›</span></span></button><div class="item-body"><div class="ib-in"><p>Delivered a solution that surfaces up-to-date sales intelligence at the point of need, tracks usage, and correlates it with sales-cycle outcomes. Customer estimates a <span class="metric">10% deal-velocity improvement and 5% win-rate lift — well over $1M in annual recurring benefit.</span></p><div class="links"><span class="lk-lab">Proves</span><button class="xlink" data-jump="d10">Enterprise integration</button></div></div></div></article>
+
+      <article class="item" id="p-impact"><button class="item-head" aria-expanded="false"><span class="lead"><svg class="ic"><use href="#i-chart"/></svg></span><span class="it-main"><span class="it-title">Enterprise Impact-Assessment Program</span><span class="it-role">Power Platform · analytics · automation</span><span class="it-hint">500+ consultants surveyed end-to-end, two 100% response rates.</span></span><span class="tail"><span class="chev">›</span></span></button><div class="item-body"><div class="ib-in"><p>Directed an enterprise-wide program surveying <span class="metric">500-plus consultants across 350-plus projects, 40 groups, and a dozen organizations</span>, capturing the work performed and the benefit it produced. Automated it end-to-end on the Power Platform to reach two consecutive <span class="metric">100% response rates</span> with full analytics, delivered by a team of 3 in place of the prior team of 20.</p><div class="links"><span class="lk-lab">Proves</span><button class="xlink" data-jump="d10">Enterprise integration</button></div></div></div></article>
+
+      <article class="item" id="p-match"><button class="item-head" aria-expanded="false"><span class="lead"><svg class="ic"><use href="#i-link"/></svg></span><span class="it-main"><span class="it-title">AI-Powered Resource-to-Project Matching</span><span class="it-role">Applied AI · decision support</span><span class="it-hint">Aligning engineers to priorities, improving fit and utilization.</span></span><span class="tail"><span class="chev">›</span></span></button><div class="item-body"><div class="ib-in"><p>Developed AI-driven talent-matching tools that align incoming engineers with strategic priorities and staffing needs, improving fit and utilization.</p><div class="links"><span class="lk-lab">Proves</span><button class="xlink" data-jump="d2">Agentic workflow design</button></div></div></div></article>
+
+      <article class="item" id="p-frontdoor"><button class="item-head" aria-expanded="false"><span class="lead"><svg class="ic"><use href="#i-inbox"/></svg></span><span class="it-main"><span class="it-title">Front Door Solutions — Enterprise Intake &amp; Prioritization</span><span class="it-role">Solution architecture · workflow</span><span class="it-hint">An ad-hoc process turned into an operated function.</span></span><span class="tail"><span class="chev">›</span></span></button><div class="item-body"><div class="ib-in"><p>Architected and deployed an enterprise intake-and-prioritization platform that streamlined request handling and introduced the analytics needed to manage demand and workload, turning an ad-hoc process into an operated function.</p><div class="links"><span class="lk-lab">Proves</span><button class="xlink" data-jump="d10">Enterprise integration</button></div></div></div></article>
+
+      <article class="item" id="p-enrichment"><button class="item-head" aria-expanded="false"><span class="lead"><svg class="ic"><use href="#i-loop"/></svg></span><span class="it-main"><span class="it-title">Enrichment — AI-news feed</span><span class="it-role">Personal · agentic curation</span><span class="it-hint">Searches AI news across sources and morphs it into a curated feed.</span></span><span class="tail"><span class="chev">›</span></span></button><div class="item-body"><div class="ib-in"><p>An agentic flow that searches for AI news across many sources and morphs it into a curated feed, so I stay current on a field that changes weekly without drowning in it.</p><div class="links"><span class="lk-lab">Proves</span><button class="xlink" data-jump="d2">Agentic workflow design</button></div></div></div></article>
+
+      <article class="item" id="p-event"><button class="item-head" aria-expanded="false"><span class="lead"><svg class="ic"><use href="#i-calendar"/></svg></span><span class="it-main"><span class="it-title">Event Resourcing Solution</span><span class="it-role">Process automation · reliability</span><span class="it-hint">50+ high-visibility events, zero failures.</span></span><span class="tail"><span class="chev">›</span></span></button><div class="item-body"><div class="ib-in"><p>Identified a recurring operational risk and directed an automated solution for executive-event technical coverage. It has supported <span class="metric">50-plus high-visibility events with zero failures</span>, replacing a known failure point in the prior manual model.</p><div class="links"><span class="lk-lab">Proves</span><button class="xlink" data-jump="d1">Reliability &amp; observability</button></div></div></div></article>
+    </div>
+    <p class="panel-back"><a class="mapback-lk" href="#map">&larr; Back to the map</a></p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>Capability statement · prepared for the AI Transformation &amp; Enablement group</span>
+    <span class="cta">Hover for a hint · click to dive in</span>
+  </div>
+</footer>
 
 <script>
 (function(){
-  var FULL = 'statement.html';
+  var root=document.documentElement; root.classList.add('js');
+
+  // render jump controls as real links so the printed PDF keeps them clickable
+  [].slice.call(document.querySelectorAll('[data-jump],[data-goto]')).forEach(function(b){
+    var a=document.createElement('a');
+    for(var i=0;i<b.attributes.length;i++){ var at=b.attributes[i]; if(at.name!=='type') a.setAttribute(at.name, at.value); }
+    a.innerHTML=b.innerHTML;
+    a.setAttribute('href', '#'+(b.hasAttribute('data-jump')? b.getAttribute('data-jump') : 'p-'+b.getAttribute('data-goto')));
+    b.parentNode.replaceChild(a,b);
+  });
+
+  // theme toggle
+  function systemDark(){ return window.matchMedia && window.matchMedia('(prefers-color-scheme:dark)').matches; }
+  function currentTheme(){ var e=root.getAttribute('data-theme'); return e || (systemDark()?'dark':'light'); }
+  var tbtn=document.getElementById('themeBtn');
+  if(tbtn){ tbtn.addEventListener('click', function(){
+    var next=currentTheme()==='dark'?'light':'dark';
+    root.setAttribute('data-theme', next);
+    try{ localStorage.setItem('capstmt-theme', next); }catch(e){}
+  }); }
+
+  var tabs=[].slice.call(document.querySelectorAll('.tab'));
+  var panels=[].slice.call(document.querySelectorAll('.panel'));
+  var TABS=/^(map|overview|adoption|disciplines|experience|projects)$/;
+  function show(name, focus, fromHistory){
+    // each tab has its own URL (#experience) so links can point at it and Back returns to the last tab
+    if(!fromHistory && location.hash!=='#'+name){ try{ history.pushState(null,'','#'+name); }catch(e){} }
+    tabs.forEach(function(t){ t.setAttribute('aria-selected', t.getAttribute('aria-controls')==='p-'+name?'true':'false'); });
+    panels.forEach(function(p){ p.classList.toggle('on', p.id==='p-'+name); });
+    if(focus){ var el=document.getElementById('p-'+name); if(el) el.focus({preventScroll:true}); }
+    window.scrollTo({top:0, behavior:'auto'});
+    if(name==='map') drawMap();
+  }
+  tabs.forEach(function(t,i){
+    t.addEventListener('click', function(){ show(t.getAttribute('aria-controls').slice(2)); });
+    t.addEventListener('keydown', function(e){
+      var n=null;
+      if(e.key==='ArrowRight') n=tabs[(i+1)%tabs.length];
+      if(e.key==='ArrowLeft')  n=tabs[(i-1+tabs.length)%tabs.length];
+      if(n){ e.preventDefault(); n.focus(); show(n.getAttribute('aria-controls').slice(2)); }
+    });
+  });
+  // ---- map: the landing graph; each bubble opens its tab ----
+  var drawMap=function(){};
+  (function(){
 
   // ---- nodes: one per tab; the sink is the Overview ----
   var N = {
@@ -275,11 +1082,13 @@
   function highlight(id){
     var up = id ? upstream(id) : null;
     svg.classList.toggle('dimmed', !!up);
-    svg.querySelectorAll('.node').forEach(function(g){ g.classList.toggle('hot', !!up && !!up[g.dataset.id]); });
-    svg.querySelectorAll('.edge').forEach(function(g){ g.classList.toggle('hot', !!up && !!up[g.dataset.f] && !!up[g.dataset.t]); });
+    svg.querySelectorAll('.node').forEach(function(g){ g.classList.toggle('lit', !!up && !!up[g.dataset.id]); });
+    svg.querySelectorAll('.edge').forEach(function(g){ g.classList.toggle('lit', !!up && !!up[g.dataset.f] && !!up[g.dataset.t]); });
   }
 
   function render(){
+    // SVG text can't be measured while its tab is hidden; draw once the Map tab is shown
+    if(!svg.getClientRects().length){ mode=null; return; }
     var m = window.matchMedia('(max-width:760px)').matches ? 'narrow' : 'wide';
     if(m===mode) return; mode=m;
     var lay=L[m];
@@ -312,7 +1121,7 @@
     Object.keys(N).forEach(function(id){
       var n=N[id], c=lay.pos[id];
       // each bubble is a real link to its tab in the full statement
-      var g=el('a',{class:'node'+(n.sink?' sink':''), href:FULL+'#'+id,
+      var g=el('a',{class:'node'+(n.sink?' sink':''), href:'#'+id,
         'aria-label':'Open '+(n.sink?'Overview':n.name)+' tab: '+n.tag},gNodes);
       g.dataset.id=id;
       el('circle',{class:'halo', cx:c[0], cy:c[1], r:n.r+12},g);
@@ -328,6 +1137,7 @@
       g.addEventListener('mouseleave', function(){ highlight(null); });
       g.addEventListener('focus', function(){ highlight(id); select(id); });
       g.addEventListener('blur', function(){ highlight(null); });
+      g.addEventListener('click', function(e){ e.preventDefault(); show(id); });
     });
     markSelected();
   }
@@ -349,26 +1159,92 @@
       '<div><div class="ix">'+n.ix+' · '+n.tag+'</div><h2>'+title+'</h2><p>'+n.lede+'</p>'+
       '<p class="flows">'+(ins.length?'<b>Fed by</b> '+names(ins):'<b>Starting point</b>')+
       (outs.length?' &nbsp;·&nbsp; <b>Flows into</b> '+names(outs):' &nbsp;·&nbsp; <b>Where everything lands</b>')+loops+'</p>'+
-      '<a class="open" href="'+FULL+'#'+tab+'">Open the '+(n.sink?'Overview':title)+' tab &rarr;</a></div>'+
+      '<a class="open" data-tab="'+tab+'" href="#'+tab+'">Open the '+(n.sink?'Overview':title)+' tab &rarr;</a></div>'+
       '<ul>'+n.items.map(function(s){return '<li>'+s+'</li>';}).join('')+'</ul>';
   }
 
-  // theme toggle shares the full statement's saved choice
-  var root=document.documentElement;
-  try{ var saved=localStorage.getItem('capstmt-theme'); if(saved) root.setAttribute('data-theme', saved); }catch(e){}
-  function currentTheme(){
-    var t=root.getAttribute('data-theme'); if(t) return t;
-    return window.matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';
-  }
-  document.getElementById('theme').addEventListener('click', function(){
-    var next=currentTheme()==='dark'?'light':'dark';
-    root.setAttribute('data-theme', next);
-    try{ localStorage.setItem('capstmt-theme', next); }catch(e){}
-  });
-
-  render(); select('overview');
+  detail.addEventListener('click', function(e){ var a=e.target.closest('a[data-tab]'); if(a){ e.preventDefault(); show(a.getAttribute('data-tab')); } });
+  drawMap=function(){ render(); select(selected); };
   window.addEventListener('resize', render);
   if(document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ mode=null; render(); });
+  })();
+  // deep links: page.html#experience opens that tab; Back/Forward move between tabs
+  var h0=location.hash.slice(1);
+  if(TABS.test(h0) && h0!=='map') show(h0, false, true); else drawMap();
+  window.addEventListener('popstate', function(){
+    var h=location.hash.slice(1);
+    if(!h || TABS.test(h)) show(h||'map', false, true);
+  });
+  document.querySelectorAll('a[href="#map"]').forEach(function(a){
+    a.addEventListener('click', function(e){ e.preventDefault(); show('map'); });
+  });
+  document.querySelectorAll('[data-goto]').forEach(function(b){
+    b.addEventListener('click', function(e){ e.preventDefault(); show(b.getAttribute('data-goto')); });
+  });
+  function openItem(item, open){
+    item.classList.toggle('open', open);
+    var head=item.querySelector('.item-head'); if(head) head.setAttribute('aria-expanded', open?'true':'false');
+  }
+  document.querySelectorAll('.item-head').forEach(function(h){
+    h.addEventListener('click', function(){ var item=h.closest('.item'); openItem(item, !item.classList.contains('open')); });
+  });
+
+  document.querySelectorAll('.expandall').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var scope=document.getElementById(btn.getAttribute('data-scope')); if(!scope) return;
+      var items=[].slice.call(scope.querySelectorAll('.item'));
+      var anyClosed=items.some(function(i){ return !i.classList.contains('open'); });
+      items.forEach(function(i){ openItem(i, anyClosed); });
+      btn.textContent=anyClosed?'Collapse all':'Expand all';
+      btn.setAttribute('aria-expanded', anyClosed?'true':'false');
+    });
+  });
+  function panelNameOf(el){ var p=el.closest('.panel'); return p? p.id.slice(2):null; }
+  function jumpTo(id){
+    var target=document.getElementById(id); if(!target) return;
+    show(panelNameOf(target));
+    if(target.classList.contains('item')) openItem(target, true);
+    document.querySelectorAll('.hot').forEach(function(i){ i.classList.remove('hot'); });
+    requestAnimationFrame(function(){
+      target.classList.add('hot');
+      target.scrollIntoView({behavior:'smooth', block:'center'});
+      setTimeout(function(){ target.classList.remove('hot'); }, 2200);
+    });
+  }
+  document.querySelectorAll('[data-jump]').forEach(function(x){
+    x.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); jumpTo(x.getAttribute('data-jump')); });
+  });
+
+  // coverage arrays: read each card's targets, render a fixed array (relevant on, rest grayed)
+  var EXP=[['ap-roots','Deep engineering roots'],['ap-current','Leading AI delivery'],['ap-modernize','Enterprise modernization'],['ap-strategy','Solution strategy']];
+  var PROJ=[['p-enable','Weekly AI Enablement'],['p-aids','AI Usage Aids'],['p-fabrica','Fabrica'],['p-agentic','Agentic Pipeline'],['p-brain','Dept Brain'],['p-compiler','Graph Compiler'],['p-sbd','Spec-Based Dev'],['p-sales','Sales Enablement'],['p-impact','Impact-Assessment'],['p-match','Resource Matching'],['p-frontdoor','Front Door'],['p-enrichment','Enrichment'],['p-event','Event Resourcing']];
+  function covRow(label, pool, active){
+    var row=document.createElement('div'); row.className='arr';
+    var lab=document.createElement('span'); lab.className='lk-lab'; lab.textContent=label; row.appendChild(lab);
+    pool.forEach(function(p){
+      var on=active.indexOf(p[0])>-1;
+      var el=document.createElement(on?'a':'span');
+      el.className='arr-chip'+(on?' on':' off'); el.textContent=p[1];
+      if(on){ el.href='#'+p[0]; el.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); jumpTo(p[0]); }); }
+      row.appendChild(el);
+    });
+    return row;
+  }
+  function idsIn(el){ return [].slice.call(el.querySelectorAll('.links [data-jump]')).map(function(b){ return b.getAttribute('data-jump'); }); }
+  document.querySelectorAll('#p-disciplines .item').forEach(function(item){
+    var body=item.querySelector('.ib-in'); if(!body) return;
+    var ids=idsIn(body);
+    var exps=ids.filter(function(x){ return x.indexOf('ap-')===0; });
+    var projs=ids.filter(function(x){ return x.indexOf('p-')===0; });
+    [].slice.call(body.querySelectorAll('.links')).forEach(function(l){ l.remove(); });
+    body.appendChild(covRow('Rooted in', EXP, exps));
+    body.appendChild(covRow('Evidenced in', PROJ, projs));
+  });
+  document.querySelectorAll('#p-experience .ap').forEach(function(ap){
+    var ids=idsIn(ap); if(!ids.length) return;
+    [].slice.call(ap.querySelectorAll('.links')).forEach(function(l){ l.remove(); });
+    ap.appendChild(covRow('Projects', PROJ, ids));
+  });
 })();
 </script>
 </body>
