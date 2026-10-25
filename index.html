@@ -131,6 +131,16 @@
 /* ---- graph ---- */
   #p-map .stage{margin:18px 0 0; background:color-mix(in srgb, var(--surface) 55%, transparent); border:1px solid var(--line); border-radius:18px; box-shadow:var(--card-shadow); padding:10px}
   #p-map svg.dag{display:block; width:100%; height:auto; overflow:visible}
+  #p-map .stage{position:relative}
+  #p-map .profile{max-width:880px; margin:14px 0 22px; padding:14px 18px; border-left:3px solid var(--accent);
+        background:color-mix(in srgb, var(--surface) 70%, transparent); border-radius:0 12px 12px 0}
+  #p-map .profile-k{margin:0 0 4px; font-family:var(--disp); font-size:11.5px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--accent-ink)}
+  #p-map .profile-t{margin:0; color:var(--ink); font-size:15.5px; line-height:1.55}
+  /* hover tip over a bubble: what that tab holds */
+  #p-map .bubtip{position:absolute; z-index:5; max-width:250px; padding:8px 12px; border-radius:9px; pointer-events:none;
+        background:var(--surface); color:var(--ink); border:1px solid var(--accent); box-shadow:var(--shadow);
+        font-size:13px; line-height:1.4; text-align:center; opacity:0; transform:translateY(4px); transition:opacity .15s, transform .15s}
+  #p-map .bubtip.on{opacity:1; transform:none}
 
   #p-map .edge path.base{fill:none; stroke:var(--line-strong); stroke-width:2.2; transition:stroke .25s, opacity .25s}
   #p-map .edge path.flow{fill:none; stroke:var(--accent); stroke-width:2.2; stroke-dasharray:3 13; stroke-linecap:round; opacity:.55; animation:flow 1.6s linear infinite; transition:opacity .25s}
@@ -179,8 +189,6 @@
   #p-map .open:hover{background:var(--accent-tint); text-decoration:none}
 
   #p-map .map-head{padding-top:40px}
-  #p-map .career-top{margin:22px 0 30px}
-  #p-map .career-top .tileset.edu-tiles{margin:20px 0 0}
   #p-map .stage{margin-top:6px}
   @media (max-width:760px){
     #p-map .detail{grid-template-columns:1fr; padding:18px 18px; gap:14px}
@@ -262,7 +270,6 @@
         border-color:var(--accent); background:var(--accent-tint); color:var(--accent-ink); transform:translateY(-2px); outline:none}
   .tile.deg{flex-direction:column; align-items:flex-start; justify-content:center; text-align:left; gap:2px;
         height:56px; font-family:var(--disp); font-weight:500; font-size:13.5px}
-  .tile.deg{height:auto; min-height:56px; padding-top:10px; padding-bottom:10px}  /* long degree names wrap on a phone */
   .tile.deg .sub{font-family:var(--sans); font-weight:400; font-size:12px; color:var(--ink-45)}
   .tile .tip{position:absolute; left:50%; bottom:calc(100% + 8px); width:min(260px,74vw); z-index:20;
         background:var(--surface); color:var(--ink-70); border:1px solid var(--line-strong); border-radius:9px;
@@ -592,50 +599,13 @@
   <div class="wrap map-head">
     <p class="eyebrow">Capability statement</p>
     <h1 class="h-sec">How My Career Leads to AI Transformation and Enablement</h1>
-    <div class="career-top">
-    <div class="tl" aria-label="Career timeline from 2000">
-      <div class="tl-cap">Career &middot; 2000 to now</div>
-      <div class="tl-bar">
-        <div class="tl-seg" style="flex:21"><span class="tl-yr">2000 – 2021</span><span class="tl-lab">Enterprise software transformation and outcome delivery</span></div>
-        <div class="tl-seg now" style="flex:5"><span class="tl-yr">AT&amp;T &middot; 2021 – now</span><span class="tl-lab">Transformation - DevOps, GigaPower, TDP</span></div>
-      </div>
-    </div>
-    <div class="tl" aria-label="Current roles timeline">
-      <div class="tl-cap">Current roles &middot; May 2021 to now</div>
-      <div class="tl-bar">
-        <div class="tl-seg role" style="flex:10"><span class="tl-role">Senior Software Engineer</span><span class="tl-dates">May 2021 – Mar 2022</span></div>
-        <div class="tl-seg role" style="flex:12"><span class="tl-role">Principal Systems Engineer</span><span class="tl-dates">Mar 2022 – Mar 2023</span></div>
-        <div class="tl-seg role now" style="flex:42"><span class="tl-role">Associate Director</span><span class="tl-dates">Mar 2023 – now</span></div>
-      </div>
-    </div>
-    <div class="tileset edu-tiles">
-    <div>
-      <span class="tilecap">Education</span>
-      <div class="tiles two">
-        <div class="tile deg">M.S., Software Systems Engineering<span class="sub">George Mason University</span></div>
-        <div class="tile deg">B.A., Computer Science<span class="sub">University of California, San Diego</span></div>
-      </div>
-    </div>
-    <div>
-      <span class="tilecap">Certifications</span>
-      <div class="tiles three">
-        <div class="tile">Certified SAFe Agilist</div>
-        <div class="tile">Microsoft Azure Fundamentals</div>
-        <div class="tile">Engineering Leadership (eCornell)</div>
-      </div>
-    </div>
-    <div>
-      <span class="tilecap">Training</span>
-      <div class="tiles three">
-        <span class="tile tap" tabindex="0">Decker Communications<span class="tip">Decker Communications. High-stakes communication and executive presence: how to deliver a message that lands and moves a room.</span></span>
-        <span class="tile tap" tabindex="0">Solution Selling<span class="tip">A consultative sales method: diagnose the buyer's real problem, then map the solution to it. Value over features.</span></span>
-        <span class="tile tap" tabindex="0">Think! Inc. Negotiation<span class="tip">Negotiation training. Interests over positions, planned trades, and protecting the relationship while you close.</span></span>
-      </div>
-    </div>
-    </div>
+    <div class="profile">
+      <p class="profile-k">Profile</p>
+      <p class="profile-t">Transformation and engineering leader with 25+ years of getting enterprises to adopt new ways of working, and measuring whether the change sticks. I lead a 25-person engineering practice across generative AI, agentic workflows, and cloud, landing 90%+ of projects on time and on budget, and I stay hands-on: I design and code agentic systems, harnesses, evals, and RAG. I bring the operating model and the engineering underneath it, so AI adoption is planned, measured, and managed to a goal.</p>
     </div>
     <p class="sec-lead">Each bubble is a section of this statement. Follow the arrows from where the work started to where it lands. Hover over a bubble to see what it carries; click it to open that section.</p>
     <div class="stage">
+      <div class="bubtip" id="bubtip" role="tooltip" aria-hidden="true"></div>
       <svg class="dag" id="dag" role="group" aria-label="Directed graph: Overview flows into Experience and Disciplines; Experience flows into Disciplines, Adoption, and the goal; Disciplines into Projects and Adoption; Projects into Adoption and the goal, and back into Experience as lessons learned; Adoption into the goal, AI Transformation and Enablement."></svg>
     </div>
     <div class="detail" id="detail" aria-live="polite"></div>
@@ -810,6 +780,47 @@
     <p class="eyebrow">Experience</p>
     <h2 class="h-sec">How my experience applies to AI transformation</h2>
     <p class="sec-lead">Twenty-five years of enterprise delivery, mapped to AI transformation.</p>
+
+    <div class="tl" aria-label="Career timeline from 2000">
+      <div class="tl-cap">Career &middot; 2000 to now</div>
+      <div class="tl-bar">
+        <div class="tl-seg" style="flex:21"><span class="tl-yr">2000 – 2021</span><span class="tl-lab">Enterprise software transformation and outcome delivery</span></div>
+        <div class="tl-seg now" style="flex:5"><span class="tl-yr">AT&amp;T &middot; 2021 – now</span><span class="tl-lab">Transformation - DevOps, GigaPower, TDP</span></div>
+      </div>
+    </div>
+    <div class="tl" aria-label="Current roles timeline">
+      <div class="tl-cap">Current roles &middot; May 2021 to now</div>
+      <div class="tl-bar">
+        <div class="tl-seg role" style="flex:10"><span class="tl-role">Senior Software Engineer</span><span class="tl-dates">May 2021 – Mar 2022</span></div>
+        <div class="tl-seg role" style="flex:12"><span class="tl-role">Principal Systems Engineer</span><span class="tl-dates">Mar 2022 – Mar 2023</span></div>
+        <div class="tl-seg role now" style="flex:42"><span class="tl-role">Associate Director</span><span class="tl-dates">Mar 2023 – now</span></div>
+      </div>
+    </div>
+    <div class="tileset edu-tiles">
+    <div>
+      <span class="tilecap">Education</span>
+      <div class="tiles two">
+        <div class="tile deg">M.S., Software Systems Engineering<span class="sub">George Mason University</span></div>
+        <div class="tile deg">B.A., Computer Science<span class="sub">University of California, San Diego</span></div>
+      </div>
+    </div>
+    <div>
+      <span class="tilecap">Certifications</span>
+      <div class="tiles three">
+        <div class="tile">Certified SAFe Agilist</div>
+        <div class="tile">Microsoft Azure Fundamentals</div>
+        <div class="tile">Engineering Leadership (eCornell)</div>
+      </div>
+    </div>
+    <div>
+      <span class="tilecap">Training</span>
+      <div class="tiles three">
+        <span class="tile tap" tabindex="0">Decker Communications<span class="tip">Decker Communications. High-stakes communication and executive presence: how to deliver a message that lands and moves a room.</span></span>
+        <span class="tile tap" tabindex="0">Solution Selling<span class="tip">A consultative sales method: diagnose the buyer's real problem, then map the solution to it. Value over features.</span></span>
+        <span class="tile tap" tabindex="0">Think! Inc. Negotiation<span class="tip">Negotiation training. Interests over positions, planned trades, and protecting the relationship while you close.</span></span>
+      </div>
+    </div>
+    </div>
 
     <div class="apply">
       <div class="ap wide" id="ap-current">
@@ -1006,7 +1017,7 @@
 
   // ---- nodes: one per tab; Overview is the source, AI Transformation the sink ----
   var N = {
-    experience:{ ix:'04', name:'Experience', tag:'where it started', r:72,
+    experience:{ ix:'04', tip:'How 25 years of delivery apply to AI: timelines, education, certifications, training.', name:'Experience', tag:'where it started', r:72,
       lede:'A 25-year career getting organizations to adopt new ways of working, and measuring whether the change stuck.',
       items:[
         '<b>2000 – 2021</b> · Enterprise software transformation and outcome delivery',
@@ -1014,7 +1025,7 @@
         '<b>Today</b> · Associate Director, leading 25 engineers',
         '<b>90%+</b> of projects delivered on time and on budget'
       ]},
-    disciplines:{ ix:'03', name:'Disciplines', tag:'the craft', r:72,
+    disciplines:{ ix:'03', tip:'Seven applied-AI disciplines, ranked, each rooted in experience and proven by a project.', name:'Disciplines', tag:'the craft', r:72,
       lede:'Seven applied-AI disciplines, built on deep engineering roots.',
       items:[
         'Reliability, looping &amp; observability',
@@ -1025,7 +1036,7 @@
         'Spec-driven development',
         'Enterprise integration'
       ]},
-    projects:{ ix:'05', name:'Projects', tag:'the proof', r:72,
+    projects:{ ix:'05', tip:'Thirteen projects behind the disciplines, ordered by relevance to AI transformation.', name:'Projects', tag:'the proof', r:72,
       lede:'Systems that were built and run, not just planned. Each one proves a discipline.',
       items:[
         '<b>Weekly AI Enablement Program</b> · enablement as an operating rhythm',
@@ -1035,7 +1046,7 @@
         '<b>Sales-Enablement Platform</b> · $1M+ recurring benefit',
         '<b>Impact-Assessment Program</b> · 500+ consultants, 100% response'
       ]},
-    adoption:{ ix:'02', name:'Adoption', tag:'the operating model', r:72,
+    adoption:{ ix:'02', tip:'How I would scale AI adoption: the operating model, key decisions, and how to measure it.', name:'Adoption', tag:'the operating model', r:72,
       lede:'Adoption at scale is an operating-model problem, not a tools problem.',
       items:[
         '<b>Central AI team ⇄ champions ⇄ teams</b> · direction, carry-in, daily use',
@@ -1043,7 +1054,7 @@
         '<b>Measure</b> · use cases in daily use, not licenses issued',
         '<b>Already started</b> · a team-level version runs in a 25-person practice'
       ]},
-    overview:{ ix:'01', name:'Overview', tag:'the short version', r:72,
+    overview:{ ix:'01', tip:'The short version: headline, key numbers, what I work across, and roles held.', name:'Overview', tag:'the short version', r:72,
       lede:'Transformation and enablement, measured and managed to the goal.',
       items:[
         '<b>25+ yrs</b> · enterprise transformation &amp; engineering leadership',
@@ -1051,7 +1062,7 @@
         '<b>Hands-on</b> · designs and codes agentic systems, harnesses, evals, and RAG',
         '<b>Roles held</b> · engineer, consultant, architect, sales, practice owner, mentor'
       ]},
-    transformation:{ ix:'06', name:['AI Transformation','& Enablement'], tag:'the goal', r:100, sink:true, tabLabel:'AI Transformation',
+    transformation:{ ix:'06', tip:'The 11 needs of an enterprise AI program, each matched to what I bring.', name:['AI Transformation','& Enablement'], tag:'the goal', r:100, sink:true, tabLabel:'AI Transformation',
       lede:'What an enterprise AI program needs, matched need by need to what this career brings.',
       items:[
         '<b>Technical &amp; engineering</b> · reliable output, agentic workflows, grounded answers, cost control, proven quality, AI inside real operations',
@@ -1176,11 +1187,11 @@
       var tg=el('text',{class:'tg', x:c[0], y:top+6+(lines.length-1)*22+22, 'text-anchor':'middle'},g); tg.textContent=n.tag;
 
       // hover or focus previews the bubble in the panel; click follows the link
-      g.addEventListener('mouseenter', function(){ highlight(id); select(id); });
-      g.addEventListener('mouseleave', function(){ highlight(null); });
-      g.addEventListener('focus', function(){ highlight(id); select(id); });
-      g.addEventListener('blur', function(){ highlight(null); });
-      g.addEventListener('click', function(e){ e.preventDefault(); show(id); });
+      g.addEventListener('mouseenter', function(){ highlight(id); select(id); tipOn(id, g); });
+      g.addEventListener('mouseleave', function(){ highlight(null); tipOff(); });
+      g.addEventListener('focus', function(){ highlight(id); select(id); tipOn(id, g); });
+      g.addEventListener('blur', function(){ highlight(null); tipOff(); });
+      g.addEventListener('click', function(e){ e.preventDefault(); tipOff(); show(id); });
     });
     markSelected();
   }
@@ -1189,6 +1200,18 @@
   function markSelected(){
     svg.querySelectorAll('.node').forEach(function(g){ g.classList.toggle('sel', g.dataset.id===selected); });
   }
+  // the tip sits just above the bubble (below it if there is no room), kept inside the stage
+  var tip=document.getElementById('bubtip');
+  function tipOn(id, g){
+    tip.textContent=N[id].tip;
+    var st=tip.parentNode.getBoundingClientRect(), b=g.querySelector('circle.body').getBoundingClientRect();
+    var w=tip.offsetWidth, h=tip.offsetHeight;
+    var x=b.left-st.left+b.width/2-w/2, y=b.top-st.top-h-8;
+    if(y<4) y=b.bottom-st.top+8;
+    tip.style.left=Math.max(4, Math.min(st.width-w-4, x))+'px'; tip.style.top=y+'px';
+    tip.classList.add('on');
+  }
+  function tipOff(){ tip.classList.remove('on'); }
   function select(id){
     selected=id; markSelected();
     var n=N[id], title=Array.isArray(n.name)?n.name.join(' '):n.name;
