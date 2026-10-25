@@ -178,6 +178,11 @@
   #p-map svg.dag{display:block; width:100%; height:auto; overflow:visible}
   #p-map .stage{position:relative}
   /* ---------- profile hero: the first thing a reader sees ---------- */
+  #p-map .map-h1{font-size:clamp(1.8rem,4.2vw,2.9rem); font-weight:600; line-height:1.12; letter-spacing:-.015em; margin-bottom:6px}
+  #p-map .map-h1 span{white-space:nowrap}
+  @media(max-width:420px){ #p-map .map-h1{font-size:1.55rem} }
+  @media(max-width:359px){ #p-map .map-h1{font-size:1.3rem} }
+  #p-map .map-h1 .ac{background:linear-gradient(90deg, var(--accent), var(--rose)); -webkit-background-clip:text; background-clip:text; color:transparent}
   #p-map .profile{position:relative; display:grid; grid-template-columns:minmax(0,1fr) 300px; gap:28px; align-items:center;
         margin:16px 0 26px; padding:26px 28px; border-radius:18px; overflow:hidden;
         background:
@@ -696,11 +701,11 @@
 <section class="panel on" id="p-map" role="tabpanel" aria-labelledby="t-map" tabindex="0">
   <div class="wrap map-head">
     <p class="eyebrow">Capability statement</p>
-    <h1 class="h-sec">How My Career Leads to AI Transformation and Enablement</h1>
+    <h1 class="h-sec map-h1"><span>Business Leader.</span> <span class="ac">Hands-On AI.</span> <span>Enablement That Sticks.</span></h1>
     <div class="profile">
       <div class="pf-text">
         <p class="profile-k"><span class="pf-dot"></span>Profile</p>
-        <p class="profile-t"><span class="pf-first">Transformation and engineering leader with <em>25+ years</em> of getting enterprises to adopt new ways of working, and measuring whether the change sticks.</span> I&rsquo;m a technologist-leader currently managing a 25-person engineering practice across generative AI, agentic workflows, and cloud, and I stay hands-on: I design and code agentic systems, harnesses, evals, and RAG. I bring the operating model and the engineering underneath it, so AI adoption is planned, measured, and managed to a goal. <strong class="pf-close">I&rsquo;m a creative problem solver who delivers high-value business outcomes.</strong></p>
+        <p class="profile-t"><span class="pf-first">Transformation and engineering leader with <em>25+ years</em> of getting enterprises to adopt new ways of working, and measuring whether the change sticks.</span> A technologist-leader currently managing a 25-person engineering practice across generative AI, agentic workflows, and cloud, and still hands-on: designing and coding agentic systems, harnesses, evals, and RAG. Pairs the operating model with the engineering underneath it, so AI adoption is planned, measured, and managed to a goal. <strong class="pf-close">A creative problem solver who delivers high-value business outcomes.</strong></p>
         <div class="pf-chips">
           <span class="pf-chip"><b>25+</b> years leading transformation</span>
           <span class="pf-chip"><b>25</b> engineers led today</span>
@@ -728,10 +733,10 @@
     <div class="stage">
       <div class="bubtip" id="bubtip" role="tooltip" aria-hidden="true"></div>
       <svg class="dag" id="dag" role="group" aria-label="Directed graph: Overview flows into Experience and Disciplines; Experience flows into Disciplines, Adoption, and the goal; Disciplines into Projects and Adoption; Projects into Adoption and the goal, and back into Experience as lessons learned; Adoption into the goal, AI Transformation and Enablement."></svg>
-      <button class="refblock" data-goto="architecture" title="How I approach AI architecture: six domains, a worked design, and the questions I expect.">
+      <button class="refblock" data-goto="architecture" title="An approach to AI architecture: six domains, a worked design, and the questions to expect.">
         <span class="rb-ix">07 &middot; reference</span>
         <span class="rb-t">AI Architecture</span>
-        <span class="rb-d">How I approach it: six domains, a worked design, the claims I push back on, and my first 90 days. Not part of the flow; the toolkit behind it.</span>
+        <span class="rb-d">The approach: six domains, a worked design, claims worth challenging, and a first-90-days plan. Not part of the flow; the toolkit behind it.</span>
         <span class="rb-go">Open &rarr;</span>
       </button>
     </div>
@@ -1275,7 +1280,7 @@
         '<b>Sales-Enablement Platform</b> · $1M+ recurring benefit',
         '<b>Impact-Assessment Program</b> · 500+ consultants, 100% response'
       ]},
-    adoption:{ ix:'02', tip:'How I would scale AI adoption: the operating model, key decisions, and how to measure it.', name:'Adoption', tag:'the operating model', r:72,
+    adoption:{ ix:'02', tip:'How to scale AI adoption: the operating model, key decisions, and how to measure it.', name:'Adoption', tag:'the operating model', r:72,
       lede:'Adoption at scale is an operating-model problem, not a tools problem.',
       items:[
         '<b>Central AI team ⇄ champions ⇄ teams</b> · direction, carry-in, daily use',
@@ -1283,7 +1288,7 @@
         '<b>Measure</b> · use cases in daily use, not licenses issued',
         '<b>Already started</b> · a team-level version runs in a 25-person practice'
       ]},
-    overview:{ ix:'01', tip:'The short version: headline, key numbers, what I work across, and roles held.', name:'Overview', tag:'the short version', r:72,
+    overview:{ ix:'01', tip:'The short version: headline, key numbers, areas of work, and roles held.', name:'Overview', tag:'the short version', r:72,
       lede:'Transformation and enablement, measured and managed to the goal.',
       items:[
         '<b>25+ yrs</b> · enterprise transformation &amp; engineering leadership',
@@ -1291,7 +1296,7 @@
         '<b>Hands-on</b> · designs and codes agentic systems, harnesses, evals, and RAG',
         '<b>Roles held</b> · engineer, consultant, architect, sales, practice owner, mentor'
       ]},
-    transformation:{ ix:'06', tip:'The 11 needs of an enterprise AI program, each matched to what I bring.', name:['AI Transformation','& Enablement'], tag:'the goal', r:100, sink:true, tabLabel:'AI Transformation',
+    transformation:{ ix:'06', tip:'The 11 needs of an enterprise AI program, each matched to the experience that covers it.', name:['AI Transformation','& Enablement'], tag:'the goal', r:100, sink:true, tabLabel:'AI Transformation',
       lede:'What an enterprise AI program needs, matched need by need to what this career brings.',
       items:[
         '<b>Technical &amp; engineering</b> · reliable output, agentic workflows, grounded answers, cost control, proven quality, AI inside real operations',
