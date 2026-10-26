@@ -103,7 +103,7 @@
   @keyframes ping{0%{transform:scale(.6);opacity:.6}70%,100%{transform:scale(1.7);opacity:0}}
   .tabs{display:flex; gap:2px}
   .tab{white-space:nowrap; font-family:var(--sans); font-size:14px; color:var(--ink-70); background:none; border:0;
-       padding:8px 9px; border-radius:7px; cursor:pointer; line-height:1;
+       padding:8px 8px; border-radius:7px; cursor:pointer; line-height:1;
        display:inline-flex; align-items:center; gap:6px; transition:background .18s, color .18s}
   .tab .ix{font-family:var(--disp); font-size:11.5px; color:var(--ink-45); font-variant-numeric:tabular-nums}
   .tab:hover{background:var(--surface); color:var(--ink)}
@@ -121,7 +121,7 @@
     :root:not([data-theme="light"]) .theme-btn .i-sun{display:block}
     :root:not([data-theme="light"]) .theme-btn .i-moon{display:none}
   }
-  @media(max-width:1260px){
+  @media(max-width:1540px){
     .bar-in{height:auto; flex-wrap:wrap; padding:10px 20px; gap:12px}
     .ident{width:100%; margin:0}
     .tabs{flex:1; overflow-x:auto; -webkit-overflow-scrolling:touch}
@@ -138,6 +138,21 @@
   #p-map .refblock .rb-go{grid-row:1/3; grid-column:3; font-size:13.5px; font-weight:600; color:var(--accent-ink); white-space:nowrap}
   @media(max-width:560px){ #p-map .refblock{grid-template-columns:1fr} #p-map .refblock .rb-ix, #p-map .refblock .rb-go{grid-row:auto; grid-column:1} #p-map .refblock .rb-d{grid-column:1} }
 
+  /* ---------- AI taxonomy tab: the live map in a framed card ---------- */
+  .tax-facts{display:flex; flex-wrap:wrap; gap:8px; margin:0 0 18px}
+  .tax-facts .pf-chip{display:inline-flex; align-items:baseline; gap:6px; padding:6px 12px; border-radius:999px; font-size:12.5px; color:var(--ink-70);
+        background:var(--surface); border:1px solid var(--line-strong)}
+  .tax-facts .pf-chip b{font-family:var(--disp); font-weight:600; color:var(--ink)}
+  .tax-why{max-width:880px; margin:0 0 22px; padding:12px 16px; border-left:3px solid var(--rose); background:var(--surface); border-radius:0 12px 12px 0; line-height:1.55; color:var(--ink-70)}
+  .tax-frame{border:1px solid var(--line-strong); border-radius:14px; overflow:hidden; background:var(--surface); box-shadow:var(--card-shadow)}
+  .tax-bar{display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:6px 16px; padding:10px 14px;
+        border-bottom:1px solid var(--line); background:linear-gradient(90deg, var(--accent-tint), transparent)}
+  .tax-hint{font-size:13px; color:var(--ink-70)}
+  .tax-open{font-size:13.5px; font-weight:600; color:var(--accent-ink); text-decoration:none; white-space:nowrap}
+  .tax-open:hover{text-decoration:underline}
+  #taxFrame{display:block; width:100%; height:min(78vh, 760px); min-height:460px; border:0; background:var(--surface-2)}
+  .tax-print{display:none; margin:0; padding:14px; color:var(--ink-70)}
+  @media print{ #taxFrame, .tax-bar{display:none} .tax-print{display:block} }
   /* ---------- AI architecture tab ---------- */
   .arch-thesis{max-width:880px; margin:0 0 30px; padding:14px 18px; border-left:3px solid var(--accent); background:var(--surface); border-radius:0 12px 12px 0}
   .arch-thesis p{margin:0; line-height:1.6}
@@ -718,6 +733,7 @@
       <button class="tab" role="tab" id="t-projects"    aria-controls="p-projects"    aria-selected="false"><span class="ix">05</span>Projects</button>
       <button class="tab" role="tab" id="t-transformation" aria-controls="p-transformation" aria-selected="false"><span class="ix">06</span>AI Transformation</button>
       <button class="tab" role="tab" id="t-architecture" aria-controls="p-architecture" aria-selected="false"><span class="ix">07</span>AI Architecture</button>
+      <button class="tab" role="tab" id="t-taxonomy" aria-controls="p-taxonomy" aria-selected="false"><span class="ix">08</span>AI Taxonomy</button>
     </nav>
     <button class="theme-btn" id="themeBtn" type="button" aria-label="Toggle light or dark theme" title="Toggle theme">
       <svg class="ic i-moon"><use href="#i-moon"/></svg><svg class="ic i-sun"><use href="#i-sun"/></svg>
@@ -765,6 +781,12 @@
         <span class="rb-ix">07 &middot; reference</span>
         <span class="rb-t">AI Architecture</span>
         <span class="rb-d">The approach: six domains, a worked design, claims worth challenging, and a first-90-days plan. Not part of the flow; the toolkit behind it.</span>
+        <span class="rb-go">Open &rarr;</span>
+      </button>
+      <button class="refblock" data-goto="taxonomy" title="A living, interactive map of the AI tool landscape and the models behind it.">
+        <span class="rb-ix">08 &middot; reference</span>
+        <span class="rb-t">AI Taxonomy</span>
+        <span class="rb-d">A living map of the AI tool landscape: coding agents, chat, video, audio, app builders, model routers, and the models behind them. Kept current; reviewed October 2026.</span>
         <span class="rb-go">Open &rarr;</span>
       </button>
     </div>
@@ -1221,6 +1243,30 @@
 
 
 
+<!-- ============ AI TAXONOMY (reference: the live landscape map, embedded, not copied) ============ -->
+<section class="panel" id="p-taxonomy" role="tabpanel" aria-labelledby="t-taxonomy" tabindex="0">
+  <div class="wrap" style="padding-top:44px">
+    <p class="eyebrow">Reference &middot; AI landscape</p>
+    <h2 class="h-sec">AI Taxonomy: the tool landscape, mapped</h2>
+    <p class="sec-lead">A living map of the AI tool landscape, kept current as part of staying on top of a field that changes every week. It covers coding agents and AI-native editors, chat assistants, video, audio and voice, app builders, and model routers, along with the models underneath them and which tools run which models.</p>
+    <div class="tax-facts">
+      <span class="pf-chip"><b>160</b> tools, models &amp; categories</span>
+      <span class="pf-chip"><b>155</b> mapped relationships</span>
+      <span class="pf-chip"><b>Reviewed</b> October 2026</span>
+    </div>
+    <p class="tax-why"><span class="arch-k">Why it is here</span>Choosing AI tools and models is now a recurring decision, not a one-time one: vendors merge, models are deprecated, plans change. This map is how that decision stays informed.</p>
+    <div class="tax-frame">
+      <div class="tax-bar">
+        <span class="tax-hint">Click a bubble to drill in; the breadcrumb steps back out; the legend names each kind of link.</span>
+        <a class="tax-open" id="taxOpen" href="#taxonomy" target="_blank" rel="noopener">Open full screen &rarr;</a>
+      </div>
+      <iframe id="taxFrame" title="AI Taxonomy: interactive map of AI tools and models" loading="lazy"></iframe>
+      <p class="tax-print">Interactive map: open the AI Taxonomy tab of the online version to explore it.</p>
+    </div>
+    <p class="panel-back"><a class="mapback-lk" href="#map">&larr; Back to the map</a></p>
+  </div>
+</section>
+
 <footer>
   <div class="wrap">
     <span>Capability statement · prepared for the AI Transformation &amp; Enablement group</span>
@@ -1253,7 +1299,7 @@
 
   var tabs=[].slice.call(document.querySelectorAll('.tab'));
   var panels=[].slice.call(document.querySelectorAll('.panel'));
-  var TABS=/^(map|overview|adoption|disciplines|experience|projects|transformation|architecture)$/;
+  var TABS=/^(map|overview|adoption|disciplines|experience|projects|transformation|architecture|taxonomy)$/;
   function show(name, focus, fromHistory){
     // each tab has its own URL (#experience) so links can point at it and Back returns to the last tab
     if(!fromHistory && location.hash!=='#'+name){ try{ history.pushState(null,'','#'+name); }catch(e){} }
@@ -1264,6 +1310,7 @@
     var at=document.getElementById('t-'+name); if(at && at.scrollIntoView) at.scrollIntoView({block:'nearest', inline:'nearest'});
     window.scrollTo({top:0, behavior:'auto'});
     if(name==='map') drawMap();
+    if(name==='taxonomy') loadTaxonomy();
   }
   tabs.forEach(function(t,i){
     t.addEventListener('click', function(){ show(t.getAttribute('aria-controls').slice(2)); });
@@ -1274,6 +1321,40 @@
       if(n){ e.preventDefault(); n.focus(); show(n.getAttribute('aria-controls').slice(2)); }
     });
   });
+
+  // ---- AI taxonomy: embed the live taxonomy site (same origin on Pages) and dress it in this page's theme ----
+  // the address is worked out at runtime so no account handle is written into this file
+  var TAX_URL = /^https?:$/.test(location.protocol) ? location.origin + '/ai-taxonomy/' : '../../ai-taxonomy/site/index.html';
+  var taxFrame = document.getElementById('taxFrame'), taxOpen = document.getElementById('taxOpen');
+  if(taxOpen) taxOpen.href = TAX_URL;
+  var TAX_CSS = [
+    'html:root[data-theme="light"]{--bg:#E1E5EC;--surface:#EDEFF3;--surface-2:#D8DDE6;--fg:#14213A;--muted:#4E5A6E;--border:#B8BFCB;',
+    '--accent:#2A5C9A;--focus:#2A5C9A;--halo:rgba(42,92,154,.16);--edge:#8E9BAF;--label-halo:#E1E5EC;--shadow:0 14px 34px -22px rgba(20,33,58,.55)}',
+    'html:root[data-theme="dark"]{--bg:#111827;--surface:#22304A;--surface-2:#1A253A;--fg:#F1F5F8;--muted:#98A8B2;--border:#34445F;',
+    '--accent:#7EAEEB;--focus:#7EAEEB;--halo:rgba(126,174,235,.22);--edge:#7D8FAE;--label-halo:#111827;--shadow:0 18px 40px -22px rgba(0,0,0,.7)}',
+    'body{font-family:"IBM Plex Sans",-apple-system,"Segoe UI",Roboto,sans-serif}',
+    'header h1,#panel .top h2,#legend summary{font-family:"Space Grotesk","IBM Plex Sans",sans-serif}'
+  ].join('');
+  function themeTaxonomy(){
+    try{
+      var d = taxFrame && taxFrame.contentDocument; if(!d || !d.documentElement) return;
+      d.documentElement.setAttribute('data-theme', currentTheme());
+      if(!d.getElementById('capstmt-skin')){
+        var f = d.createElement('link'); f.rel = 'stylesheet';
+        f.href = 'https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap';
+        d.head.appendChild(f);
+        var st = d.createElement('style'); st.id = 'capstmt-skin'; st.textContent = TAX_CSS; d.head.appendChild(st);
+        // on a narrow screen the open legend would cover the whole map, so start it folded
+        var lg = d.getElementById('legend'); if(lg && taxFrame.clientWidth < 700 && 'open' in lg) lg.open = false;
+      }
+    }catch(e){ /* different origin (local file): the map keeps its own light/dark styling */ }
+  }
+  function loadTaxonomy(){
+    if(!taxFrame || taxFrame.getAttribute('src')) return;
+    taxFrame.addEventListener('load', themeTaxonomy);
+    taxFrame.setAttribute('src', TAX_URL);
+  }
+  if(tbtn) tbtn.addEventListener('click', function(){ setTimeout(themeTaxonomy, 0); });
   // ---- map: the landing graph; each bubble opens its tab ----
   var drawMap=function(){};
   (function(){
@@ -1607,6 +1688,7 @@
     ["deal[- ]velocity", "Deal velocity", "How fast deals move from first contact to a signed close."],
     ["skill files?", "Skill file", "A packaged, reusable instruction set an AI agent loads to do one kind of task the same way every time."],
     ["champions?", "Champion", "A person inside a business team, one step ahead in AI, who helps peers adopt it in their real work and feeds use cases and gaps back to the central AI team."],
+    ["model routers?", "Model router", "A service that sends each request to a suitable model (by cost, speed, or capability) through one interface, so an application is not locked to one vendor."],
     ["AI coding agents?", "AI coding agent", "An AI tool that writes, runs, and fixes code over many steps on its own, with a person directing it and checking the result."]
   ];
   // all-caps terms match case-sensitively so ordinary words never trigger them
