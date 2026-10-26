@@ -243,6 +243,17 @@
         background:var(--surface); color:var(--ink); border:1px solid var(--accent); box-shadow:var(--shadow);
         font-size:13px; line-height:1.4; text-align:center; opacity:0; transform:translateY(4px); transition:opacity .15s, transform .15s}
   #p-map .bubtip.on{opacity:1; transform:none}
+  /* glossary: lesser-known terms get a dotted underline and a hover / focus / tap definition */
+  .gl{text-decoration:underline dotted; text-decoration-color:color-mix(in srgb, var(--accent) 70%, transparent);
+        text-decoration-thickness:1.5px; text-underline-offset:3px; cursor:help}
+  .gl:focus-visible{outline:2px solid var(--accent); outline-offset:2px; border-radius:3px}
+  .gltip{position:fixed; z-index:60; max-width:min(320px, calc(100vw - 32px)); padding:10px 13px; border-radius:10px; pointer-events:none;
+        background:var(--surface); color:var(--ink-70); border:1px solid var(--accent); box-shadow:var(--shadow);
+        font-family:var(--sans); font-size:13px; font-weight:400; line-height:1.45; text-align:left; letter-spacing:0; text-transform:none;
+        opacity:0; transform:translateY(4px); transition:opacity .15s, transform .15s}
+  .gltip.on{opacity:1; transform:none}
+  .gltip b{display:block; margin:0 0 3px; font-family:var(--disp); font-weight:600; font-size:13.5px; color:var(--ink)}
+  @media print{ .gl{text-decoration:none} .gltip{display:none} }
 
   #p-map .edge path.base{fill:none; stroke:var(--line-strong); stroke-width:2.2; transition:stroke .25s, opacity .25s}
   #p-map .edge path.flow{fill:none; stroke:var(--accent); stroke-width:2.2; stroke-dasharray:3 13; stroke-linecap:round; opacity:.55; animation:flow 1.6s linear infinite; transition:opacity .25s}
@@ -1565,6 +1576,99 @@
     [].slice.call(ap.querySelectorAll('.links')).forEach(function(l){ l.remove(); });
     ap.appendChild(covRow('Projects', PROJ, ids));
   });
+
+  // glossary: the first use of each lesser-known term on each tab gets a definition on hover, focus or tap
+  var GLOSS=[
+    ["operating-model problem|operating model|operating-model", "Operating model", "How an organization runs AI beyond the tools: who decides and owns the use cases, how they are funded and prioritized, how risk and compliance get approved, which roles and skills support them, how the work itself changes, and how usage and value are measured. Get these right and adoption spreads; skip them and pilots stall."],
+    ["agentic workflows?|agentic systems|agentic", "Agentic", "AI that works through a task in steps toward a goal, using tools and making decisions between steps, rather than answering one prompt. Here it always runs inside engineered control flow, with gates and stopping rules."],
+    ["harnesses|harness", "Harness", "The code wrapped around an AI model that runs it: it feeds in context, calls tools, checks the output, and decides whether to retry, escalate, or stop. The model is one part; the harness makes it dependable."],
+    ["evals", "Evals", "Evaluations: repeatable tests that score an AI system against known cases, so quality is measured rather than eyeballed and a regression is caught before release."],
+    ["evaluation gates?|eval gates?", "Evaluation gate", "A checkpoint in a pipeline that blocks the next step unless the output passes an automated quality test."],
+    ["RAG", "RAG", "Retrieval-augmented generation: the system first looks up relevant passages in trusted documents, then has the model answer from them, with citations, instead of from memory alone."],
+    ["HITL", "HITL", "Human in the loop: a person reviews or approves at defined points before the AI's work takes effect."],
+    ["context engineering", "Context engineering", "Deciding exactly what information goes into the model's limited working memory (its context window) at each step, and in what order. It drives both accuracy and cost."],
+    ["token[- ]efficiency|token efficient", "Token efficiency", "Models read and bill text in tokens (pieces of words). Token efficiency means getting the same result with less text in and out: lower cost, faster runs, and often better accuracy."],
+    ["value-stream|value stream", "Value stream", "Every step from a request to delivered value. Value-stream work maps those steps to find the delays and waste worth removing."],
+    ["spec-driven development|spec-driven|spec-based development", "Spec-driven development", "Writing precise, testable specifications first and directing AI coding agents from them, with each requirement tied to a test that proves it."],
+    ["fail-closed", "Fail-closed", "When an input is missing or a check is uncertain, the system stops or refuses rather than guessing. The safe default for regulated work."],
+    ["guardrails", "Guardrails", "Rules and checks that keep an AI system inside safe, approved behavior: what it may access, what it may do, and what it may say."],
+    ["observability", "Observability", "Being able to see what a running system is doing, through logs, traces, and metrics, so a failure is noticed and explained instead of silent."],
+    ["traceability", "Traceability", "A recorded link from each requirement to the test that proves it, so nothing ships unverified."],
+    ["static invariants|invariants", "Invariants", "Rules that must always hold. Checking them before a run catches design errors before any compute or cost is spent."],
+    ["typed directed graph|directed graph", "Directed graph", "A diagram of steps joined by one-way arrows: here, the stages of a workflow and the order they run in."],
+    ["anti-fabrication", "Anti-fabrication", "A check that refuses to pass along AI output that is made up or came from a degraded run."],
+    ["run receipts?", "Run receipt", "A record each run leaves behind (inputs, steps, results) so any outcome can be audited and reproduced."],
+    ["watchdog", "Watchdog", "A monitor that raises an alarm when a process stops reporting progress."],
+    ["LLM", "LLM", "Large language model: the kind of AI engine behind tools like ChatGPT and Claude."],
+    ["low-code", "Low-code", "Building apps and automations mostly by configuring visual components rather than writing code by hand."],
+    ["Power Platform", "Power Platform", "Microsoft's low-code suite (Power Apps, Power Automate, Power BI) for building business apps, automations, and dashboards."],
+    ["SAFe", "SAFe", "Scaled Agile Framework: a widely used method for running Agile across many teams in a large enterprise."],
+    ["latent", "Latent need", "A need the customer has but has not stated. It is often the one that matters most."],
+    ["deal[- ]velocity", "Deal velocity", "How fast deals move from first contact to a signed close."],
+    ["skill files?", "Skill file", "A packaged, reusable instruction set an AI agent loads to do one kind of task the same way every time."],
+    ["champions?", "Champion", "A person inside a business team, one step ahead in AI, who helps peers adopt it in their real work and feeds use cases and gaps back to the central AI team."],
+    ["AI coding agents?", "AI coding agent", "An AI tool that writes, runs, and fixes code over many steps on its own, with a person directing it and checking the result."]
+  ];
+  // all-caps terms match case-sensitively so ordinary words never trigger them
+  var GL_CASE={RAG:1, HITL:1, LLM:1, SAFe:1};
+  var glAlts=[];
+  GLOSS.forEach(function(g,i){ g[0].split('|').forEach(function(a){ glAlts.push({re:a, i:i}); }); });
+  glAlts.sort(function(a,b){ return b.re.length-a.re.length; });
+  var glSrc='\\b('+glAlts.map(function(a){ return a.re; }).join('|')+')\\b';
+  function glIndex(txt){
+    for(var k=0;k<glAlts.length;k++){
+      if(new RegExp('^(?:'+glAlts[k].re+')$', GL_CASE[glAlts[k].re]?'':'i').test(txt)) return glAlts[k].i;
+    }
+    return -1;
+  }
+  var GL_SKIP='script,style,svg,.gl,.gltip,.tip,.tile.tap,.trainpill,.tab,.item-head,.bubtip,h1,h2,h3,.tag,.ap-head,.pf-chip,.tl-bar';
+  function glWrap(panel){
+    var used={}, walker=document.createTreeWalker(panel, NodeFilter.SHOW_TEXT, null), nodes=[], n;
+    while((n=walker.nextNode())) nodes.push(n);
+    nodes.forEach(function(tn){
+      var el=tn.parentNode; if(!el || !el.closest || el.closest(GL_SKIP)) return;
+      var link=el.closest('a,button'); if(link && !link.classList.contains('hook')) return;
+      var text=tn.nodeValue, out=null, last=0, m, re=new RegExp(glSrc, 'gi');
+      while((m=re.exec(text))){
+        var i=glIndex(m[1]); if(i<0 || used[i]) continue;
+        used[i]=1; out=out||document.createDocumentFragment();
+        out.appendChild(document.createTextNode(text.slice(last, m.index)));
+        var sp=document.createElement('span'); sp.className='gl'; sp.setAttribute('data-gl', i);
+        if(!link){ sp.tabIndex=0; sp.setAttribute('role','button'); }
+        sp.setAttribute('aria-label', m[1]+': '+GLOSS[i][2]);
+        sp.textContent=m[1]; out.appendChild(sp); last=m.index+m[1].length;
+      }
+      if(out){
+        out.appendChild(document.createTextNode(text.slice(last)));
+        var disp=getComputedStyle(el).display;
+        if(/flex|grid/.test(disp)){ var box=document.createElement('span'); box.appendChild(out); out=box; }
+        el.replaceChild(out, tn);
+      }
+    });
+  }
+  [].slice.call(document.querySelectorAll('.panel')).forEach(glWrap);
+  var gtip=document.createElement('div'); gtip.className='gltip'; gtip.setAttribute('role','tooltip'); gtip.setAttribute('aria-hidden','true');
+  document.body.appendChild(gtip);
+  var glCur=null;
+  function glShow(sp){
+    var g=GLOSS[+sp.getAttribute('data-gl')]; glCur=sp;
+    gtip.innerHTML=''; var b=document.createElement('b'); b.textContent=g[1]; gtip.appendChild(b); gtip.appendChild(document.createTextNode(g[2]));
+    var r=sp.getBoundingClientRect(), w=gtip.offsetWidth, h=gtip.offsetHeight, vw=document.documentElement.clientWidth;
+    var x=Math.max(16, Math.min(r.left+r.width/2-w/2, vw-16-w));
+    var y=r.top-h-8; if(y<8) y=r.bottom+8;
+    gtip.style.left=x+'px'; gtip.style.top=y+'px'; gtip.classList.add('on');
+  }
+  function glHide(){ glCur=null; gtip.classList.remove('on'); }
+  document.addEventListener('mouseover', function(e){ var sp=e.target.closest && e.target.closest('.gl'); if(sp){ if(sp!==glCur) glShow(sp); } else if(glCur) glHide(); });
+  document.addEventListener('focusin', function(e){ if(e.target.classList && e.target.classList.contains('gl')) glShow(e.target); });
+  document.addEventListener('focusout', function(e){ if(e.target.classList && e.target.classList.contains('gl')) glHide(); });
+  document.addEventListener('click', function(e){
+    var sp=e.target.closest && e.target.closest('.gl');
+    if(sp && !sp.closest('a,button')){ e.stopPropagation(); glShow(sp); return; }
+    if(!sp && glCur) glHide();
+  }, true);
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape' && glCur) glHide(); });
+  window.addEventListener('scroll', function(){ if(glCur) glHide(); }, {passive:true});
 })();
 </script>
 </body>
