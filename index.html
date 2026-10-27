@@ -395,23 +395,10 @@
   #p-map .dimmed .edge:not(.lit){opacity:.25}
   #p-map .node,#p-map .edge{transition:opacity .25s}
 
-  /* ---- detail panel ---- */
-  #p-map .detail{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.25fr); gap:26px; margin:18px 0 0; background:var(--surface); border:1px solid var(--line); border-radius:16px; padding:22px 26px; box-shadow:var(--card-shadow)}
-  #p-map .detail .ix{font-family:var(--disp); font-size:12.5px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--accent)}
-  #p-map .detail h2{font-family:var(--disp); font-weight:600; font-size:24px; margin:4px 0 8px; line-height:1.2}
-  #p-map .detail p{margin:0 0 12px; color:var(--ink-70)}
-  #p-map .detail .flows{font-size:14px; color:var(--ink-45); margin:0 0 14px}
-  #p-map .detail .flows b{color:var(--ink-70); font-weight:600}
-  #p-map .detail ul{list-style:none; margin:0; padding:0; display:grid; gap:8px}
-  #p-map .detail li{background:var(--surface-2); border:1px solid var(--line); border-radius:10px; padding:9px 13px; font-size:15px}
-  #p-map .detail li b{font-weight:600}
-  #p-map .open{display:inline-block; margin-top:4px; font-weight:600; border:1px solid var(--accent); border-radius:999px; padding:7px 16px}
-  #p-map .open:hover{background:var(--accent-tint); text-decoration:none}
 
   #p-map .map-head{padding-top:40px}
   #p-map .stage{margin-top:6px}
   @media (max-width:760px){
-    #p-map .detail{grid-template-columns:1fr; padding:18px 18px; gap:14px}
     #p-map .lbl{display:none}
     #p-map .lbl.lit{display:inline}
   }
@@ -887,7 +874,6 @@
         <span class="rb-go">Open &rarr;</span>
       </button>
     </div>
-    <div class="detail" id="detail" aria-live="polite"></div>
   </div>
 </section>
 
@@ -1624,7 +1610,6 @@
   };
 
   var svg = document.getElementById('dag'), NS='http://www.w3.org/2000/svg';
-  var detail = document.getElementById('detail');
   var selected = 'transformation', mode = null;
 
   function el(tag, attrs, parent){
@@ -1713,7 +1698,7 @@
       lines.forEach(function(s,i){ var t=el('text',{class:'nm', x:c[0], y:top+6+i*22, 'text-anchor':'middle'},g); t.textContent=s; });
       var tg=el('text',{class:'tg', x:c[0], y:top+6+(lines.length-1)*22+22, 'text-anchor':'middle'},g); tg.textContent=n.tag;
 
-      // hover or focus previews the bubble in the panel; click follows the link
+      // hover or focus highlights the bubble and shows its tip; click follows the link
       g.addEventListener('mouseenter', function(){ highlight(id); select(id); tipOn(id, g); });
       g.addEventListener('mouseleave', function(){ highlight(null); tipOff(); });
       g.addEventListener('focus', function(){ highlight(id); select(id); tipOn(id, g); });
@@ -1723,7 +1708,6 @@
     markSelected();
   }
 
-  function names(list){ return list.map(function(id){ var n=N[id].name; return Array.isArray(n)?n.join(' '):n; }).join(', '); }
   function markSelected(){
     svg.querySelectorAll('.node').forEach(function(g){ g.classList.toggle('sel', g.dataset.id===selected); });
   }
@@ -1739,24 +1723,8 @@
     tip.classList.add('on');
   }
   function tipOff(){ tip.classList.remove('on'); }
-  function select(id){
-    selected=id; markSelected();
-    var n=N[id], title=Array.isArray(n.name)?n.name.join(' '):n.name;
-    var ins=E.filter(function(e){return e.t===id && !e.loop;}).map(function(e){return e.f;});
-    var outs=E.filter(function(e){return e.f===id && !e.loop;}).map(function(e){return e.t;});
-    var loops=E.filter(function(e){return e.loop && (e.f===id || e.t===id);}).map(function(e){
-      return ' &nbsp;·&nbsp; <b>'+e.lbl+'</b> '+(e.t===id?'from '+names([e.f]):'back into '+names([e.t]));
-    }).join('');
-    var tab = id;
-    detail.innerHTML =
-      '<div><div class="ix">'+n.ix+' · '+n.tag+'</div><h2>'+title+'</h2><p>'+n.lede+'</p>'+
-      '<p class="flows">'+(ins.length?'<b>Fed by</b> '+names(ins):'<b>Starting point</b>')+
-      (outs.length?' &nbsp;·&nbsp; <b>Flows into</b> '+names(outs):' &nbsp;·&nbsp; <b>Where everything lands</b>')+loops+'</p>'+
-      '<a class="open" data-tab="'+tab+'" href="#'+tab+'">Open the '+(n.tabLabel||title)+' tab &rarr;</a></div>'+
-      '<ul>'+n.items.map(function(s){return '<li>'+s+'</li>';}).join('')+'</ul>';
-  }
+  function select(id){ selected=id; markSelected(); }
 
-  detail.addEventListener('click', function(e){ var a=e.target.closest('a[data-tab]'); if(a){ e.preventDefault(); show(a.getAttribute('data-tab')); } });
   drawMap=function(){ render(); select(selected); };
   window.addEventListener('resize', render);
   if(document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ mode=null; render(); });
