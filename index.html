@@ -19,7 +19,7 @@
     --paper:#D8D0C2; --surface:#EDEFF3; --surface-2:#E1E5EC;
     --ink:#14213A; --ink-70:#2E3B52; --ink-45:#4E5A6E;
     --line:#B8BFCB; --line-strong:#8E9BAF;
-    --accent:#2A5C9A; --accent-ink:#1F4778; --accent-tint:#F6E3E3; --accent-tint-2:#EFD0D2; --rose:#B5636E;
+    --accent:#2A5C9A; --accent-ink:#1F4778; --accent-tint:#F6E3E3; --accent-tint-2:#EFD0D2; --rose:#B5636E; --sink-ink:#fff;
     --bar-bg:rgba(216,208,194,.92);
     --grid:rgba(42,92,154,.05); --glow:rgba(201,122,130,.10);
     --shadow:0 14px 34px -22px rgba(20,33,58,.55); --shadow-soft:0 0 0 3px var(--accent-tint);
@@ -36,7 +36,7 @@
       --paper:#111827; --surface:#22304A; --surface-2:#1A253A;
       --ink:#F1F5F8; --ink-70:#C3D0D7; --ink-45:#98A8B2;
       --line:#34445F; --line-strong:#4D5F7D;
-      --accent:#7EAEEB; --accent-ink:#A9CBF5; --accent-tint:rgba(232,160,170,.14); --accent-tint-2:rgba(232,160,170,.26); --rose:#E8A0AA;
+      --accent:#7EAEEB; --accent-ink:#A9CBF5; --accent-tint:rgba(232,160,170,.14); --accent-tint-2:rgba(232,160,170,.26); --rose:#E8A0AA; --sink-ink:#0E1626;
       --bar-bg:rgba(17,24,39,.88);
       --grid:rgba(150,175,215,.055); --glow:rgba(232,160,170,.08);
       --shadow:0 18px 40px -22px rgba(0,0,0,.7); --card-shadow:0 2px 10px rgba(0,0,0,.5);
@@ -48,7 +48,7 @@
     --paper:#111827; --surface:#22304A; --surface-2:#1A253A;
     --ink:#F1F5F8; --ink-70:#C3D0D7; --ink-45:#98A8B2;
     --line:#34445F; --line-strong:#4D5F7D;
-    --accent:#7EAEEB; --accent-ink:#A9CBF5; --accent-tint:rgba(232,160,170,.14); --accent-tint-2:rgba(232,160,170,.26); --rose:#E8A0AA;
+    --accent:#7EAEEB; --accent-ink:#A9CBF5; --accent-tint:rgba(232,160,170,.14); --accent-tint-2:rgba(232,160,170,.26); --rose:#E8A0AA; --sink-ink:#0E1626;
     --bar-bg:rgba(17,24,39,.88);
     --grid:rgba(150,175,215,.055); --glow:rgba(232,160,170,.08);
     --shadow:0 18px 40px -22px rgba(0,0,0,.7); --card-shadow:0 2px 10px rgba(0,0,0,.5);
@@ -159,33 +159,127 @@
   .arch-k{display:block; margin:0 0 4px; font-family:var(--disp); font-size:11.5px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--accent-ink)}
   .arch-h{font-family:var(--disp); font-weight:600; font-size:18px; margin:30px 0 6px}
   .arch-sub{color:var(--ink-70); margin:0 0 14px; font-size:14.5px}
-  .arch-steps{display:grid; grid-template-columns:repeat(5,1fr); gap:10px; margin-top:12px}
-  .arch-step{display:flex; flex-direction:column; gap:4px; padding:12px 14px; border:1px solid var(--line-strong); border-radius:10px; background:var(--surface); font-size:13px; color:var(--ink-70); line-height:1.4}
+  /* V1: map, compare, require evidence */
+  .ax-strip{display:grid; grid-template-columns:1fr 1fr 2.6fr; align-items:start; gap:24px; max-width:880px; margin:-14px 0 30px}
+  .ax-node{position:relative; padding:11px 14px; border:1px solid var(--line-strong); border-radius:10px; background:var(--surface)}
+  .ax-node > b{display:block; font-family:var(--disp); font-size:15px; font-weight:600; color:var(--ink)}
+  .ax-node:not(:last-child)::after{content:""; position:absolute; right:-16px; top:18px; width:9px; height:9px; border-top:2px solid var(--accent); border-right:2px solid var(--accent); transform:rotate(45deg)}
+  .ax-req{border-color:var(--accent)}
+  .ax-chips{display:flex; flex-wrap:wrap; gap:6px; margin-top:8px}
+  .ax-chip, .ax-badge{font-size:12px; line-height:1.2; padding:4px 10px; border-radius:999px; border:1px solid var(--accent); color:var(--accent-ink); background:var(--surface)}
+  .ax-badge{background:var(--accent-tint); color:var(--ink); font-weight:600}
+  @media(max-width:639px){
+    .ax-strip{grid-template-columns:1fr; gap:22px}
+    .ax-node:not(:last-child)::after{right:auto; left:22px; top:auto; bottom:-16px; transform:rotate(135deg)}
+  }
+  /* V2: five steps as a chevron flow, a vertical rail below 900px */
+  .arch-steps{display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:22px; margin-top:12px}
+  .arch-step{position:relative; display:flex; flex-direction:column; gap:4px; padding:12px 14px; border:1px solid var(--line-strong); border-radius:10px; background:var(--surface); font-size:13px; color:var(--ink-70); line-height:1.4}
   .arch-step b{font-family:var(--disp); font-size:15px; color:var(--ink)}
-  .arch-n{font-family:var(--disp); font-size:12px; font-weight:600; color:var(--accent-ink)}
+  .arch-n{display:inline-flex; align-items:center; justify-content:center; align-self:flex-start; width:30px; height:30px; margin:0 0 4px; border-radius:50%;
+        border:1.5px solid var(--accent); background:var(--surface-2); font-family:var(--disp); font-size:12px; font-weight:600; color:var(--accent-ink)}
+  .arch-step:not(:last-child)::after{content:""; position:absolute; right:-16px; top:24px; width:9px; height:9px; border-top:2px solid var(--accent); border-right:2px solid var(--accent); transform:rotate(45deg)}
+  @media(max-width:899px){
+    .arch-steps{position:relative; grid-template-columns:1fr; gap:16px}
+    .arch-steps::before{content:""; position:absolute; left:14px; top:14px; bottom:14px; width:2px; background:var(--line-strong)}
+    .arch-step{display:grid; grid-template-columns:30px minmax(0,1fr); column-gap:14px; row-gap:1px; padding:0; border:0; background:none}
+    .arch-n{grid-row:1 / 3; position:relative; z-index:1; margin:0}
+    .arch-step b{align-self:end}
+    .arch-step:not(:last-child)::after{display:none}
+  }
+  /* V3: six domains around one capability; each tradeoff drawn as a bar between its poles */
+  .ax-hub{display:block; width:100%; height:auto; margin:2px 0 6px}
+  .ax-hub .sp{fill:none; stroke:var(--line-strong); stroke-width:1.5}
+  .ax-hub .hb{fill:var(--surface); stroke:var(--accent); stroke-width:2}
+  .ax-hub .hc, .ax-hub .dt{fill:var(--accent)}
+  @media(max-width:899px){ .ax-hub{display:none} }
   .arch-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:14px}
   .arch-card{padding:16px 18px; border:1px solid var(--line); border-radius:12px; background:var(--surface); box-shadow:var(--card-shadow)}
-  .arch-card h3{font-family:var(--disp); font-weight:600; font-size:16px; margin:2px 0 8px}
+  .arch-card h4{font-family:var(--disp); font-weight:600; font-size:16px; margin:2px 0 8px}
   .arch-ix{margin:0; font-family:var(--disp); font-size:11.5px; font-weight:600; letter-spacing:.04em; text-transform:uppercase; color:var(--accent-ink)}
   .arch-card ul{margin:0 0 10px; padding-left:18px; font-size:13.5px; line-height:1.5; color:var(--ink-70)}
   .arch-card li{margin-bottom:5px}
   .arch-trade{margin:0; padding-top:9px; border-top:1px solid var(--line); font-size:13px; line-height:1.45; color:var(--ink-70)}
   .arch-trade b{color:var(--ink)}
-  .arch-case{display:grid; grid-template-columns:3fr 2fr; gap:18px; padding:16px 18px; border:1px solid var(--line); border-radius:12px; background:var(--surface)}
-  .arch-case ol{margin:0; padding-left:20px; font-size:14px; line-height:1.55; color:var(--ink-70)}
-  .arch-case ol li{margin-bottom:4px}
+  .ax-poles{position:relative; display:flex; justify-content:space-between; gap:8px; padding:12px 0 8px; border-top:1px solid var(--line)}
+  .ax-poles::before{content:""; position:absolute; left:6px; right:6px; top:17px; height:2px; border-radius:2px; background:linear-gradient(90deg, var(--rose), var(--accent))}
+  .ax-poles span{position:relative; display:flex; flex-direction:column; align-items:flex-start; gap:3px; max-width:46%;
+        font-family:var(--disp); font-size:11.5px; font-weight:600; line-height:1.2; color:var(--ink-70)}
+  .ax-poles span::before{content:""; width:12px; height:12px; border-radius:50%; background:var(--surface); border:2px solid var(--rose)}
+  .ax-poles span::after{content:attr(data-tag)}
+  .ax-poles span:last-child{align-items:flex-end; text-align:right}
+  .ax-poles span:last-child::before{border-color:var(--accent)}
+  .ax-poles span:nth-child(2):not(:last-child){align-items:center; text-align:center}
+  .ax-poles span:nth-child(2):not(:last-child)::before{border-color:color-mix(in srgb, var(--rose) 50%, var(--accent))}
+  .ax-poles + .arch-trade{border-top:0; padding-top:2px}
+  @media(max-width:899px){ .arch-grid{grid-template-columns:1fr 1fr} }
+  @media(max-width:639px){ .arch-grid{grid-template-columns:1fr} }
+  /* V4: worked example as swimlanes from 1100px, a lane-tagged list below; V5: fault cards under it */
+  .arch-case{padding:16px 18px; border:1px solid var(--line); border-radius:12px; background:var(--surface)}
   .arch-case b{color:var(--ink)}
-  .arch-case-side ul{margin:0; padding-left:18px; font-size:13.5px; line-height:1.5; color:var(--ink-70)}
-  .arch-case-side li{margin-bottom:5px}
-  .arch-two{display:grid; grid-template-columns:1fr 1fr; gap:24px}
-  .arch-claims{margin:8px 0 0; padding-left:18px; font-size:13.5px; line-height:1.5; color:var(--ink-70)}
-  .arch-claims li{margin-bottom:7px}
-  .arch-claims b{color:var(--ink); font-weight:600}
-  .arch-90{display:flex; flex-direction:column; gap:10px; margin-top:8px}
-  .arch-90 > div{padding:11px 14px; border:1px solid var(--line-strong); border-radius:10px; background:var(--surface); font-size:13.5px; line-height:1.45; color:var(--ink-70)}
-  .arch-src{margin:30px 0 0; font-size:12.5px; color:var(--ink-45)}
-  @media(max-width:900px){ .arch-grid{grid-template-columns:1fr 1fr} .arch-steps{grid-template-columns:repeat(3,1fr)} }
-  @media(max-width:640px){ .arch-grid,.arch-two,.arch-case{grid-template-columns:1fr} .arch-steps{grid-template-columns:1fr 1fr} }
+  .ax-lanes{display:none}
+  .arch-case ol{list-style:none; counter-reset:axs; margin:0; padding:0; display:flex; flex-direction:column; gap:8px; font-size:14px; line-height:1.55; color:var(--ink-70)}
+  .arch-case ol li{counter-increment:axs; position:relative; padding:9px 12px 9px 44px; border:1px solid var(--line-strong); border-radius:10px; background:var(--surface)}
+  .arch-case ol li::before{content:counter(axs); position:absolute; left:10px; top:9px; width:24px; height:24px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+        font-family:var(--disp); font-size:12px; font-weight:600; color:var(--accent-ink); border:1.5px solid var(--accent); background:var(--surface-2)}
+  .arch-case ol li::after{content:attr(data-tag); display:table; margin-top:6px; padding:2px 8px; border-radius:6px; background:var(--accent-tint);
+        font-family:var(--disp); font-size:10.5px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--accent-ink)}
+  .arch-case ol li.ax-model{border-style:dashed}
+  .arch-case ol li.ax-model::after{content:attr(data-tag) " \00B7  " attr(data-note)}
+  .arch-case ol li[data-fault]{background-image:radial-gradient(circle at calc(100% - 12px) 12px, var(--rose) 0 4px, transparent 4.5px)}
+  @media(min-width:1100px){
+    .ax-lanes, .arch-case ol{display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); column-gap:0}
+    .ax-lanes{margin:0 0 8px}
+    .ax-lanes span{margin:0 6px; padding:6px 8px; border-bottom:2px solid var(--accent); text-align:center;
+        font-family:var(--disp); font-size:11.5px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--accent-ink)}
+    .arch-case ol{row-gap:12px; font-size:13px; line-height:1.5;
+        background-image:linear-gradient(90deg, transparent calc(50% - 1px), var(--line-strong) calc(50% - 1px), var(--line-strong) calc(50% + 1px), transparent calc(50% + 1px));
+        background-size:20% 100%}
+    .arch-case ol li{margin:0 6px; padding:8px 10px 8px 40px}
+    .arch-case ol li::after{display:none}
+    .arch-case ol li.ax-model::after{display:table; content:attr(data-note)}
+    .arch-case ol li:nth-child(1){grid-row:1} .arch-case ol li:nth-child(2){grid-row:2} .arch-case ol li:nth-child(3){grid-row:3}
+    .arch-case ol li:nth-child(4){grid-row:4} .arch-case ol li:nth-child(5){grid-row:5} .arch-case ol li:nth-child(6){grid-row:6} .arch-case ol li:nth-child(7){grid-row:7}
+    .arch-case ol .ax-l1{grid-column:1} .arch-case ol .ax-l2{grid-column:2} .arch-case ol .ax-l3{grid-column:3} .arch-case ol .ax-l4{grid-column:4} .arch-case ol .ax-l5{grid-column:5}
+  }
+  .arch-case-side{margin-top:18px}
+  .arch-case-side ul{list-style:none; margin:6px 0 0; padding:0; display:grid; grid-template-columns:1fr; gap:10px; font-size:13.5px; line-height:1.5; color:var(--ink-70)}
+  .arch-case-side li{padding:10px 12px; border:1px solid var(--line); border-left:3px solid var(--rose); border-radius:0 10px 10px 0; background:var(--surface-2)}
+  .arch-case-side li::before{content:attr(data-tag); display:table; margin:0 0 4px; padding:2px 8px; border-radius:6px; background:var(--accent-tint);
+        font-family:var(--disp); font-size:10.5px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--ink)}
+  @media(min-width:640px){ .arch-case-side ul{grid-template-columns:1fr 1fr} }
+  @media(min-width:1100px){ .arch-case-side ul{grid-template-columns:repeat(4,minmax(0,1fr))} }
+  /* V6: each claim and its reality, both faces always visible */
+  .arch-claims{list-style:none; margin:8px 0 0; padding:0; display:grid; grid-template-columns:1fr; gap:12px; font-size:13.5px; line-height:1.5; color:var(--ink-70)}
+  .arch-claims li{display:flex; flex-direction:column; border:1px solid var(--line); border-radius:12px; overflow:hidden; background:var(--surface); box-shadow:var(--card-shadow)}
+  .arch-claims li > b, .arch-claims li > span{display:block; padding:10px 14px}
+  .arch-claims li > b{color:var(--ink); font-weight:600; border-left:3px solid var(--rose); background:var(--accent-tint)}
+  .arch-claims li > span{flex:1; border-left:3px solid var(--accent)}
+  .arch-claims li > b::before, .arch-claims li > span::before{content:attr(data-tag); display:block; margin:0 0 3px; font-family:var(--disp); font-size:10.5px; font-weight:600; letter-spacing:.08em; text-transform:uppercase}
+  .arch-claims li > b::before{color:var(--ink-70)}
+  .arch-claims li > span::before{color:var(--accent-ink)}
+  @media(min-width:640px){ .arch-claims{grid-template-columns:1fr 1fr} }
+  @media(min-width:1100px){ .arch-claims{grid-template-columns:repeat(3,minmax(0,1fr))} }
+  /* V7: the first 90 days as a track with a decision at day 90 */
+  .arch-90{position:relative; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); margin-top:8px; padding-top:22px}
+  .arch-90::after{content:attr(data-tag); position:absolute; right:0; top:0; font-family:var(--disp); font-size:10.5px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--ink)}
+  .arch-90 > div{position:relative; padding:0 16px 0 0; font-size:13.5px; line-height:1.45; color:var(--ink-70)}
+  .arch-90 > div::before{content:""; position:absolute; left:0; right:0; top:10px; height:6px; border-radius:3px; background:color-mix(in srgb, var(--accent) 40%, transparent)}
+  .arch-90 > div:nth-child(2)::before{background:color-mix(in srgb, var(--accent) 70%, transparent)}
+  .arch-90 > div:nth-child(3)::before{background:var(--accent); right:10px}
+  .arch-90 > div:last-child::after{content:""; position:absolute; right:2px; top:6px; width:13px; height:13px; background:var(--rose); border:2px solid var(--surface); transform:rotate(45deg)}
+  .arch-90 .arch-k{display:table; position:relative; z-index:1; margin:0 0 8px; padding:3px 10px; border:1.5px solid var(--accent); border-radius:999px; background:var(--surface)}
+  @media(max-width:639px){
+    .arch-90{grid-template-columns:1fr; gap:14px; padding:0 0 26px}
+    .arch-90::after{right:auto; left:26px; top:auto; bottom:0}
+    .arch-90 > div{padding:0 0 0 24px}
+    .arch-90 > div::before, .arch-90 > div:nth-child(3)::before{left:4px; right:auto; top:0; bottom:-14px; width:6px; height:auto}
+    .arch-90 > div:last-child::before{bottom:-8px}
+    .arch-90 > div:last-child::after{right:auto; left:0; top:auto; bottom:-22px}
+  }
+  /* V8: source note as a footnote strip */
+  .arch-src{display:flex; align-items:flex-start; gap:10px; margin:30px 0 0; padding-top:12px; border-top:1px solid var(--line); font-size:12.5px; color:var(--ink-45)}
+  .arch-src .ic{flex:none; width:22px; height:22px}
 
   /* ---------- map (landing graph) ---------- */
 /* ---- graph ---- */
@@ -291,9 +385,7 @@
   #p-map .node .nm{font:600 19px var(--disp); fill:var(--ink)}
   #p-map .node .tg{font:400 12.5px var(--sans); fill:var(--ink-45)}
   #p-map .node.sink circle.body{fill:var(--accent); stroke:var(--accent-ink)}
-  #p-map .node.sink .ix,#p-map .node.sink .nm,#p-map .node.sink .tg{fill:#fff}
-  :root[data-theme="dark"] #p-map .node.sink .nm, :root[data-theme="dark"] #p-map .node.sink .ix, :root[data-theme="dark"] #p-map .node.sink .tg{fill:#0E1626}
-  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) #p-map .node.sink :is(.nm,.ix,.tg){fill:#0E1626} }
+  #p-map .node.sink .ix,#p-map .node.sink .nm,#p-map .node.sink .tg{fill:var(--sink-ink)}
   #p-map .node.lit circle.halo{opacity:1}
   #p-map .node.lit circle.body{stroke:var(--accent); stroke-width:2.4}
   #p-map .node.sel circle.body{stroke:var(--rose); stroke-width:3}
@@ -420,38 +512,26 @@
         padding:10px 12px; font-size:12.5px; line-height:1.5; box-shadow:var(--shadow); text-align:left; font-weight:400;
         opacity:0; transform:translateX(-50%) translateY(4px); pointer-events:none; transition:opacity .2s, transform .2s var(--step)}
   .tile.tap:hover .tip, .tile.tap:focus-visible .tip{opacity:1; transform:translateX(-50%)}
+  .tile.tile-ic{justify-content:flex-start; text-align:left; gap:10px; padding:8px 12px; height:auto; min-height:56px}
+  .tile.tile-ic > .ic{flex:none; width:24px; height:24px}
+  .tile.tap.tile-ic:hover > .ic, .tile.tap.tile-ic:focus-visible > .ic{stroke:var(--accent-ink)}
   .edu-body{padding:16px 20px; display:flex; flex-direction:column; gap:16px}
   @media(max-width:820px){ .tiles{grid-template-columns:repeat(3,1fr)} }
   @media(max-width:480px){ .tiles, .tiles.three, .tiles.roles{grid-template-columns:repeat(2,1fr)} }
+  @media(max-width:480px){ .tiles.three > .tile:last-child:nth-child(odd){grid-column:1 / -1} }
   @media(max-width:560px){ .edu-tiles .tiles.two{grid-template-columns:1fr} }
 
   .edu{margin:30px 0 0; border:1px solid var(--line); border-radius:12px; background:var(--surface); overflow:hidden; box-shadow:var(--card-shadow)}
   .edu-h{display:flex; align-items:center; gap:10px; padding:14px 20px; border-bottom:1px solid var(--line); background:var(--surface-2)}
   .edu-h .ic{width:36px; height:36px}
   .edu-h span{font-family:var(--disp); font-weight:600; font-size:.95rem}
-  .edu-grid{display:grid; grid-template-columns:1fr 1fr; gap:0}
-  @media(max-width:640px){.edu-grid{grid-template-columns:1fr}}
   .deg{display:flex; gap:13px; padding:18px 20px; border-left:1px solid var(--line)}
   .deg:first-child{border-left:0}
   @media(max-width:640px){.deg{border-left:0; border-top:1px solid var(--line)} .deg:first-child{border-top:0}}
   .deg .ic{flex:none; margin-top:2px}
   .deg .d-deg{font-family:var(--disp); font-weight:500; font-size:1rem; line-height:1.25}
   .deg .d-org{font-size:13px; color:var(--ink-45); margin-top:3px}
-  .certs{display:flex; flex-wrap:wrap; align-items:center; gap:8px; padding:16px 20px; border-top:1px solid var(--line)}
-  .certs .clab{display:flex; align-items:center; gap:8px; font-size:13px; color:var(--ink-45); margin-right:4px}
-  .certs .clab .ic{width:34px; height:34px}
   .cert{font-size:13px; color:var(--accent-ink); background:var(--accent-tint); border-radius:999px; padding:4px 12px}
-  .train{display:flex; flex-wrap:wrap; align-items:center; gap:8px; padding:14px 20px; border-top:1px solid var(--line)}
-  .train .clab{display:flex; align-items:center; gap:8px; font-size:13px; color:var(--ink-45); margin-right:4px}
-  .train .clab .ic{width:34px; height:34px}
-  .trainpill{position:relative; font-size:13px; color:var(--accent-ink); background:var(--accent-tint);
-             border:1px solid transparent; border-radius:999px; padding:4px 12px; cursor:help}
-  .trainpill:hover, .trainpill:focus-visible{border-color:var(--accent); outline:none}
-  .trainpill .tip{position:absolute; left:0; bottom:calc(100% + 8px); width:min(260px,74vw); z-index:20;
-                  background:var(--surface); color:var(--ink-70); border:1px solid var(--line-strong);
-                  border-radius:9px; padding:10px 12px; font-size:12.5px; line-height:1.5; box-shadow:var(--shadow);
-                  opacity:0; transform:translateY(4px); pointer-events:none; transition:opacity .2s, transform .2s var(--step)}
-  .trainpill:hover .tip, .trainpill:focus-visible .tip{opacity:1; transform:none}
 
   .jump-h{font-family:var(--disp); font-weight:500; font-size:1.1rem; margin:52px 0 4px}
   .jump-sub{color:var(--ink-70); font-size:14px; margin:0 0 18px}
@@ -548,15 +628,6 @@
   @media(max-width:640px){ .skmap th,.skmap td{padding:11px 12px} .skmap td.need{width:50%} }
 
   /* ---------- experience ---------- */
-  .arc{display:flex; flex-wrap:wrap; gap:0; margin:0 0 36px; border:1px solid var(--line);
-       border-radius:12px; background:var(--surface); overflow:hidden}
-  .arc .node{flex:1 1 0; min-width:150px; padding:16px 18px; border-left:1px solid var(--line)}
-  .arc .node:first-child{border-left:0}
-  .arc .node .stg{font-size:12px; color:var(--ink-45)}
-  .arc .node .ttl{font-family:var(--disp); font-weight:500; font-size:1rem; margin-top:4px}
-  .arc .node.now{background:var(--accent-tint)}
-  .arc .node.now .stg{color:var(--accent-ink)}
-
   /* timelines (career from 2000, current roles) */
   .tl{margin:0 0 16px}
   .tl-cap{font-family:var(--disp); font-size:11.5px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-70); margin:0 0 8px}
@@ -625,6 +696,7 @@
   .links{display:flex; flex-wrap:wrap; gap:7px; margin-top:16px; align-items:baseline}
   .links .lk-lab{font-size:12px; color:var(--ink-45); margin-right:2px}
   .ev-text{font-size:13.5px; color:var(--ink-70)}
+  .ib-in p.ev-text{margin:8px 0 0}
   .xlink{font-size:12.5px; color:var(--accent-ink); background:var(--accent-tint); border:1px solid transparent;
          border-radius:999px; padding:4px 11px; cursor:pointer; font-family:var(--sans);
          transition:background .18s, border-color .18s}
@@ -713,6 +785,10 @@
   <symbol id="i-badge" viewBox="0 0 24 24"><circle cx="12" cy="9" r="5"/><path d="M8.5 13 7.5 21l4.5-2.6L16.5 21l-1-8"/><path d="M10 9l1.4 1.4L15 7"/></symbol>
   <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M19.1 4.9l-1.8 1.8M6.7 17.3l-1.8 1.8"/></symbol>
   <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5Z"/></symbol>
+  <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M6 11a6 6 0 0 0 12 0"/><path d="M12 17v4M9 21h6"/></symbol>
+  <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2"/><path d="M13.5 10.5 20 4M17 4h3v3"/></symbol>
+  <symbol id="i-swap" viewBox="0 0 24 24"><path d="M4 9h13l-3-3"/><path d="M20 15H7l3 3"/></symbol>
+  <symbol id="i-terminal" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9l3 3-3 3M12.5 15H17"/></symbol>
 </defs></svg>
 
 <div class="print-head"><span class="who">Capability Statement</span><span class="role">AI Transformation &amp; Enablement</span></div>
@@ -749,10 +825,10 @@
     <div class="profile">
       <div class="pf-text">
         <p class="profile-k"><span class="pf-dot"></span>Profile</p>
-        <p class="profile-t"><span class="pf-first">Transformation and engineering leader with <em>25+ years</em> of getting enterprises to adopt new ways of working, and measuring whether the change sticks.</span> A technologist-leader currently managing a 25-person engineering practice across generative AI, agentic workflows, and cloud, and still hands-on: designing and coding agentic systems, harnesses, evals, and RAG. Pairs the operating model with the engineering underneath it, so AI adoption is planned, measured, and managed to a goal. <strong class="pf-close">A creative problem solver who delivers high-value business outcomes.</strong></p>
+        <p class="profile-t"><span class="pf-first">Transformation and engineering leader with <em>25+ years</em> of getting enterprises to adopt new ways of working, and measuring whether the change sticks.</span> A technologist-leader currently leading a 25-person engineering practice across generative AI, agentic workflows, and cloud, and still hands-on: designing and coding agentic systems, harnesses, evals, and RAG. Pairs the operating model with the engineering underneath it, so AI adoption is planned, measured, and managed to a goal. <strong class="pf-close">A creative problem solver who delivers high-value business outcomes.</strong></p>
         <div class="pf-chips">
           <span class="pf-chip"><b>25+</b> years leading transformation</span>
-          <span class="pf-chip"><b>25</b> engineers led today</span>
+          <span class="pf-chip"><b>25-person</b> engineering practice led today</span>
           <span class="pf-chip"><b>Hands-on</b> agentic systems &middot; evals &middot; RAG</span>
         </div>
       </div>
@@ -777,10 +853,10 @@
     <div class="stage">
       <div class="bubtip" id="bubtip" role="tooltip" aria-hidden="true"></div>
       <svg class="dag" id="dag" role="group" aria-label="Directed graph: Overview flows into Experience and Disciplines; Experience flows into Disciplines, Adoption, and the goal; Disciplines into Projects and Adoption; Projects into Adoption and the goal, and back into Experience as lessons learned; Adoption into the goal, AI Transformation and Enablement."></svg>
-      <button class="refblock" data-goto="architecture" title="An approach to AI architecture: six domains, a worked design, and the questions to expect.">
+      <button class="refblock" data-goto="architecture" title="An approach to AI architecture: six domains, a worked design, claims worth pushing back on, and the first 90 days.">
         <span class="rb-ix">07 &middot; reference</span>
         <span class="rb-t">AI Architecture</span>
-        <span class="rb-d">The approach: six domains, a worked design, claims worth challenging, and a first-90-days plan. Not part of the flow; the toolkit behind it.</span>
+        <span class="rb-d">The approach: six domains, a worked design, claims worth pushing back on, and the first 90 days. Not part of the flow; the toolkit behind it.</span>
         <span class="rb-go">Open &rarr;</span>
       </button>
       <button class="refblock" data-goto="taxonomy" title="A living, interactive map of the AI tool landscape and the models behind it.">
@@ -804,7 +880,7 @@
 
       <div class="strip reveal d3">
         <div class="cell"><div class="v">25<span class="u">+ yrs</span></div><div class="k">Enterprise transformation &amp; engineering leadership</div></div>
-        <div class="cell"><div class="v">25</div><div class="k">Engineers led today across an enterprise practice</div></div>
+        <div class="cell"><div class="v">25</div><div class="k">People in the engineering practice led today</div></div>
         <div class="cell"><div class="v">90<span class="u">%+</span></div><div class="k">Of projects delivered on time and on budget</div></div>
         <div class="cell"><div class="v" style="font-size:1.25rem;letter-spacing:0">Hands-on</div><div class="k">Designs and codes agentic systems, harnesses, evals, and RAG</div></div>
       </div>
@@ -824,11 +900,11 @@
         <div>
           <span class="tilecap">Roles held</span>
           <div class="tiles roles">
-            <div class="tile lead-tile"><span class="lt-name">Leader</span><span class="lt-links"><button class="lt-lk" data-jump="p-sales">Sales enablement</button><button class="lt-lk" data-jump="ap-current">Current practice</button></span></div>
+            <div class="tile lead-tile"><span class="lt-name">Leader (Associate Director)</span><span class="lt-links"><button class="lt-lk" data-jump="p-sales">Sales enablement</button><button class="lt-lk" data-jump="ap-current">Leading AI delivery</button></span></div>
             <button class="tile tap" data-jump="ap-roots">Software Engineer</button>
             <button class="tile tap" data-jump="ap-strategy">Consultant</button>
             <button class="tile tap" data-jump="p-frontdoor">Solution Architect</button>
-            <button class="tile tap" data-jump="p-sales">B2B Sales Representative</button>
+            <button class="tile tap" data-jump="p-sales">Sales Enablement Lead</button>
             <button class="tile tap" data-jump="ap-current">Practice Owner</button>
             <button class="tile tap" data-jump="p-enable">Technical Mentor</button>
           </div>
@@ -854,17 +930,27 @@
       <button class="jc" data-goto="disciplines">
         <span class="jt">Disciplines <span class="cnt">7 ranked</span></span>
         <span class="hint">Seven applied-AI disciplines, ranked, each rooted in an experience and proven by a project.</span>
-        <span class="go">Open Disciplines →</span>
+        <span class="go">Open Disciplines &rarr;</span>
       </button>
       <button class="jc" data-goto="experience">
-        <span class="jt">Experience <span class="cnt">4 lenses</span></span>
-        <span class="hint">Twenty-five years of enterprise delivery, from systems engineering to leading an AI practice — the ground the disciplines grew from.</span>
-        <span class="go">Open Experience →</span>
+        <span class="jt">Experience <span class="cnt">4 cards</span></span>
+        <span class="hint">25+ years of enterprise delivery, from systems engineering to leading an AI practice — the ground the disciplines grew from.</span>
+        <span class="go">Open Experience &rarr;</span>
       </button>
       <button class="jc" data-goto="projects">
         <span class="jt">Projects <span class="cnt">13</span></span>
         <span class="hint">All the work behind the disciplines, ordered by relevance to an AI-transformation role.</span>
-        <span class="go">Open Projects →</span>
+        <span class="go">Open Projects &rarr;</span>
+      </button>
+      <button class="jc" data-goto="architecture">
+        <span class="jt">AI Architecture <span class="cnt">reference</span></span>
+        <span class="hint">AI architecture: six domains, a worked example and the first 90 days.</span>
+        <span class="go">Open AI Architecture &rarr;</span>
+      </button>
+      <button class="jc" data-goto="taxonomy">
+        <span class="jt">AI Taxonomy <span class="cnt">reference</span></span>
+        <span class="hint">AI taxonomy: the tool landscape, mapped.</span>
+        <span class="go">Open AI Taxonomy &rarr;</span>
       </button>
     </div>
     <p class="panel-back"><a class="mapback-lk" href="#map">&larr; Back to the map</a></p>
@@ -907,7 +993,7 @@
     </table>
 
     <div class="proof">
-      <p><strong>A small version of this runs in the practice today.</strong> In a 25-person practice: a weekly AI enablement segment, in-house usage aids, and a few tools built for the team's own work. It's a team-level start; doing it across many teams is the next step.</p>
+      <p><strong>A small version of this runs in the practice today.</strong> In a 25-person practice: a weekly AI enablement segment, in-house usage aids, and tools built for the team's own work. It's a team-level start; doing it across many teams is the next step.</p>
       <div class="links"><button class="xlink" data-jump="p-enable">Weekly AI Enablement</button><button class="xlink" data-jump="p-aids">AI Usage Aids</button><button class="xlink" data-jump="ap-current">Leading AI delivery</button></div>
     </div>
 
@@ -935,17 +1021,17 @@
   <div class="wrap" style="padding-top:44px">
     <p class="eyebrow">Disciplines</p>
     <h2 class="h-sec">Seven applied-AI disciplines, in practice</h2>
-    <p class="sec-lead">Seven applied-AI disciplines, ranked, each grounded in a working system.</p>
+    <p class="sec-lead">Seven applied-AI disciplines, ranked by relevance to an AI-transformation role, each grounded in a working system.</p>
     <div class="secbar"><button class="expandall" data-scope="p-disciplines" aria-expanded="false">Expand all</button></div>
 
     <div class="stack">
-      <article class="item" id="d1"><button class="item-head" aria-expanded="false"><span class="lead"><svg class="ic"><use href="#i-loop"/></svg></span><span class="it-main"><span class="it-title">Reliability, looping &amp; observability</span><span class="it-hint">Loops that end on purpose, and runs that can't fail silently.</span></span><span class="tail"><span class="rank-tag">01</span><span class="chev">›</span></span></button><div class="item-body"><div class="ib-in"><p>Every loop gets a bound and a named exit. Review-then-fix cycles escalate instead of hanging, evaluation gates check quality as the work proceeds, and a watchdog alarms when a run goes silent, because silence is not success.</p><div class="links"><span class="lk-lab">Rooted in</span><button class="xlink" data-jump="ap-roots">Deep engineering roots</button></div><div class="links"><span class="lk-lab">Evidenced in</span><button class="xlink" data-jump="p-fabrica">Fabrica</button><span class="ev-text">— staged agents with bounded loops, run receipts, and evaluation gates.</span></div></div></div></article>
+      <article class="item" id="d1"><button class="item-head" aria-expanded="false"><span class="lead"><svg class="ic"><use href="#i-loop"/></svg></span><span class="it-main"><span class="it-title">Reliability, looping &amp; observability</span><span class="it-hint">Loops that end on purpose, and runs that can't fail silently.</span></span><span class="tail"><span class="rank-tag">01</span><span class="chev">›</span></span></button><div class="item-body"><div class="ib-in"><p>Every loop gets a bound and a named exit. Review-then-fix cycles escalate instead of hanging, evaluation gates check quality as the work proceeds, and a watchdog alarms when a run goes silent, because silence is not success.</p><div class="links"><span class="lk-lab">Rooted in</span><button class="xlink" data-jump="ap-roots">Deep engineering roots</button></div><div class="links"><span class="lk-lab">Evidenced in</span><button class="xlink" data-jump="p-fabrica">Fabrica</button><button class="xlink" data-jump="p-event">Event Resourcing</button><span class="ev-text">— staged agents with bounded loops, run receipts, and evaluation gates.</span></div></div></div></article>
 
-      <article class="item" id="d2"><button class="item-head" aria-expanded="false"><span class="lead"><svg class="ic"><use href="#i-flow"/></svg></span><span class="it-main"><span class="it-title">Agentic workflow design</span><span class="it-hint">The model is a component; the control flow around it is engineered.</span></span><span class="tail"><span class="rank-tag">02</span><span class="chev">›</span></span></button><div class="item-body"><div class="ib-in"><p>A model is treated as an unreliable component, with the control flow and the gates built around it: defined steps, in a set order. Nearly everything built here is agentic in that narrow, engineered sense.</p><div class="links"><span class="lk-lab">Rooted in</span><button class="xlink" data-jump="ap-current">Leading AI delivery</button></div><div class="links"><span class="lk-lab">Evidenced in</span><button class="xlink" data-jump="p-agentic">Agentic Intelligence Pipeline</button><button class="xlink" data-jump="p-compiler">Graph Compiler</button></div></div></div></article>
+      <article class="item" id="d2"><button class="item-head" aria-expanded="false"><span class="lead"><svg class="ic"><use href="#i-flow"/></svg></span><span class="it-main"><span class="it-title">Agentic workflow design</span><span class="it-hint">The model is a component; the control flow around it is engineered.</span></span><span class="tail"><span class="rank-tag">02</span><span class="chev">›</span></span></button><div class="item-body"><div class="ib-in"><p>A model is treated as an unreliable component, with the control flow and the gates built around it: defined steps, in a set order. Nearly everything built here is agentic in that narrow, engineered sense.</p><div class="links"><span class="lk-lab">Rooted in</span><button class="xlink" data-jump="ap-current">Leading AI delivery</button></div><div class="links"><span class="lk-lab">Evidenced in</span><button class="xlink" data-jump="p-agentic">Agentic Intelligence Pipeline</button><button class="xlink" data-jump="p-compiler">Graph Compiler</button><button class="xlink" data-jump="p-match">Resource Matching</button><button class="xlink" data-jump="p-enrichment">Enrichment</button></div></div></div></article>
 
-      <article class="item" id="d3"><button class="item-head" aria-expanded="false"><span class="lead"><svg class="ic"><use href="#i-layers"/></svg></span><span class="it-main"><span class="it-title">Context engineering &amp; token efficiency</span><span class="it-hint">Deciding what occupies the window, in tiers, per role.</span></span><span class="tail"><span class="rank-tag">03</span><span class="chev">›</span></span></button><div class="item-body"><div class="ib-in"><p>Deciding what occupies the model's window, in tiers, on a per-role contract: a short handoff, then an overview, then signatures, then specific ranges. It started as cost control. It turned out to drive accuracy, and it made runs cheaper to scale.</p><div class="links"><span class="lk-lab">Rooted in</span><button class="xlink" data-jump="ap-current">Leading AI delivery</button></div><div class="links"><span class="lk-lab">Evidenced in</span><button class="xlink" data-jump="p-aids">AI Usage Aids</button><button class="xlink" data-jump="p-brain">Dept Brain</button></div></div></div></article>
+      <article class="item" id="d3"><button class="item-head" aria-expanded="false"><span class="lead"><svg class="ic"><use href="#i-layers"/></svg></span><span class="it-main"><span class="it-title">Context engineering &amp; token efficiency</span><span class="it-hint">Deciding what occupies the window, in tiers, per role.</span></span><span class="tail"><span class="rank-tag">03</span><span class="chev">›</span></span></button><div class="item-body"><div class="ib-in"><p>Deciding what occupies the model's window, in tiers, on a per-role contract: a short handoff, then an overview, then signatures, then specific ranges. It started as cost control. It turned out to drive accuracy, and it made runs cheaper to scale.</p><div class="links"><span class="lk-lab">Rooted in</span><button class="xlink" data-jump="ap-current">Leading AI delivery</button></div><div class="links"><span class="lk-lab">Evidenced in</span><button class="xlink" data-jump="p-aids">AI Usage Aids</button><button class="xlink" data-jump="p-brain">Department Brain</button></div></div></div></article>
 
-      <article class="item" id="d4"><button class="item-head" aria-expanded="false"><span class="lead"><svg class="ic"><use href="#i-spark"/></svg></span><span class="it-main"><span class="it-title">Skill &amp; enablement-artifact creation</span><span class="it-hint">A skill someone else can run without the author in the room.</span></span><span class="tail"><span class="rank-tag">04</span><span class="chev">›</span></span></button><div class="item-body"><div class="ib-in"><p>Packaging one judgment per skill so someone else can run the workflow without the author in the room: a training artifact and a piece of tooling in the same file. Enablement that survives the person who wrote it.</p><div class="links"><span class="lk-lab">Rooted in</span><button class="xlink" data-jump="ap-current">Leading AI delivery</button></div><div class="links"><span class="lk-lab">Evidenced in</span><button class="xlink" data-jump="p-compiler">Graph Compiler</button><button class="xlink" data-jump="p-enable">Weekly AI Enablement</button><span class="ev-text">— and an authored skill-and-command library.</span></div></div></div></article>
+      <article class="item" id="d4"><button class="item-head" aria-expanded="false"><span class="lead"><svg class="ic"><use href="#i-spark"/></svg></span><span class="it-main"><span class="it-title">Skill &amp; enablement-artifact creation</span><span class="it-hint">A skill someone else can run without the author in the room.</span></span><span class="tail"><span class="rank-tag">04</span><span class="chev">›</span></span></button><div class="item-body"><div class="ib-in"><p>Packaging one judgment per skill so someone else can run the workflow without the author in the room: a training artifact and a piece of tooling in the same file. Enablement that survives the person who wrote it.</p><div class="links"><span class="lk-lab">Rooted in</span><button class="xlink" data-jump="ap-current">Leading AI delivery</button></div><div class="links"><span class="lk-lab">Evidenced in</span><button class="xlink" data-jump="p-compiler">Graph Compiler</button><button class="xlink" data-jump="p-enable">Weekly AI Enablement</button><button class="xlink" data-jump="p-aids">AI Usage Aids</button></div></div></div></article>
 
       <article class="item" id="d7"><button class="item-head" aria-expanded="false"><span class="lead"><svg class="ic"><use href="#i-shield"/></svg></span><span class="it-main"><span class="it-title">Guardrails, HITL &amp; fail-closed safety</span><span class="it-hint">Governance built into the code, not bolted on.</span></span><span class="tail"><span class="rank-tag">05</span><span class="chev">›</span></span></button><div class="item-body"><div class="ib-in"><p>Governance built into the code: human approval gates in the graph, and capabilities made structurally impossible instead of merely switched off. Refuse over guess, by default. That is what a regulated enterprise needs.</p><div class="links"><span class="lk-lab">Rooted in</span><button class="xlink" data-jump="ap-roots">Deep engineering roots</button></div><div class="links"><span class="lk-lab">Evidenced in</span><button class="xlink" data-jump="p-sbd">Spec-Based Development</button><span class="ev-text">— specifications that make unspecified behavior fail the build.</span></div></div></div></article>
 
@@ -962,13 +1048,13 @@
   <div class="wrap" style="padding-top:44px">
     <p class="eyebrow">Experience</p>
     <h2 class="h-sec">How the experience applies to AI transformation</h2>
-    <p class="sec-lead">Twenty-five years of enterprise delivery, mapped to AI transformation.</p>
+    <p class="sec-lead">25+ years of enterprise delivery, mapped to AI transformation.</p>
 
     <div class="tl" aria-label="Career timeline from 2000">
       <div class="tl-cap">Career &middot; 2000 to now</div>
       <div class="tl-bar">
         <div class="tl-seg" style="flex:21"><span class="tl-yr">2000 – 2021</span><span class="tl-lab">Enterprise software transformation and outcome delivery</span></div>
-        <div class="tl-seg now" style="flex:5"><span class="tl-yr">AT&amp;T &middot; 2021 – now</span><span class="tl-lab">Transformation - DevOps, GigaPower, TDP</span></div>
+        <div class="tl-seg now" style="flex:5"><span class="tl-yr">AT&amp;T &middot; 2021 – now</span><span class="tl-lab">Enterprise transformation: DevOps, <span class="gl">GigaPower</span>, <span class="gl">TDP</span></span></div>
       </div>
     </div>
     <div class="tl" aria-label="Current roles timeline">
@@ -990,17 +1076,17 @@
     <div>
       <span class="tilecap">Certifications</span>
       <div class="tiles three">
-        <div class="tile">Certified SAFe Agilist</div>
-        <div class="tile">Microsoft Azure Fundamentals</div>
-        <div class="tile">Engineering Leadership (eCornell)</div>
+        <div class="tile tile-ic"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-infinity"/></svg><span>Certified SAFe Agilist</span></div>
+        <div class="tile tile-ic"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-cloud"/></svg><span>Microsoft Azure Fundamentals</span></div>
+        <div class="tile tile-ic"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-badge"/></svg><span>Engineering Leadership (eCornell)</span></div>
       </div>
     </div>
     <div>
       <span class="tilecap">Training</span>
       <div class="tiles three">
-        <span class="tile tap" tabindex="0">Decker Communications<span class="tip">Decker Communications. High-stakes communication and executive presence: how to deliver a message that lands and moves a room.</span></span>
-        <span class="tile tap" tabindex="0">Solution Selling<span class="tip">A consultative sales method: diagnose the buyer's real problem, then map the solution to it. Value over features.</span></span>
-        <span class="tile tap" tabindex="0">Think! Inc. Negotiation<span class="tip">Negotiation training. Interests over positions, planned trades, and protecting the relationship while you close.</span></span>
+        <span class="tile tap tile-ic" tabindex="0"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-mic"/></svg><span>Decker Communications</span><span class="tip">Decker Communications. High-stakes communication and executive presence: how to deliver a message that lands and moves a room.</span></span>
+        <span class="tile tap tile-ic" id="tr-selling" tabindex="0"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-target"/></svg><span>Solution Selling</span><span class="tip">A consultative sales method: diagnose the buyer's real problem, then map the solution to it. Value over features.</span></span>
+        <span class="tile tap tile-ic" id="tr-negotiation" tabindex="0"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-swap"/></svg><span>Think! Inc. Negotiation</span><span class="tip">Negotiation training. Interests over positions, planned trades, and protecting the relationship while you close.</span></span>
       </div>
     </div>
     </div>
@@ -1010,22 +1096,22 @@
         <div class="ap-head"><span class="ap-ic"><svg class="ic"><use href="#i-spark"/></svg></span><span class="tag">Current — AI &amp; agentic delivery</span></div>
         <h3>Leading AI &amp; agentic delivery inside the enterprise</h3>
         <p class="ap-hint">AI enablement is part of leading the team today.</p>
-        <p class="ap-body">Leads the enablement of a 25-person engineering practice delivering across generative AI, agentic workflows, LLM-based solutions, low-code (Power Platform), data engineering, and cloud operations, on an Agile cadence, consistently landing more than 90% of projects on time and on budget. Also runs a weekly AI enablement segment to build the team's fluency in generative AI and agentic workflows.</p>
+        <p class="ap-body">Leads a 25-person engineering practice delivering across generative AI, agentic workflows, LLM-based solutions, low-code (Power Platform), data engineering, and cloud operations, on an Agile cadence, consistently landing more than 90% of projects on time and on budget. Also runs a weekly AI enablement segment to build the team's fluency in generative AI and agentic workflows.</p>
         <div class="links"><span class="lk-lab">Projects</span><button class="xlink" data-jump="p-enable">Weekly AI Enablement</button><button class="xlink" data-jump="p-aids">AI Usage Aids</button><button class="xlink" data-jump="p-match">Resource Matching</button></div>
       </div>
       <div class="ap" id="ap-modernize">
         <div class="ap-head"><span class="ap-ic"><svg class="ic"><use href="#i-cog"/></svg></span><span class="tag">Transformation</span></div>
         <h3>Enterprise modernization &amp; delivery</h3>
         <p class="ap-hint">A change-management program with a model in the middle.</p>
-        <p class="ap-body">Before AI was the headline, led large-scale software-modernization, Agile, DevOps, and value-stream programs for Fortune 500 and public-sector organizations, plus the cost-benefit modeling that gets investment approved. An AI-transformation program is a change-management program with a model in the middle. The discipline transfers directly.</p>
+        <p class="ap-body">Before AI was the headline, led large-scale software-modernization, Agile, DevOps, and value-stream programs, plus the cost-benefit modeling that gets investment approved. An AI-transformation program is a change-management program with a model in the middle. The discipline transfers directly.</p>
         <div class="links"><span class="lk-lab">Projects</span><button class="xlink" data-jump="p-impact">Impact-Assessment</button><button class="xlink" data-jump="p-sales">Sales Enablement</button><button class="xlink" data-jump="p-frontdoor">Front Door</button><button class="xlink" data-jump="p-event">Event Resourcing</button></div>
       </div>
       <div class="ap" id="ap-roots">
         <div class="ap-head"><span class="ap-ic"><svg class="ic"><use href="#i-layers"/></svg></span><span class="tag">Foundation</span></div>
         <h3>Deep engineering roots</h3>
         <p class="ap-hint">Why structure and tests beat hope.</p>
-        <p class="ap-body">Started in aerospace and defense systems engineering, building automation that improved review quality by an order of magnitude while cutting effort. That grounding is the reason to trust structure and tests over hope, and why the systems built today stop when an input is missing instead of guessing.</p>
-        <div class="links"><span class="lk-lab">Projects</span><button class="xlink" data-jump="p-fabrica">Fabrica</button><button class="xlink" data-jump="p-agentic">Agentic Pipeline</button><button class="xlink" data-jump="p-compiler">Graph Compiler</button><button class="xlink" data-jump="p-brain">Dept Brain</button><button class="xlink" data-jump="p-sbd">Spec-Based Dev</button><button class="xlink" data-jump="p-enrichment">Enrichment</button></div>
+        <p class="ap-body">Started in aerospace and defense systems engineering, building automation that improved review quality while cutting effort. That grounding is the reason to trust structure and tests over hope, and why the systems built today stop when an input is missing instead of guessing.</p>
+        <div class="links"><span class="lk-lab">Projects</span><button class="xlink" data-jump="p-fabrica">Fabrica</button><button class="xlink" data-jump="p-agentic">Agentic Pipeline</button><button class="xlink" data-jump="p-compiler">Graph Compiler</button><button class="xlink" data-jump="p-brain">Department Brain</button><button class="xlink" data-jump="p-sbd">Spec-Based Development</button><button class="xlink" data-jump="p-enrichment">Enrichment</button></div>
       </div>
       <div class="ap wide" id="ap-strategy">
         <div class="ap-head"><span class="ap-ic"><svg class="ic"><use href="#i-compass"/></svg></span><span class="tag">Advisory</span></div>
@@ -1048,19 +1134,19 @@
     <div class="secbar"><button class="expandall" data-scope="p-projects" aria-expanded="false">Expand all</button></div>
 
     <div class="stack">
-      <article class="item" id="p-enable"><button class="item-head" aria-expanded="false"><span class="lead"><svg class="ic"><use href="#i-spark"/></svg></span><span class="it-main"><span class="it-title">Weekly AI Enablement Program</span><span class="it-role">AI enablement · adoption</span><span class="it-hint">Enablement as an operating rhythm, not a one-off training.</span></span><span class="tail"><span class="chev">›</span></span></button><div class="item-body"><div class="ib-in"><p>A standing weekly segment delivering tradecraft and applied know-how to the engineering practice, raising team-wide fluency in generative AI and agentic workflows and <span class="metric">accelerating adoption</span> across the group.</p><div class="links"><span class="lk-lab">Proves</span><button class="xlink" data-jump="d4">Skill &amp; enablement creation</button></div></div></div></article>
+      <article class="item" id="p-enable"><button class="item-head" aria-expanded="false"><span class="lead"><svg class="ic"><use href="#i-spark"/></svg></span><span class="it-main"><span class="it-title">Weekly AI Enablement Program</span><span class="it-role">AI enablement · adoption</span><span class="it-hint">Enablement as an operating rhythm, not a one-off training.</span></span><span class="tail"><span class="chev">›</span></span></button><div class="item-body"><div class="ib-in"><p>A standing weekly segment delivering tradecraft and applied know-how to the engineering practice, raising team-wide fluency in generative AI and agentic workflows and <span class="metric">accelerating adoption</span> across the practice.</p><div class="links"><span class="lk-lab">Proves</span><button class="xlink" data-jump="d4">Skill &amp; enablement creation</button></div></div></div></article>
 
-      <article class="item" id="p-aids"><button class="item-head" aria-expanded="false"><span class="lead"><svg class="ic"><use href="#i-spark"/></svg></span><span class="it-main"><span class="it-title">AI Usage Aids</span><span class="it-role">In-house · enablement content</span><span class="it-hint">Token-efficiency training, concept explainers, and quick tips for the team.</span></span><span class="tail"><span class="chev">›</span></span></button><div class="item-body"><div class="ib-in"><p>In-house enablement content that raises the team's efficient use of AI: token-efficiency training, concept explainers, and quick tips people can apply the same day.</p><div class="links"><span class="lk-lab">Proves</span><button class="xlink" data-jump="d3">Context engineering</button><button class="xlink" data-jump="d4">Skill &amp; enablement</button></div></div></div></article>
+      <article class="item" id="p-aids"><button class="item-head" aria-expanded="false"><span class="lead"><svg class="ic"><use href="#i-spark"/></svg></span><span class="it-main"><span class="it-title">AI Usage Aids</span><span class="it-role">In-house · enablement content</span><span class="it-hint">Token-efficiency training, concept explainers, and quick tips for the team.</span></span><span class="tail"><span class="chev">›</span></span></button><div class="item-body"><div class="ib-in"><p>In-house enablement content that raises the team's efficient use of AI: token-efficiency training, concept explainers, and quick tips people can apply the same day.</p><div class="links"><span class="lk-lab">Proves</span><button class="xlink" data-jump="d3">Context engineering</button><button class="xlink" data-jump="d4">Skill &amp; enablement creation</button></div></div></div></article>
 
-      <article class="item" id="p-fabrica"><button class="item-head" aria-expanded="false"><span class="lead"><svg class="ic"><use href="#i-flow"/></svg></span><span class="it-main"><span class="it-title">Fabrica — AI coding lifecycle</span><span class="it-role">Orchestration · looping · evaluation</span><span class="it-hint">Staged agents pass context through files; bounded loops and eval gates between.</span></span><span class="tail"><span class="chev">›</span></span></button><div class="item-body"><div class="ib-in"><p>An AI coding lifecycle that breaks a task into stages, each handled by a focused agent, with context passed through files. Bounded review-then-fix loops, run receipts, and evaluation gates keep a long job from hanging or drifting.</p><div class="links"><span class="lk-lab">Proves</span><button class="xlink" data-jump="d1">Reliability &amp; looping</button></div></div></div></article>
+      <article class="item" id="p-fabrica"><button class="item-head" aria-expanded="false"><span class="lead"><svg class="ic"><use href="#i-flow"/></svg></span><span class="it-main"><span class="it-title">Fabrica — AI coding lifecycle</span><span class="it-role">Orchestration · looping · evaluation</span><span class="it-hint">Staged agents pass context through files; bounded loops and eval gates between.</span></span><span class="tail"><span class="chev">›</span></span></button><div class="item-body"><div class="ib-in"><p>An AI coding lifecycle that breaks a task into stages, each handled by a focused agent, with context passed through files. Bounded review-then-fix loops, run receipts, and evaluation gates keep a long job from hanging or drifting.</p><div class="links"><span class="lk-lab">Proves</span><button class="xlink" data-jump="d1">Reliability &amp; observability</button></div></div></div></article>
 
       <article class="item" id="p-agentic"><button class="item-head" aria-expanded="false"><span class="lead"><svg class="ic"><use href="#i-network"/></svg></span><span class="it-main"><span class="it-title">Agentic Intelligence Pipeline</span><span class="it-role">Multi-model agentic · anti-fabrication</span><span class="it-hint">Discovery to scored brief, with tool use and a refusal to promote degraded runs.</span></span><span class="tail"><span class="chev">›</span></span></button><div class="item-body"><div class="ib-in"><p>A multi-stage agentic pipeline that moves items through discovery, enrichment, and scoring with tool use at each step, backed by a ledger and an anti-fabrication gate that refuses to promote a degraded-mode run.</p><div class="links"><span class="lk-lab">Proves</span><button class="xlink" data-jump="d2">Agentic workflow design</button></div></div></div></article>
 
-      <article class="item" id="p-brain"><button class="item-head" aria-expanded="false"><span class="lead"><svg class="ic"><use href="#i-quote"/></svg></span><span class="it-main"><span class="it-title">Dept Brain — retrieval knowledge base</span><span class="it-role">RAG · cited answers</span><span class="it-hint">Ask the department's knowledge; get a cited answer or an honest "not found".</span></span><span class="tail"><span class="chev">›</span></span></button><div class="item-body"><div class="ib-in"><p>A retrieval knowledge base for the department. It answers with quoted, cited source text or abstains when the source isn't there, so people query it instead of hunting through documents.</p><div class="links"><span class="lk-lab">Proves</span><button class="xlink" data-jump="d3">Context engineering</button></div></div></div></article>
+      <article class="item" id="p-brain"><button class="item-head" aria-expanded="false"><span class="lead"><svg class="ic"><use href="#i-quote"/></svg></span><span class="it-main"><span class="it-title">Department Brain — retrieval knowledge base</span><span class="it-role">RAG · cited answers</span><span class="it-hint">Ask the department's knowledge; get a cited answer or an honest "not found".</span></span><span class="tail"><span class="chev">›</span></span></button><div class="item-body"><div class="ib-in"><p>A retrieval knowledge base for the department. It answers with quoted, cited source text or abstains when the source isn't there, so people query it instead of hunting through documents.</p><div class="links"><span class="lk-lab">Proves</span><button class="xlink" data-jump="d3">Context engineering</button></div></div></div></article>
 
-      <article class="item" id="p-compiler"><button class="item-head" aria-expanded="false"><span class="lead"><svg class="ic"><use href="#i-terminal"/></svg></span><span class="it-main"><span class="it-title">Graph Compiler for agent workflows</span><span class="it-role">Language design · static verification</span><span class="it-hint">Checks 24 invariants before a token is spent; binds graph nodes to skill files.</span></span><span class="tail"><span class="chev">›</span></span></button><div class="item-body"><div class="ib-in"><p>A compiler that models an agent workflow as a typed directed graph and checks <span class="metric">24 static invariants before a token is spent</span>. It binds each graph node to the skill file it runs, so a diagram and its prompts can't drift apart.</p><div class="links"><span class="lk-lab">Proves</span><button class="xlink" data-jump="d4">Skill creation</button><button class="xlink" data-jump="d9">Spec-driven dev</button></div></div></div></article>
+      <article class="item" id="p-compiler"><button class="item-head" aria-expanded="false"><span class="lead"><svg class="ic"><use href="#i-terminal"/></svg></span><span class="it-main"><span class="it-title">Graph Compiler for agent workflows</span><span class="it-role">Language design · static verification</span><span class="it-hint">Checks 24 invariants before a token is spent; binds graph nodes to skill files.</span></span><span class="tail"><span class="chev">›</span></span></button><div class="item-body"><div class="ib-in"><p>A compiler that models an agent workflow as a typed directed graph and checks <span class="metric">24 static invariants before a token is spent</span>. It binds each graph node to the skill file it runs, so a diagram and its prompts can't drift apart.</p><div class="links"><span class="lk-lab">Proves</span><button class="xlink" data-jump="d2">Agentic workflow design</button><button class="xlink" data-jump="d4">Skill &amp; enablement creation</button><button class="xlink" data-jump="d9">Spec-driven development</button></div></div></div></article>
 
-      <article class="item" id="p-sbd"><button class="item-head" aria-expanded="false"><span class="lead"><svg class="ic"><use href="#i-clipboard"/></svg></span><span class="it-main"><span class="it-title">Spec-Based Development</span><span class="it-role">Methodology · traceability</span><span class="it-hint">Test-bound specs; the build fails when a requirement has no test.</span></span><span class="tail"><span class="chev">›</span></span></button><div class="item-body"><div class="ib-in"><p>A stack-agnostic way to direct AI coding agents through specifications, with test-bound acceptance criteria and a traceability check that fails the build when a requirement has no test attached to it.</p><div class="links"><span class="lk-lab">Proves</span><button class="xlink" data-jump="d7">Guardrails &amp; HITL</button><button class="xlink" data-jump="d9">Spec-driven dev</button></div></div></div></article>
+      <article class="item" id="p-sbd"><button class="item-head" aria-expanded="false"><span class="lead"><svg class="ic"><use href="#i-clipboard"/></svg></span><span class="it-main"><span class="it-title">Spec-Based Development</span><span class="it-role">Methodology · traceability</span><span class="it-hint">Test-bound specs; the build fails when a requirement has no test.</span></span><span class="tail"><span class="chev">›</span></span></button><div class="item-body"><div class="ib-in"><p>A stack-agnostic way to direct AI coding agents through specifications, with test-bound acceptance criteria and a traceability check that fails the build when a requirement has no test attached to it.</p><div class="links"><span class="lk-lab">Proves</span><button class="xlink" data-jump="d7">Guardrails &amp; HITL</button><button class="xlink" data-jump="d9">Spec-driven development</button></div></div></div></article>
 
       <article class="item" id="p-sales"><button class="item-head" aria-expanded="false"><span class="lead"><svg class="ic"><use href="#i-chart"/></svg></span><span class="it-main"><span class="it-title">Sales-Enablement Intelligence Platform</span><span class="it-role">Power Apps · Power Automate · analytics</span><span class="it-hint">Intelligence at the point of need — $1M+ recurring benefit.</span></span><span class="tail"><span class="chev">›</span></span></button><div class="item-body"><div class="ib-in"><p>Delivered a solution that surfaces up-to-date sales intelligence at the point of need, tracks usage, and correlates it with sales-cycle outcomes. Customer estimates a <span class="metric">10% deal-velocity improvement and 5% win-rate lift — well over $1M in annual recurring benefit.</span></p><div class="links"><span class="lk-lab">Proves</span><button class="xlink" data-jump="d10">Enterprise integration</button></div></div></div></article>
 
@@ -1090,49 +1176,49 @@
         <tbody>
           <tr class="sub"><td colspan="2">Technical &amp; engineering</td></tr>
           <tr>
-            <td class="need" tabindex="0"><span class="need-t">Reliable, auditable model output</span><span class="need-why">A model that can't be trusted to run unwatched, or explain itself in an audit, never leaves the pilot. Enterprises adopt what they can depend on and review.</span></td>
+            <td class="need"><span class="need-t">Reliable, auditable model output</span><span class="need-why">A model that can't be trusted to run unwatched, or explain itself in an audit, never leaves the pilot. Enterprises adopt what they can depend on and review.</span></td>
             <td class="held"><div class="held-in"><button class="xlink" data-jump="d1">Reliability &amp; observability</button><button class="xlink" data-jump="d7">Guardrails &amp; HITL</button></div></td>
           </tr>
           <tr>
-            <td class="need" tabindex="0"><span class="need-t">Agentic workflows, not chatbots</span><span class="need-why">The value is AI that does multi-step work with tools and checks, not a chat box. That takes engineered control flow, not a clever prompt.</span></td>
+            <td class="need"><span class="need-t">Agentic workflows, not chatbots</span><span class="need-why">The value is AI that does multi-step work with tools and checks, not a chat box. That takes engineered control flow, not a clever prompt.</span></td>
             <td class="held"><div class="held-in"><button class="xlink" data-jump="d2">Agentic workflow design</button></div></td>
           </tr>
           <tr>
-            <td class="need" tabindex="0"><span class="need-t">Grounded answers, no hallucination</span><span class="need-why">In a regulated business, a confident wrong answer is a liability. The system has to cite its source or say it does not know.</span></td>
-            <td class="held"><div class="held-in"><button class="xlink" data-jump="p-brain">Dept Brain (retrieval)</button></div></td>
+            <td class="need"><span class="need-t">Grounded answers, no hallucination</span><span class="need-why">In a regulated business, a confident wrong answer is a liability. The system has to cite its source or say it does not know.</span></td>
+            <td class="held"><div class="held-in"><button class="xlink" data-jump="p-brain">Department Brain (retrieval)</button></div></td>
           </tr>
           <tr>
-            <td class="need" tabindex="0"><span class="need-t">Cost control at scale</span><span class="need-why">At enterprise volume, token cost decides whether a use case ships. What goes into the model's window is a budget, not an afterthought.</span></td>
-            <td class="held"><div class="held-in"><button class="xlink" data-jump="d3">Context engineering &amp; token efficiency</button></div></td>
+            <td class="need"><span class="need-t">Cost control at scale</span><span class="need-why">At enterprise volume, token cost decides whether a use case ships. What goes into the model's window is a budget, not an afterthought.</span></td>
+            <td class="held"><div class="held-in"><button class="xlink" data-jump="d3">Context engineering</button></div></td>
           </tr>
           <tr>
-            <td class="need" tabindex="0"><span class="need-t">Proven quality before shipping</span><span class="need-why">Before a workflow touches production, someone has to show it works, and keep showing it. Evals and tests are how you gate that.</span></td>
+            <td class="need"><span class="need-t">Proven quality before shipping</span><span class="need-why">Before a workflow touches production, someone has to show it works, and keep showing it. Evals and tests are how you gate that.</span></td>
             <td class="held"><div class="held-in"><button class="xlink" data-jump="d9">Spec-driven development</button><button class="xlink" data-jump="p-fabrica">Fabrica</button></div></td>
           </tr>
           <tr>
-            <td class="need" tabindex="0"><span class="need-t">AI inside real operations</span><span class="need-why">AI that lives in a demo changes nothing. It has to run inside the tools and platforms the business already uses.</span></td>
+            <td class="need"><span class="need-t">AI inside real operations</span><span class="need-why">AI that lives in a demo changes nothing. It has to run inside the tools and platforms the business already uses.</span></td>
             <td class="held"><div class="held-in"><button class="xlink" data-jump="d10">Enterprise integration</button><button class="xlink" data-jump="p-sales">Sales Enablement</button></div></td>
           </tr>
           <tr class="sub"><td colspan="2">Human &amp; leadership — the soft skills the work also needs</td></tr>
           <tr>
-            <td class="need" tabindex="0"><span class="need-t">Team fluency and adoption</span><span class="need-why">A model helps one person until that person leaves. Transformation is measured by whether the whole team's work changed, and stayed changed.</span></td>
+            <td class="need"><span class="need-t">Team fluency and adoption</span><span class="need-why">A model helps one person until that person leaves. Transformation is measured by whether the whole team's work changed, and stayed changed.</span></td>
             <td class="held"><div class="held-in"><button class="xlink" data-jump="d4">Skill &amp; enablement creation</button><button class="xlink" data-jump="p-enable">Weekly AI Enablement</button></div></td>
           </tr>
           <tr>
-            <td class="need" tabindex="0"><span class="need-t">Staying current in a field that moves weekly</span><span class="need-why">AI changes faster than any training cycle. Staying useful means a standing habit for finding what's new and worth acting on, not a one-time course.</span></td>
-            <td class="held"><div class="held-in"><button class="xlink" data-jump="p-enrichment">Enrichment — AI-news feed</button><span class="held-note">podcasts · continuous learning</span></div></td>
+            <td class="need"><span class="need-t">Staying current in a field that moves weekly</span><span class="need-why">AI changes faster than any training cycle. Staying useful means a standing habit for finding what's new and worth acting on, not a one-time course.</span></td>
+            <td class="held"><div class="held-in"><button class="xlink" data-jump="p-enrichment">Enrichment — AI-news feed</button><button class="xlink" data-goto="taxonomy">AI Taxonomy</button><span class="held-note">continuous learning</span></div></td>
           </tr>
           <tr>
-            <td class="need" tabindex="0"><span class="need-t">Change management at enterprise scale</span><span class="need-why">A model transforms nothing on its own. Getting hundreds of people to work differently, and keep at it, is a change-management job as much as a technical one.</span></td>
-            <td class="held"><div class="held-in"><button class="xlink" data-jump="ap-current">Practice leadership</button><button class="xlink" data-jump="ap-modernize">Modernization programs</button></div></td>
+            <td class="need"><span class="need-t">Change management at enterprise scale</span><span class="need-why">A model transforms nothing on its own. Getting hundreds of people to work differently, and keep at it, is a change-management job as much as a technical one.</span></td>
+            <td class="held"><div class="held-in"><button class="xlink" data-jump="ap-current">Leading AI delivery</button><button class="xlink" data-jump="ap-modernize">Modernization programs</button></div></td>
           </tr>
           <tr>
-            <td class="need" tabindex="0"><span class="need-t">Executive alignment and the ROI case</span><span class="need-why">AI budgets are approved and defended in front of leadership. Finding the workflow worth automating and proving its return is the core skill.</span></td>
-            <td class="held"><div class="held-in"><button class="xlink" data-jump="ap-strategy">Solution strategy</button><button class="xlink" data-jump="ap-current">Practice leadership</button></div></td>
+            <td class="need"><span class="need-t">Executive alignment and the ROI case</span><span class="need-why">AI budgets are approved and defended in front of leadership. Finding the workflow worth automating and proving its return is the core skill.</span></td>
+            <td class="held"><div class="held-in"><button class="xlink" data-jump="ap-strategy">Solution strategy</button><button class="xlink" data-jump="ap-current">Leading AI delivery</button></div></td>
           </tr>
           <tr>
-            <td class="need" tabindex="0"><span class="need-t">Consultative discovery and winning buy-in</span><span class="need-why">The hardest part is often finding the right problem and getting the room to commit to it. That is consultative discovery, and the ability to sell a plan on its merits — two decades of it, in advisory and B2B sales.</span></td>
-            <td class="held"><div class="held-in"><button class="xlink" data-jump="ap-strategy">Advisory &amp; discovery</button><button class="xlink" data-jump="ap-modernize">Transformation delivery</button></div></td>
+            <td class="need"><span class="need-t">Consultative discovery and winning buy-in</span><span class="need-why">The hardest part is often finding the right problem and getting the room to commit to it. That is consultative discovery, and the ability to sell a plan on its merits — two decades of it, in advisory and B2B sales.</span></td>
+            <td class="held"><div class="held-in"><button class="xlink" data-jump="ap-strategy">Advisory &amp; discovery</button><button class="xlink" data-jump="ap-modernize">Transformation delivery</button><button class="xlink" data-jump="tr-selling">Solution Selling</button><button class="xlink" data-jump="tr-negotiation">Think! Inc. Negotiation</button></div></td>
           </tr>
         </tbody>
       </table>
@@ -1153,70 +1239,86 @@
       <p class="arch-k">In 30 seconds</p>
       <p>Map the data, permissions, components and integrations, including how each one fails and recovers. Compare the simplest workable pattern with the more complex options and write the tradeoff down. Before anything scales, require evidence on task quality, security, response time, adoption and cost per successful outcome, with a named business owner and a named service owner.</p>
     </div>
+    <div class="ax-strip">
+      <div class="ax-node"><b>Map</b></div>
+      <div class="ax-node"><b>Compare</b></div>
+      <div class="ax-node ax-req"><b>Require evidence</b>
+        <div class="ax-chips"><span class="ax-chip">Task quality</span> <span class="ax-chip">Security</span> <span class="ax-chip">Response time</span> <span class="ax-chip">Adoption</span> <span class="ax-chip">Cost per successful outcome</span></div>
+        <div class="ax-chips"><span class="ax-badge">Business owner</span> <span class="ax-badge">Service owner</span></div>
+      </div>
+    </div>
 
     <h3 class="arch-h">How to structure an answer</h3>
     <div class="arch-steps"><div class="arch-step"><span class="arch-n">01</span><b>Outcome</b><span>Who needs what improvement, and what is the baseline?</span></div><div class="arch-step"><span class="arch-n">02</span><b>Constraints</b><span>Data, authority, risk, budget, latency and scale.</span></div><div class="arch-step"><span class="arch-n">03</span><b>Design</b><span>Components, data and decision flow, and who owns what.</span></div><div class="arch-step"><span class="arch-n">04</span><b>Tradeoff</b><span>What was rejected, and why.</span></div><div class="arch-step"><span class="arch-n">05</span><b>Proof</b><span>Evaluation, rollout, recovery and business results.</span></div></div>
 
     <h3 class="arch-h">Six domains, one capability</h3>
     <p class="arch-sub">What to look for in each, and the tradeoff to defend.</p>
+    <svg class="ax-hub" viewBox="0 0 960 80" aria-hidden="true" focusable="false"><path class="sp" d="M480 20 80 70M480 20 240 70M480 20 400 70M480 20 560 70M480 20 720 70M480 20 880 70"/><circle class="hb" cx="480" cy="20" r="14"/><circle class="hc" cx="480" cy="20" r="5"/><circle class="dt" cx="80" cy="70" r="6"/><circle class="dt" cx="240" cy="70" r="6"/><circle class="dt" cx="400" cy="70" r="6"/><circle class="dt" cx="560" cy="70" r="6"/><circle class="dt" cx="720" cy="70" r="6"/><circle class="dt" cx="880" cy="70" r="6"/></svg>
     <div class="arch-grid">
       <div class="arch-card">
         <p class="arch-ix">01 &middot; Outcomes &amp; operating model</p>
-        <h3>Business architecture</h3>
+        <h4>Business architecture</h4>
         <ul><li>Map the work before choosing the tool; some problems need rules or a better form, not AI.</li><li>Score value and feasibility separately, and name an outcome owner with scale, stop and review criteria.</li><li>Treat adoption as workflow design: roles, training, incentives and support are part of the architecture.</li></ul>
+        <div class="ax-poles" aria-hidden="true"><span data-tag="centralized"></span><span data-tag="federated"></span></div>
         <p class="arch-trade"><b>Tradeoff to name:</b> Centralized vs. federated delivery: shared services and guardrails, with accountability in the business domains.</p>
       </div>
       <div class="arch-card">
         <p class="arch-ix">02 &middot; Components &amp; tradeoffs</p>
-        <h3>Solution architecture</h3>
+        <h4>Solution architecture</h4>
         <ul><li>Keep the model separate from the application, so either can change without rebuilding the other.</li><li>Use the simplest pattern that works: rules, then a bounded model call, then retrieval, then a workflow, and an agent only when planning really pays.</li><li>Write decision records: what was chosen, what was rejected, and what would change the call.</li></ul>
+        <div class="ax-poles" aria-hidden="true"><span data-tag="buy"></span><span data-tag="extend"></span><span data-tag="build"></span></div>
         <p class="arch-trade"><b>Tradeoff to name:</b> Buy vs. extend vs. build, decided by fit, control and total cost, not by novelty.</p>
       </div>
       <div class="arch-card">
         <p class="arch-ix">03 &middot; Knowledge, quality &amp; access</p>
-        <h3>Data architecture</h3>
+        <h4>Data architecture</h4>
         <ul><li>Every source has an owner; ingestion runs as a production pipeline, not a one-time load.</li><li>Enforce access before content reaches the model; the model is never the permission check.</li><li>Measure retrieval and generation separately, so a bad answer can be traced to its cause.</li></ul>
+        <div class="ax-poles" aria-hidden="true"><span data-tag="copied index"></span><span data-tag="live query"></span></div>
         <p class="arch-trade"><b>Tradeoff to name:</b> A copied search index vs. a live query: speed and control against freshness and revocation.</p>
       </div>
       <div class="arch-card">
         <p class="arch-ix">04 &middot; Contracts &amp; reliable actions</p>
-        <h3>Integration architecture</h3>
+        <h4>Integration architecture</h4>
         <ul><li>Systems of record stay authoritative; AI proposes, trusted code commits.</li><li>Retries must not create duplicates: stable operation keys and reconciliation when an outcome is unknown.</li><li>Preserve the user's identity end to end, and scope every tool to the least authority it needs.</li></ul>
+        <div class="ax-poles" aria-hidden="true"><span data-tag="direct API"></span><span data-tag="queue"></span></div>
         <p class="arch-trade"><b>Tradeoff to name:</b> A direct API call vs. a queue: immediacy against resilience and recovery.</p>
       </div>
       <div class="arch-card">
         <p class="arch-ix">05 &middot; Trust boundaries &amp; accountability</p>
-        <h3>Security &amp; governance</h3>
+        <h4>Security &amp; governance</h4>
         <ul><li>Threat-model the whole system, including prompt injection through retrieved content.</li><li>Enforce authority outside the model, and test that content can never grant a permission.</li><li>Make governance an operating rhythm: a fast path for low-risk work, deeper review where the stakes are.</li></ul>
+        <div class="ax-poles" aria-hidden="true"><span data-tag="broad autonomy"></span><span data-tag="bounded authority"></span></div>
         <p class="arch-trade"><b>Tradeoff to name:</b> Broad autonomy vs. bounded authority: widen it only as evidence and controls earn it.</p>
       </div>
       <div class="arch-card">
         <p class="arch-ix">06 &middot; Quality, reliability &amp; economics</p>
-        <h3>Production operations</h3>
+        <h4>Production operations</h4>
         <ul><li>Build evaluation into development, and report a balanced scorecard: quality, safety, speed, adoption, cost.</li><li>Release the whole AI configuration deliberately: prompts, models, retrieval settings and tools are versioned together.</li><li>Manage cost per useful outcome, not token price.</li></ul>
+        <div class="ax-poles" aria-hidden="true"><span data-tag="cheapest model"></span><span data-tag="cheapest outcome"></span></div>
         <p class="arch-trade"><b>Tradeoff to name:</b> The cheapest model vs. the cheapest outcome: rework and review time count.</p>
       </div>
     </div>
 
     <h3 class="arch-h">A worked example: intelligent request intake</h3>
-    <p class="arch-sub">A design exercise built on familiar intake and prioritization work, not a claim of a deployed system. It ties the six domains together.</p>
+    <p class="arch-sub">A design exercise built on <button class="xlink" data-jump="p-frontdoor">familiar intake and prioritization work</button>, not a claim of a deployed system. It ties the six domains together.</p>
     <div class="arch-case">
+      <div class="ax-lanes"><span>Trusted code</span> <span>System of record</span> <span>Model</span> <span>Owner</span> <span>Operations</span></div>
       <ol>
-        <li><b>Authenticate</b> the caller; trusted code decides what they can see.</li>
-        <li><b>Save the original</b> request in the system of record first.</li>
-        <li><b>Retrieve only authorized guidance</b>, and only if a simple taxonomy is not enough.</li>
-        <li><b>Draft with the model</b>: category, summary, missing fields, all treated as suggestions.</li>
-        <li><b>Validate and review</b>: an authorized owner keeps prioritization.</li>
-        <li><b>Commit through a narrow adapter</b> with an idempotency key; the model never grants permission.</li>
-        <li><b>Measure</b> versions, timing, review edits and accepted outcomes.</li>
+        <li class="ax-l1" data-tag="Trusted code"><b>Authenticate</b> the caller; trusted code decides what they can see.</li>
+        <li class="ax-l2" data-tag="System of record"><b>Save the original</b> request in the system of record first.</li>
+        <li class="ax-l1" data-tag="Trusted code" data-fault><b>Retrieve only authorized guidance</b>, and only if a simple taxonomy is not enough.</li>
+        <li class="ax-l3 ax-model" data-tag="Model" data-note="suggestions only" data-fault><b>Draft with the model</b>: category, summary, missing fields, all treated as suggestions.</li>
+        <li class="ax-l4" data-tag="Owner"><b>Validate and review</b>: an authorized owner keeps prioritization.</li>
+        <li class="ax-l1" data-tag="Trusted code" data-fault><b>Commit through a narrow adapter</b> with an idempotency key; the model never grants permission.</li>
+        <li class="ax-l5" data-tag="Operations" data-fault><b>Measure</b> versions, timing, review edits and accepted outcomes.</li>
       </ol>
       <div class="arch-case-side">
         <p class="arch-k">If something breaks</p>
         <ul>
-          <li><b>Model down:</b> intake still works on the manual path.</li>
-          <li><b>Malicious document:</b> its text cannot authorize an action.</li>
-          <li><b>Write times out:</b> reconcile by operation key; never create a duplicate.</li>
-          <li><b>Quality drops:</b> compare versions, switch suggestions off, keep the manual flow.</li>
+          <li data-tag="Step 4"><b>Model down:</b> intake still works on the manual path.</li>
+          <li data-tag="Step 3"><b>Malicious document:</b> its text cannot authorize an action.</li>
+          <li data-tag="Step 6"><b>Write times out:</b> reconcile by operation key; never create a duplicate.</li>
+          <li data-tag="Step 7"><b>Quality drops:</b> compare versions, switch suggestions off, keep the manual flow.</li>
         </ul>
       </div>
     </div>
@@ -1224,11 +1326,11 @@
     <div class="arch-two">
       <div>
         <h3 class="arch-h">Claims worth pushing back on</h3>
-        <ul class="arch-claims"><li><b>&ldquo;RAG eliminates hallucinations.&rdquo;</b> It improves access to evidence; retrieval and generation can still fail.</li><li><b>&ldquo;A citation proves the answer.&rdquo;</b> Only if the passage supports the claim and the source is current and authoritative.</li><li><b>&ldquo;The model says it is 95% confident.&rdquo;</b> Uncalibrated until it is checked against real errors.</li><li><b>&ldquo;Enterprise licensing makes it compliant.&rdquo;</b> Compliance depends on the workload, configuration, data use and controls.</li><li><b>&ldquo;We have a human in the loop.&rdquo;</b> Who reviews what, with which authority, information and workload?</li><li><b>&ldquo;Temperature zero makes it deterministic.&rdquo;</b> Consistency still depends on the model and the service; test it.</li></ul>
+        <ul class="arch-claims"><li><b data-tag="Claim">&ldquo;RAG eliminates hallucinations.&rdquo;</b> <span data-tag="Reality">It improves access to evidence; retrieval and generation can still fail.</span></li><li><b data-tag="Claim">&ldquo;A citation proves the answer.&rdquo;</b> <span data-tag="Reality">Only if the passage supports the claim and the source is current and authoritative.</span></li><li><b data-tag="Claim">&ldquo;The model says it is 95% confident.&rdquo;</b> <span data-tag="Reality">Uncalibrated until it is checked against real errors.</span></li><li><b data-tag="Claim">&ldquo;Enterprise licensing makes it compliant.&rdquo;</b> <span data-tag="Reality">Compliance depends on the workload, configuration, data use and controls.</span></li><li><b data-tag="Claim">&ldquo;We have a human in the loop.&rdquo;</b> <span data-tag="Reality">Who reviews what, with which authority, information and workload?</span></li><li><b data-tag="Claim">&ldquo;Temperature zero makes it deterministic.&rdquo;</b> <span data-tag="Reality">Consistency still depends on the model and the service; test it.</span></li></ul>
       </div>
       <div>
         <h3 class="arch-h">The first 90 days</h3>
-        <div class="arch-90">
+        <div class="arch-90" data-tag="Scale-or-stop decision">
           <div><span class="arch-k">Days 1&ndash;30 &middot; Discover</span>Workflow and capability map, use-case inventory, baseline, accountable owners.</div>
           <div><span class="arch-k">Days 31&ndash;60 &middot; Prove</span>A bounded pilot, target architecture, decision records, threat model, evaluation set.</div>
           <div><span class="arch-k">Days 61&ndash;90 &middot; Operationalize</span>Limited rollout, outcome dashboard, service ownership, release controls, a scale-or-stop decision.</div>
@@ -1236,7 +1338,7 @@
       </div>
     </div>
 
-    <p class="arch-src">Drawn from AI architecture reference work: six domains, a worked design and 28 primary references (Microsoft, AWS, Anthropic, OWASP, Google SRE, FinOps Foundation), reviewed October 2026.</p>
+    <p class="arch-src"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-clipboard"/></svg>Drawn from AI architecture reference work: six domains, a worked design and 28 primary references (Microsoft, AWS, Anthropic, OWASP, Google SRE, FinOps Foundation), reviewed October 2026.</p>
     <p class="panel-back"><a class="mapback-lk" href="#map">&larr; Back to the map</a></p>
   </div>
 </section>
@@ -1303,7 +1405,7 @@
   function show(name, focus, fromHistory){
     // each tab has its own URL (#experience) so links can point at it and Back returns to the last tab
     if(!fromHistory && location.hash!=='#'+name){ try{ history.pushState(null,'','#'+name); }catch(e){} }
-    tabs.forEach(function(t){ t.setAttribute('aria-selected', t.getAttribute('aria-controls')==='p-'+name?'true':'false'); });
+    tabs.forEach(function(t){ var on=t.getAttribute('aria-controls')==='p-'+name; t.setAttribute('aria-selected', on?'true':'false'); t.tabIndex=on?0:-1; });
     panels.forEach(function(p){ p.classList.toggle('on', p.id==='p-'+name); });
     if(focus){ var el=document.getElementById('p-'+name); if(el) el.focus({preventScroll:true}); }
     // when the tab row scrolls (narrow screens), keep the selected tab in view
@@ -1321,6 +1423,7 @@
       if(n){ e.preventDefault(); n.focus(); show(n.getAttribute('aria-controls').slice(2)); }
     });
   });
+  tabs.forEach(function(t){ t.tabIndex=t.getAttribute('aria-selected')==='true'?0:-1; });
 
   // ---- AI taxonomy: embed the live taxonomy site (same origin on Pages) and dress it in this page's theme ----
   // the address is worked out at runtime so no account handle is written into this file
@@ -1361,16 +1464,16 @@
 
   // ---- nodes: one per tab; Overview is the source, AI Transformation the sink ----
   var N = {
-    experience:{ ix:'04', tip:'How 25 years of delivery apply to AI: timelines, education, certifications, training.', name:'Experience', tag:'where it started', r:72,
-      lede:'A 25-year career getting organizations to adopt new ways of working, and measuring whether the change stuck.',
+    experience:{ ix:'04', tip:'How 25+ years of delivery apply to AI: timelines, education, certifications, training.', name:'Experience', tag:'where it started', r:72,
+      lede:'25+ years of getting organizations to adopt new ways of working, and measuring whether the change stuck.',
       items:[
         '<b>2000 – 2021</b> · Enterprise software transformation and outcome delivery',
-        '<b>2021 – now</b> · Enterprise transformation: DevOps and platform delivery',
-        '<b>Today</b> · Associate Director, leading 25 engineers',
+        '<b>2021 – now</b> · Enterprise transformation: DevOps, GigaPower, TDP',
+        '<b>Today</b> · Associate Director, leading a 25-person engineering practice',
         '<b>90%+</b> of projects delivered on time and on budget'
       ]},
     disciplines:{ ix:'03', tip:'Seven applied-AI disciplines, ranked, each rooted in experience and proven by a project.', name:'Disciplines', tag:'the craft', r:72,
-      lede:'Seven applied-AI disciplines, built on deep engineering roots.',
+      lede:'Seven applied-AI disciplines, built on engineering roots and current practice.',
       items:[
         'Reliability, looping &amp; observability',
         'Agentic workflow design',
@@ -1385,7 +1488,7 @@
       items:[
         '<b>Weekly AI Enablement Program</b> · enablement as an operating rhythm',
         '<b>Fabrica</b> · staged AI coding lifecycle with eval gates',
-        '<b>Dept Brain</b> · retrieval knowledge base with cited answers',
+        '<b>Department Brain</b> · retrieval knowledge base with cited answers',
         '<b>Graph Compiler</b> · 24 static checks before a token is spent',
         '<b>Sales-Enablement Platform</b> · $1M+ recurring benefit',
         '<b>Impact-Assessment Program</b> · 500+ consultants, 100% response'
@@ -1402,12 +1505,12 @@
       lede:'Transformation and enablement, measured and managed to the goal.',
       items:[
         '<b>25+ yrs</b> · enterprise transformation &amp; engineering leadership',
-        '<b>25</b> · engineers led today across an enterprise practice',
+        '<b>25</b> · people in the engineering practice led today',
         '<b>Hands-on</b> · designs and codes agentic systems, harnesses, evals, and RAG',
-        '<b>Roles held</b> · leader, engineer, consultant, architect, sales, practice owner, mentor'
+        '<b>Roles held</b> · leader (Associate Director), engineer, consultant, architect, sales enablement lead, practice owner, mentor'
       ]},
     transformation:{ ix:'06', tip:'The 11 needs of an enterprise AI program, each matched to the experience that covers it.', name:['AI Transformation','& Enablement'], tag:'the goal', r:100, sink:true, tabLabel:'AI Transformation',
-      lede:'What an enterprise AI program needs, matched need by need to what this career brings.',
+      lede:'What an enterprise AI program needs, matched need by need to what the experience on this page brings.',
       items:[
         '<b>Technical &amp; engineering</b> · reliable output, agentic workflows, grounded answers, cost control, proven quality, AI inside real operations',
         '<b>Human &amp; leadership</b> · team fluency, staying current, change management, executive alignment, winning buy-in',
@@ -1424,7 +1527,7 @@
     { f:'experience',  t:'transformation', lbl:'transformation know-how',
       ctl:{ h:[40,250,-60,300], v:[150,150,260,-120] } },
     // feedback: what the builds teach flows back into experience
-    { f:'projects',    t:'experience',  lbl:'Lessons Learned', loop:true },
+    { f:'projects',    t:'experience',  lbl:'lessons learned', loop:true },
     { f:'disciplines', t:'projects',    lbl:'applied in' },
     { f:'disciplines', t:'adoption',    lbl:'what champions do' },
     { f:'projects',    t:'adoption',    lbl:'solution vision and hands-on know-how', at:.66 },
@@ -1619,6 +1722,8 @@
     document.querySelectorAll('.hot').forEach(function(i){ i.classList.remove('hot'); });
     requestAnimationFrame(function(){
       target.classList.add('hot');
+      if(!target.hasAttribute('tabindex')) target.setAttribute('tabindex','-1');
+      target.focus({preventScroll:true});
       target.scrollIntoView({behavior:'smooth', block:'center'});
       setTimeout(function(){ target.classList.remove('hot'); }, 2200);
     });
@@ -1629,7 +1734,7 @@
 
   // coverage arrays: read each card's targets, render a fixed array (relevant on, rest grayed)
   var EXP=[['ap-roots','Deep engineering roots'],['ap-current','Leading AI delivery'],['ap-modernize','Enterprise modernization'],['ap-strategy','Solution strategy']];
-  var PROJ=[['p-enable','Weekly AI Enablement'],['p-aids','AI Usage Aids'],['p-fabrica','Fabrica'],['p-agentic','Agentic Pipeline'],['p-brain','Dept Brain'],['p-compiler','Graph Compiler'],['p-sbd','Spec-Based Dev'],['p-sales','Sales Enablement'],['p-impact','Impact-Assessment'],['p-match','Resource Matching'],['p-frontdoor','Front Door'],['p-enrichment','Enrichment'],['p-event','Event Resourcing']];
+  var PROJ=[['p-enable','Weekly AI Enablement'],['p-aids','AI Usage Aids'],['p-fabrica','Fabrica'],['p-agentic','Agentic Pipeline'],['p-brain','Department Brain'],['p-compiler','Graph Compiler'],['p-sbd','Spec-Based Development'],['p-sales','Sales Enablement'],['p-impact','Impact-Assessment'],['p-match','Resource Matching'],['p-frontdoor','Front Door'],['p-enrichment','Enrichment'],['p-event','Event Resourcing']];
   function covRow(label, pool, active){
     var row=document.createElement('div'); row.className='arr';
     var lab=document.createElement('span'); lab.className='lk-lab'; lab.textContent=label; row.appendChild(lab);
@@ -1648,9 +1753,11 @@
     var ids=idsIn(body);
     var exps=ids.filter(function(x){ return x.indexOf('ap-')===0; });
     var projs=ids.filter(function(x){ return x.indexOf('p-')===0; });
+    var evs=[].slice.call(body.querySelectorAll('.ev-text')).map(function(x){ var t=x.textContent.replace(/^\s*\u2014\s*/, ''); return t.charAt(0).toUpperCase()+t.slice(1); });
     [].slice.call(body.querySelectorAll('.links')).forEach(function(l){ l.remove(); });
     body.appendChild(covRow('Rooted in', EXP, exps));
     body.appendChild(covRow('Evidenced in', PROJ, projs));
+    evs.forEach(function(t){ var p=document.createElement('p'); p.className='ev-text'; p.textContent=t; body.appendChild(p); });
   });
   document.querySelectorAll('#p-experience .ap').forEach(function(ap){
     var ids=idsIn(ap); if(!ids.length) return;
@@ -1689,10 +1796,20 @@
     ["skill files?", "Skill file", "A packaged, reusable instruction set an AI agent loads to do one kind of task the same way every time."],
     ["champions?", "Champion", "A person inside a business team, one step ahead in AI, who helps peers adopt it in their real work and feeds use cases and gaps back to the central AI team."],
     ["model routers?", "Model router", "A service that sends each request to a suitable model (by cost, speed, or capability) through one interface, so an application is not locked to one vendor."],
-    ["AI coding agents?", "AI coding agent", "An AI tool that writes, runs, and fixes code over many steps on its own, with a person directing it and checking the result."]
+    ["AI coding agents?", "AI coding agent", "An AI tool that writes, runs, and fixes code over many steps on its own, with a person directing it and checking the result."],
+    ["GigaPower", "GigaPower", "A startup venture. Provided technology orchestration so the startup's corporate systems were built out properly."],
+    ["TDP", "TDP (Technical Development Program)", "A development program for junior engineers. Provided business and technical mentorship."],
+    ["idempotency key|operation keys?", "Idempotency key (operation key)", "A unique key sent with a write so that a retry of the same operation is recognized and applied once, never twice."],
+    ["prompt injection", "Prompt injection", "Text hidden in a document, page, or message that tries to give the model new instructions. The defense is to treat all content as data, never as authority."],
+    ["threat[- ]model", "Threat model", "A structured list of who or what could attack or misuse a system, through which entry points, and the control that answers each one."],
+    ["systems? of record", "System of record", "The authoritative source for a piece of business data. Other tools read from it and write back through it, so it stays the single truth."],
+    ["decision records?", "Decision record", "A short written note of a design decision: the options considered, the one chosen and why, and what would change the call."],
+    ["FinOps", "FinOps", "Cloud financial operations: tracking and managing cloud and AI spend against the value it delivers."],
+    ["SRE", "SRE", "Site reliability engineering: running production systems against explicit reliability targets, with monitoring, alerting, and error budgets."],
+    ["DevOps", "DevOps", "Development and operations working as one, with automated build, test, and release, so changes ship often and safely."]
   ];
   // all-caps terms match case-sensitively so ordinary words never trigger them
-  var GL_CASE={RAG:1, HITL:1, LLM:1, SAFe:1};
+  var GL_CASE={RAG:1, HITL:1, LLM:1, SAFe:1, TDP:1, FinOps:1, SRE:1};
   var glAlts=[];
   GLOSS.forEach(function(g,i){ g[0].split('|').forEach(function(a){ glAlts.push({re:a, i:i}); }); });
   glAlts.sort(function(a,b){ return b.re.length-a.re.length; });
@@ -1703,7 +1820,7 @@
     }
     return -1;
   }
-  var GL_SKIP='script,style,svg,.gl,.gltip,.tip,.tile.tap,.trainpill,.tab,.item-head,.bubtip,h1,h2,h3,.tag,.ap-head,.pf-chip,.tl-bar';
+  var GL_SKIP='script,style,svg,.gl,.gltip,.tip,.tile.tap,.trainpill,.tab,.item-head,.bubtip,h1,h2,h3,h4,.tag,.ap-head,.pf-chip,.tl-bar';
   function glWrap(panel){
     var used={}, walker=document.createTreeWalker(panel, NodeFilter.SHOW_TEXT, null), nodes=[], n;
     while((n=walker.nextNode())) nodes.push(n);
@@ -1728,6 +1845,11 @@
       }
     });
   }
+  document.querySelectorAll('.gl:not([data-gl])').forEach(function(sp){
+    var i=glIndex(sp.textContent); if(i<0) return;
+    sp.setAttribute('data-gl', i); sp.tabIndex=0; sp.setAttribute('role','button');
+    sp.setAttribute('aria-label', sp.textContent+': '+GLOSS[i][2]);
+  });
   [].slice.call(document.querySelectorAll('.panel')).forEach(glWrap);
   var gtip=document.createElement('div'); gtip.className='gltip'; gtip.setAttribute('role','tooltip'); gtip.setAttribute('aria-hidden','true');
   document.body.appendChild(gtip);
