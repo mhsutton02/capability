@@ -605,27 +605,45 @@
   .matrix{margin:54px 0 0}
   .matrix-h{font-family:var(--disp); font-weight:500; font-size:1.1rem; margin:0 0 4px}
   .matrix-sub{color:var(--ink-70); font-size:14px; margin:0 0 18px}
-  .skmap{width:100%; border-collapse:separate; border-spacing:0; border:1px solid var(--line);
-         border-radius:12px; overflow:hidden; background:var(--surface); box-shadow:var(--card-shadow)}
-  .skmap th{font-family:var(--disp); font-weight:600; font-size:12px; letter-spacing:.06em; text-transform:uppercase; text-align:left;
-            color:var(--ink-70); padding:12px 18px; background:var(--surface-2); border-bottom:1px solid var(--line)}
-  .skmap td{padding:13px 18px; border-bottom:1px solid var(--line); vertical-align:top}
-  .skmap tr:last-child td{border-bottom:0}
-  
-  .skmap td.need{width:46%; border-right:1px solid var(--line)}
-  .skmap td.need:focus-visible{outline:2px solid var(--accent); outline-offset:-2px}
+  .sk-legend{color:var(--ink-70); font-size:13px; line-height:1.9; margin:0 0 20px}
+  .sk-key{font-size:12px; border-radius:999px; padding:2px 9px; border:1px solid transparent}
+  .ng{margin:0 0 26px}
+  .ng .grouplab{margin:0 0 12px}
+  .need-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px; list-style:none; padding:0; margin:0}
+  @media(max-width:900px){ .need-grid{grid-template-columns:1fr} }
+  .need-card{min-width:0; background:var(--surface); border:1px solid var(--line); border-left:3px solid var(--accent); border-radius:12px;
+             box-shadow:var(--card-shadow); padding:16px 18px; transition:border-color .18s, box-shadow .25s}
+  .need-card:hover, .need-card:focus-within{border-color:var(--accent)}
+  .ng.human .need-card, .ng.human .need-card:hover, .ng.human .need-card:focus-within{border-left-color:var(--rose)}
+  .need-card:hover .need-t, .need-card:focus-within .need-t{color:var(--accent-ink)}
+  .nc-head{display:flex; align-items:flex-start; gap:12px}
+  .nc-head > .ic{flex:none; width:34px; height:34px; padding:7px; border-radius:9px; background:var(--accent-tint); stroke:var(--accent-ink)}
+  .nc-tt{min-width:0}
+  .nc-eb{display:block; font-family:var(--disp); font-size:11px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-45)}
   .need-t{font-weight:500; color:var(--ink); display:block; font-size:14.5px}
+  h4.need-t{margin:2px 0 0; line-height:1.35; transition:color .18s}
   .need-why{display:block; color:var(--ink-70); font-size:13px; line-height:1.5; margin-top:5px}
-  .skmap tr:not(.sub) td{transition:background .18s, color .18s}
-  .skmap tr:not(.sub):hover td, .skmap tr:not(.sub):focus-within td{background:var(--accent-tint-2)}
-  .skmap tr:not(.sub):hover .need-t{color:var(--accent-ink)}
-  .skmap tr:not(.sub):hover .need-why{color:var(--ink)}
+  p.need-why{margin:10px 0 0}
   .held-in{display:flex; flex-wrap:wrap; gap:6px; align-items:center}
   .held-note{font-size:12.5px; color:var(--ink-45)}
-  .skmap tr.sub td{background:var(--surface-2); font-family:var(--disp); font-weight:600; font-size:11px;
-                   letter-spacing:.05em; text-transform:uppercase; color:var(--accent-ink); padding:8px 18px}
-  .skmap tr.sub:hover td{background:var(--surface-2)}
-  @media(max-width:640px){ .skmap th,.skmap td{padding:11px 12px} .skmap td.need{width:50%} }
+  .need-card .held-in{display:block; margin-top:12px; padding-top:10px; border-top:1px solid var(--line)}
+  .hrow{display:flex; flex-wrap:wrap; align-items:center; gap:6px; margin-top:7px}
+  .hr-lab{flex:none; width:96px; display:inline-flex; align-items:center; gap:5px; font-size:12px; color:var(--ink-45)}
+  .hr-lab .ic{width:14px; height:14px; stroke:var(--ink-45)}
+  .need-card .xlink{line-height:1.3}
+  .need-card .xlink.k-d, .sk-legend .k-d{background:var(--accent); color:var(--sink-ink); border:1px solid var(--accent)}
+  .need-card .xlink.k-d:hover{background:var(--accent-ink); border-color:var(--accent-ink)}
+  .need-card .xlink.k-p, .sk-legend .k-p{background:var(--surface-2); border:1px solid var(--accent); color:var(--accent-ink)}
+  .need-card .xlink.k-e, .sk-legend .k-e{background:var(--accent-tint); border:1px solid var(--rose); color:var(--ink)}
+  .need-card .xlink.k-r, .sk-legend .k-r{background:none; border:1px dashed var(--line-strong); color:var(--ink-70)}
+  .need-card .xlink.k-p:hover, .need-card .xlink.k-e:hover, .need-card .xlink.k-r:hover{background:var(--accent-tint-2)}
+  .need-card .xlink.k-r::after, .sk-legend .k-r::after{content:"\2197"; margin-left:4px}
+  .need-card .xlink:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+  @media(max-width:479px){
+    .need-card{padding:14px}
+    .hr-lab{width:100%}
+    .need-card .xlink{max-width:100%; white-space:normal; text-align:left}
+  }
 
   /* ---------- experience ---------- */
   /* timelines (career from 2000, current roles) */
@@ -651,7 +669,7 @@
   @media(max-width:760px){.apply{grid-template-columns:1fr}}
   .ap{position:relative; border:1px solid var(--line); border-radius:12px; background:var(--surface); padding:20px 22px; box-shadow:var(--card-shadow)}
   .ap.wide{grid-column:1/-1}
-  .ap.hot{border-color:var(--accent); box-shadow:var(--shadow-soft)}
+  .ap.hot, .need-card.hot{border-color:var(--accent); box-shadow:var(--shadow-soft)}
   .ap-head{display:flex; align-items:center; gap:12px; margin-bottom:10px}
   .ap-ic{flex:none; width:64px; height:64px; border:1px solid var(--line); border-radius:12px;
           display:flex; align-items:center; justify-content:center; background:var(--surface-2);
@@ -718,6 +736,7 @@
 
   footer{border-top:1px solid var(--line); padding:26px 0 40px; color:var(--ink-45); font-size:13px}
   footer .wrap{display:flex; flex-wrap:wrap; gap:8px 20px; justify-content:space-between}
+  footer .cta{margin-left:auto}
 
   @media (prefers-reduced-motion: reduce){
     *{animation:none !important; transition:none !important; scroll-behavior:auto !important}
@@ -739,7 +758,8 @@
     .hero{padding:18px 0 14px}
     .item-body{max-height:none !important} .it-hint{max-height:none; opacity:1}
     .need-why{max-height:none !important; opacity:1 !important; margin-top:4px}
-    .item,.ap,.tl,.strip,.skmap tr,.tiles{break-inside:avoid; page-break-inside:avoid}
+    .item,.ap,.tl,.strip,.need-card,.tiles{break-inside:avoid; page-break-inside:avoid}
+    .need-grid{grid-template-columns:1fr 1fr !important}
     #p-adoption,#p-disciplines,#p-experience,#p-projects{break-before:page}
     #p-adoption .wrap{padding-top:10px !important} #p-adoption .om,#p-adoption .dec,#p-adoption .gc{margin-bottom:12px} #p-adoption .h-sec{font-size:1.45rem; margin-bottom:4px} #p-adoption .eyebrow{margin-bottom:2px}
     #p-adoption .om{grid-template-columns:1fr 92px 1fr 92px 1fr !important} #p-adoption .dec{grid-template-columns:repeat(4,1fr) !important}
@@ -788,6 +808,7 @@
   <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M6 11a6 6 0 0 0 12 0"/><path d="M12 17v4M9 21h6"/></symbol>
   <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2"/><path d="M13.5 10.5 20 4M17 4h3v3"/></symbol>
   <symbol id="i-swap" viewBox="0 0 24 24"><path d="M4 9h13l-3-3"/><path d="M20 15H7l3 3"/></symbol>
+  <symbol id="i-brief" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5.2A1.7 1.7 0 0 1 10.7 3.5h2.6A1.7 1.7 0 0 1 15 5.2V7"/><path d="M3 12.5h18M10.5 12.5v2h3v-2"/></symbol>
   <symbol id="i-terminal" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9l3 3-3 3M12.5 15H17"/></symbol>
 </defs></svg>
 
@@ -929,7 +950,7 @@
       </button>
       <button class="jc" data-goto="disciplines">
         <span class="jt">Disciplines <span class="cnt">7 ranked</span></span>
-        <span class="hint">Seven applied-AI disciplines, ranked, each rooted in an experience and proven by a project.</span>
+        <span class="hint">Seven applied-AI disciplines, ranked, each rooted in an experience and proven by a project, and matched to the AI-transformation needs they serve.</span>
         <span class="go">Open Disciplines &rarr;</span>
       </button>
       <button class="jc" data-goto="experience">
@@ -1111,7 +1132,7 @@
         <h3>Deep engineering roots</h3>
         <p class="ap-hint">Why structure and tests beat hope.</p>
         <p class="ap-body">Started in aerospace and defense systems engineering, building automation that improved review quality while cutting effort. That grounding is the reason to trust structure and tests over hope, and why the systems built today stop when an input is missing instead of guessing.</p>
-        <div class="links"><span class="lk-lab">Projects</span><button class="xlink" data-jump="p-fabrica">Fabrica</button><button class="xlink" data-jump="p-agentic">Agentic Pipeline</button><button class="xlink" data-jump="p-compiler">Graph Compiler</button><button class="xlink" data-jump="p-brain">Department Brain</button><button class="xlink" data-jump="p-sbd">Spec-Based Development</button><button class="xlink" data-jump="p-enrichment">Enrichment</button></div>
+        <div class="links"><span class="lk-lab">Projects</span><button class="xlink" data-jump="p-fabrica">Fabrica</button><button class="xlink" data-jump="p-agentic">Agentic Intelligence Pipeline</button><button class="xlink" data-jump="p-compiler">Graph Compiler</button><button class="xlink" data-jump="p-brain">Department Brain</button><button class="xlink" data-jump="p-sbd">Spec-Based Development</button><button class="xlink" data-jump="p-enrichment">Enrichment</button></div>
       </div>
       <div class="ap wide" id="ap-strategy">
         <div class="ap-head"><span class="ap-ic"><svg class="ic"><use href="#i-compass"/></svg></span><span class="tag">Advisory</span></div>
@@ -1169,59 +1190,119 @@
   <div class="wrap" style="padding-top:44px">
     <p class="eyebrow">AI transformation &amp; enablement</p>
     <h2 class="h-sec">What AI transformation needs, and the experience that covers it</h2>
-    <p class="sec-lead">Everything on the map lands here. Each need on the left is matched to the work that covers it; click one to jump to the proof.</p>
+    <p class="sec-lead">Everything on the map lands here. Each need is matched to the disciplines, projects and experience that cover it; click any chip to jump to the proof.</p>
     <div class="matrix" style="margin-top:22px">
-      <table class="skmap">
-        <thead><tr><th>AI transformation skill needed</th><th>AI transformation skill held</th></tr></thead>
-        <tbody>
-          <tr class="sub"><td colspan="2">Technical &amp; engineering</td></tr>
-          <tr>
-            <td class="need"><span class="need-t">Reliable, auditable model output</span><span class="need-why">A model that can't be trusted to run unwatched, or explain itself in an audit, never leaves the pilot. Enterprises adopt what they can depend on and review.</span></td>
-            <td class="held"><div class="held-in"><button class="xlink" data-jump="d1">Reliability &amp; observability</button><button class="xlink" data-jump="d7">Guardrails &amp; HITL</button></div></td>
-          </tr>
-          <tr>
-            <td class="need"><span class="need-t">Agentic workflows, not chatbots</span><span class="need-why">The value is AI that does multi-step work with tools and checks, not a chat box. That takes engineered control flow, not a clever prompt.</span></td>
-            <td class="held"><div class="held-in"><button class="xlink" data-jump="d2">Agentic workflow design</button></div></td>
-          </tr>
-          <tr>
-            <td class="need"><span class="need-t">Grounded answers, no hallucination</span><span class="need-why">In a regulated business, a confident wrong answer is a liability. The system has to cite its source or say it does not know.</span></td>
-            <td class="held"><div class="held-in"><button class="xlink" data-jump="p-brain">Department Brain (retrieval)</button></div></td>
-          </tr>
-          <tr>
-            <td class="need"><span class="need-t">Cost control at scale</span><span class="need-why">At enterprise volume, token cost decides whether a use case ships. What goes into the model's window is a budget, not an afterthought.</span></td>
-            <td class="held"><div class="held-in"><button class="xlink" data-jump="d3">Context engineering</button></div></td>
-          </tr>
-          <tr>
-            <td class="need"><span class="need-t">Proven quality before shipping</span><span class="need-why">Before a workflow touches production, someone has to show it works, and keep showing it. Evals and tests are how you gate that.</span></td>
-            <td class="held"><div class="held-in"><button class="xlink" data-jump="d9">Spec-driven development</button><button class="xlink" data-jump="p-fabrica">Fabrica</button></div></td>
-          </tr>
-          <tr>
-            <td class="need"><span class="need-t">AI inside real operations</span><span class="need-why">AI that lives in a demo changes nothing. It has to run inside the tools and platforms the business already uses.</span></td>
-            <td class="held"><div class="held-in"><button class="xlink" data-jump="d10">Enterprise integration</button><button class="xlink" data-jump="p-sales">Sales Enablement</button></div></td>
-          </tr>
-          <tr class="sub"><td colspan="2">Human &amp; leadership — the soft skills the work also needs</td></tr>
-          <tr>
-            <td class="need"><span class="need-t">Team fluency and adoption</span><span class="need-why">A model helps one person until that person leaves. Transformation is measured by whether the whole team's work changed, and stayed changed.</span></td>
-            <td class="held"><div class="held-in"><button class="xlink" data-jump="d4">Skill &amp; enablement creation</button><button class="xlink" data-jump="p-enable">Weekly AI Enablement</button></div></td>
-          </tr>
-          <tr>
-            <td class="need"><span class="need-t">Staying current in a field that moves weekly</span><span class="need-why">AI changes faster than any training cycle. Staying useful means a standing habit for finding what's new and worth acting on, not a one-time course.</span></td>
-            <td class="held"><div class="held-in"><button class="xlink" data-jump="p-enrichment">Enrichment — AI-news feed</button><button class="xlink" data-goto="taxonomy">AI Taxonomy</button><span class="held-note">continuous learning</span></div></td>
-          </tr>
-          <tr>
-            <td class="need"><span class="need-t">Change management at enterprise scale</span><span class="need-why">A model transforms nothing on its own. Getting hundreds of people to work differently, and keep at it, is a change-management job as much as a technical one.</span></td>
-            <td class="held"><div class="held-in"><button class="xlink" data-jump="ap-current">Leading AI delivery</button><button class="xlink" data-jump="ap-modernize">Modernization programs</button></div></td>
-          </tr>
-          <tr>
-            <td class="need"><span class="need-t">Executive alignment and the ROI case</span><span class="need-why">AI budgets are approved and defended in front of leadership. Finding the workflow worth automating and proving its return is the core skill.</span></td>
-            <td class="held"><div class="held-in"><button class="xlink" data-jump="ap-strategy">Solution strategy</button><button class="xlink" data-jump="ap-current">Leading AI delivery</button></div></td>
-          </tr>
-          <tr>
-            <td class="need"><span class="need-t">Consultative discovery and winning buy-in</span><span class="need-why">The hardest part is often finding the right problem and getting the room to commit to it. That is consultative discovery, and the ability to sell a plan on its merits — two decades of it, in advisory and B2B sales.</span></td>
-            <td class="held"><div class="held-in"><button class="xlink" data-jump="ap-strategy">Advisory &amp; discovery</button><button class="xlink" data-jump="ap-modernize">Transformation delivery</button><button class="xlink" data-jump="tr-selling">Solution Selling</button><button class="xlink" data-jump="tr-negotiation">Think! Inc. Negotiation</button></div></td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="skmap">
+        <p class="sk-legend"><span class="sk-key k-d">Discipline</span> = a way of working · <span class="sk-key k-p">Project</span> = a system built · <span class="sk-key k-e">Experience</span> = roles and training · <span class="sk-key k-r">Reference</span> = a tab to explore.</p>
+        <section class="ng tech" aria-labelledby="ng-tech">
+          <h3 class="grouplab" id="ng-tech">Technical &amp; engineering <span class="n">6 needs</span></h3>
+          <ol class="need-grid">
+            <li class="need-card" id="need-01" data-short="reliable output">
+              <div class="nc-head"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-shield"/></svg><div class="nc-tt"><span class="nc-eb">Skill needed</span><h4 class="need-t">Reliable, auditable model output</h4></div></div>
+              <p class="need-why">A model that can't be trusted to run unwatched, or explain itself in an audit, never leaves the pilot. Enterprises adopt what they can depend on and review.</p>
+              <div class="held-in" role="group" aria-label="AI transformation skill held">
+                <span class="nc-eb">Skill held</span>
+                <div class="hrow"><span class="hr-lab"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-cog"/></svg>Disciplines</span><button class="xlink k-d" data-jump="d1">Reliability &amp; observability</button><button class="xlink k-d" data-jump="d7">Guardrails &amp; HITL</button></div>
+              </div>
+            </li>
+            <li class="need-card" id="need-02" data-short="agentic workflows">
+              <div class="nc-head"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-flow"/></svg><div class="nc-tt"><span class="nc-eb">Skill needed</span><h4 class="need-t">Agentic workflows, not chatbots</h4></div></div>
+              <p class="need-why">The value is AI that does multi-step work with tools and checks, not a chat box. That takes engineered control flow, not a clever prompt.</p>
+              <div class="held-in" role="group" aria-label="AI transformation skill held">
+                <span class="nc-eb">Skill held</span>
+                <div class="hrow"><span class="hr-lab"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-cog"/></svg>Disciplines</span><button class="xlink k-d" data-jump="d2">Agentic workflow design</button></div>
+              </div>
+            </li>
+            <li class="need-card" id="need-03" data-short="grounded answers">
+              <div class="nc-head"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-quote"/></svg><div class="nc-tt"><span class="nc-eb">Skill needed</span><h4 class="need-t">Grounded answers, no hallucination</h4></div></div>
+              <p class="need-why">In a regulated business, a confident wrong answer is a liability. The system has to cite its source or say it does not know.</p>
+              <div class="held-in" role="group" aria-label="AI transformation skill held">
+                <span class="nc-eb">Skill held</span>
+                <div class="hrow"><span class="hr-lab"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-cog"/></svg>Disciplines</span><button class="xlink k-d" data-jump="d3">Context engineering</button><button class="xlink k-d" data-jump="d7">Guardrails &amp; HITL</button></div>
+                <div class="hrow"><span class="hr-lab"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-blocks"/></svg>Projects</span><button class="xlink k-p" data-jump="p-brain">Department Brain</button></div>
+              </div>
+            </li>
+            <li class="need-card" id="need-04" data-short="cost control">
+              <div class="nc-head"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-gauge"/></svg><div class="nc-tt"><span class="nc-eb">Skill needed</span><h4 class="need-t">Cost control at scale</h4></div></div>
+              <p class="need-why">At enterprise volume, token cost decides whether a use case ships. What goes into the model's window is a budget, not an afterthought.</p>
+              <div class="held-in" role="group" aria-label="AI transformation skill held">
+                <span class="nc-eb">Skill held</span>
+                <div class="hrow"><span class="hr-lab"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-cog"/></svg>Disciplines</span><button class="xlink k-d" data-jump="d3">Context engineering</button></div>
+              </div>
+            </li>
+            <li class="need-card" id="need-05" data-short="proven quality">
+              <div class="nc-head"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-clipboard"/></svg><div class="nc-tt"><span class="nc-eb">Skill needed</span><h4 class="need-t">Proven quality before shipping</h4></div></div>
+              <p class="need-why">Before a workflow touches production, someone has to show it works, and keep showing it. Evals and tests are how you gate that.</p>
+              <div class="held-in" role="group" aria-label="AI transformation skill held">
+                <span class="nc-eb">Skill held</span>
+                <div class="hrow"><span class="hr-lab"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-cog"/></svg>Disciplines</span><button class="xlink k-d" data-jump="d9">Spec-driven development</button><button class="xlink k-d" data-jump="d1">Reliability &amp; observability</button></div>
+                <div class="hrow"><span class="hr-lab"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-blocks"/></svg>Projects</span><button class="xlink k-p" data-jump="p-fabrica">Fabrica</button></div>
+              </div>
+            </li>
+            <li class="need-card" id="need-06" data-short="AI inside real operations">
+              <div class="nc-head"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-network"/></svg><div class="nc-tt"><span class="nc-eb">Skill needed</span><h4 class="need-t">AI inside real operations</h4></div></div>
+              <p class="need-why">AI that lives in a demo changes nothing. It has to run inside the tools and platforms the business already uses.</p>
+              <div class="held-in" role="group" aria-label="AI transformation skill held">
+                <span class="nc-eb">Skill held</span>
+                <div class="hrow"><span class="hr-lab"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-cog"/></svg>Disciplines</span><button class="xlink k-d" data-jump="d10">Enterprise integration</button></div>
+                <div class="hrow"><span class="hr-lab"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-blocks"/></svg>Projects</span><button class="xlink k-p" data-jump="p-match">Resource Matching</button></div>
+              </div>
+            </li>
+          </ol>
+        </section>
+        <section class="ng human" aria-labelledby="ng-human">
+          <h3 class="grouplab" id="ng-human">Human &amp; leadership <span class="n">5 needs · the soft skills the work also needs</span></h3>
+          <ol class="need-grid">
+            <li class="need-card" id="need-07" data-short="team fluency">
+              <div class="nc-head"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-spark"/></svg><div class="nc-tt"><span class="nc-eb">Skill needed</span><h4 class="need-t">Team fluency and adoption</h4></div></div>
+              <p class="need-why">A model helps one person until that person leaves. Transformation is measured by whether the whole team's work changed, and stayed changed.</p>
+              <div class="held-in" role="group" aria-label="AI transformation skill held">
+                <span class="nc-eb">Skill held</span>
+                <div class="hrow"><span class="hr-lab"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-cog"/></svg>Disciplines</span><button class="xlink k-d" data-jump="d4">Skill &amp; enablement creation</button></div>
+                <div class="hrow"><span class="hr-lab"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-blocks"/></svg>Projects</span><button class="xlink k-p" data-jump="p-enable">Weekly AI Enablement</button></div>
+              </div>
+            </li>
+            <li class="need-card" id="need-08" data-short="staying current">
+              <div class="nc-head"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-infinity"/></svg><div class="nc-tt"><span class="nc-eb">Skill needed</span><h4 class="need-t">Staying current in a field that moves weekly</h4></div></div>
+              <p class="need-why">AI changes faster than any training cycle. Staying useful means a standing habit for finding what's new and worth acting on, not a one-time course.</p>
+              <div class="held-in" role="group" aria-label="AI transformation skill held">
+                <span class="nc-eb">Skill held</span>
+                <div class="hrow"><span class="hr-lab"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-cog"/></svg>Disciplines</span><span class="held-note">Built through habit and experience, not a single discipline.</span></div>
+                <div class="hrow"><span class="hr-lab"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-blocks"/></svg>Projects</span><button class="xlink k-p" data-jump="p-enrichment">Enrichment</button></div>
+                <div class="hrow"><span class="hr-lab"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-link"/></svg>Reference</span><button class="xlink k-r" data-goto="taxonomy">AI Taxonomy</button><span class="held-note">continuous learning</span></div>
+              </div>
+            </li>
+            <li class="need-card" id="need-09" data-short="change management">
+              <div class="nc-head"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-swap"/></svg><div class="nc-tt"><span class="nc-eb">Skill needed</span><h4 class="need-t">Change management at enterprise scale</h4></div></div>
+              <p class="need-why">A model transforms nothing on its own. Getting hundreds of people to work differently, and keep at it, is a change-management job as much as a technical one.</p>
+              <div class="held-in" role="group" aria-label="AI transformation skill held">
+                <span class="nc-eb">Skill held</span>
+                <div class="hrow"><span class="hr-lab"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-cog"/></svg>Disciplines</span><button class="xlink k-d" data-jump="d4">Skill &amp; enablement creation</button></div>
+                <div class="hrow"><span class="hr-lab"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-brief"/></svg>Experience</span><button class="xlink k-e" data-jump="ap-current">Leading AI delivery</button><button class="xlink k-e" data-jump="ap-modernize">Enterprise modernization</button></div>
+              </div>
+            </li>
+            <li class="need-card" id="need-10" data-short="executive alignment">
+              <div class="nc-head"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-chart"/></svg><div class="nc-tt"><span class="nc-eb">Skill needed</span><h4 class="need-t">Executive alignment and the ROI case</h4></div></div>
+              <p class="need-why">AI budgets are approved and defended in front of leadership. Finding the workflow worth automating and proving its return is the core skill.</p>
+              <div class="held-in" role="group" aria-label="AI transformation skill held">
+                <span class="nc-eb">Skill held</span>
+                <div class="hrow"><span class="hr-lab"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-cog"/></svg>Disciplines</span><button class="xlink k-d" data-jump="d10">Enterprise integration</button></div>
+                <div class="hrow"><span class="hr-lab"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-blocks"/></svg>Projects</span><button class="xlink k-p" data-jump="p-sales">Sales Enablement</button></div>
+                <div class="hrow"><span class="hr-lab"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-brief"/></svg>Experience</span><button class="xlink k-e" data-jump="ap-strategy">Solution strategy</button><button class="xlink k-e" data-jump="ap-current">Leading AI delivery</button></div>
+              </div>
+            </li>
+            <li class="need-card" id="need-11" data-short="winning buy-in">
+              <div class="nc-head"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-compass"/></svg><div class="nc-tt"><span class="nc-eb">Skill needed</span><h4 class="need-t">Consultative discovery and winning buy-in</h4></div></div>
+              <p class="need-why">The hardest part is often finding the right problem and getting the room to commit to it. That is consultative discovery, and the ability to sell a plan on its merits — two decades of it, in advisory and B2B sales.</p>
+              <div class="held-in" role="group" aria-label="AI transformation skill held">
+                <span class="nc-eb">Skill held</span>
+                <div class="hrow"><span class="hr-lab"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-cog"/></svg>Disciplines</span><span class="held-note">Built through habit and experience, not a single discipline.</span></div>
+                <div class="hrow"><span class="hr-lab"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-brief"/></svg>Experience</span><button class="xlink k-e" data-jump="ap-strategy">Solution strategy</button><button class="xlink k-e" data-jump="tr-selling">Solution Selling</button><button class="xlink k-e" data-jump="tr-negotiation">Think! Inc. Negotiation</button></div>
+              </div>
+            </li>
+          </ol>
+        </section>
+      </div>
     </div>
 
     <p class="panel-back"><a class="mapback-lk" href="#map">&larr; Back to the map</a></p>
@@ -1371,7 +1452,6 @@
 
 <footer>
   <div class="wrap">
-    <span>Capability statement · prepared for the AI Transformation &amp; Enablement group</span>
     <span class="cta">Hover for a hint · click to dive in</span>
   </div>
 </footer>
@@ -1472,7 +1552,7 @@
         '<b>Today</b> · Associate Director, leading a 25-person engineering practice',
         '<b>90%+</b> of projects delivered on time and on budget'
       ]},
-    disciplines:{ ix:'03', tip:'Seven applied-AI disciplines, ranked, each rooted in experience and proven by a project.', name:'Disciplines', tag:'the craft', r:72,
+    disciplines:{ ix:'03', tip:'Seven applied-AI disciplines, ranked, each rooted in experience and proven by a project, and matched to the AI-transformation needs it serves.', name:'Disciplines', tag:'the craft', r:72,
       lede:'Seven applied-AI disciplines, built on engineering roots and current practice.',
       items:[
         'Reliability, looping &amp; observability',
@@ -1509,12 +1589,12 @@
         '<b>Hands-on</b> · designs and codes agentic systems, harnesses, evals, and RAG',
         '<b>Roles held</b> · leader (Associate Director), engineer, consultant, architect, sales enablement lead, practice owner, mentor'
       ]},
-    transformation:{ ix:'06', tip:'The 11 needs of an enterprise AI program, each matched to the experience that covers it.', name:['AI Transformation','& Enablement'], tag:'the goal', r:100, sink:true, tabLabel:'AI Transformation',
+    transformation:{ ix:'06', tip:'The 11 needs of an enterprise AI program, each matched to the disciplines, projects and experience that cover it.', name:['AI Transformation','& Enablement'], tag:'the goal', r:100, sink:true, tabLabel:'AI Transformation',
       lede:'What an enterprise AI program needs, matched need by need to what the experience on this page brings.',
       items:[
         '<b>Technical &amp; engineering</b> · reliable output, agentic workflows, grounded answers, cost control, proven quality, AI inside real operations',
         '<b>Human &amp; leadership</b> · team fluency, staying current, change management, executive alignment, winning buy-in',
-        '<b>11 needs</b> · each one linked to the proof that covers it'
+        '<b>11 needs</b> · each one linked to the disciplines and proof that cover it'
       ]}
   };
 
@@ -1735,11 +1815,12 @@
   // coverage arrays: read each card's targets, render a fixed array (relevant on, rest grayed)
   var EXP=[['ap-roots','Deep engineering roots'],['ap-current','Leading AI delivery'],['ap-modernize','Enterprise modernization'],['ap-strategy','Solution strategy']];
   var PROJ=[['p-enable','Weekly AI Enablement'],['p-aids','AI Usage Aids'],['p-fabrica','Fabrica'],['p-agentic','Agentic Pipeline'],['p-brain','Department Brain'],['p-compiler','Graph Compiler'],['p-sbd','Spec-Based Development'],['p-sales','Sales Enablement'],['p-impact','Impact-Assessment'],['p-match','Resource Matching'],['p-frontdoor','Front Door'],['p-enrichment','Enrichment'],['p-event','Event Resourcing']];
-  function covRow(label, pool, active){
+  function covRow(label, pool, active, onlyActive){
     var row=document.createElement('div'); row.className='arr';
     var lab=document.createElement('span'); lab.className='lk-lab'; lab.textContent=label; row.appendChild(lab);
     pool.forEach(function(p){
       var on=active.indexOf(p[0])>-1;
+      if(onlyActive && !on) return;
       var el=document.createElement(on?'a':'span');
       el.className='arr-chip'+(on?' on':' off'); el.textContent=p[1];
       if(on){ el.href='#'+p[0]; el.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); jumpTo(p[0]); }); }
@@ -1747,6 +1828,7 @@
     });
     return row;
   }
+  var NEEDS=[].slice.call(document.querySelectorAll('#p-transformation .need-card')).map(function(c){ var t=c.getAttribute('data-short'); return [c.id, t.charAt(0).toUpperCase()+t.slice(1)]; });
   function idsIn(el){ return [].slice.call(el.querySelectorAll('.links [data-jump]')).map(function(b){ return b.getAttribute('data-jump'); }); }
   document.querySelectorAll('#p-disciplines .item').forEach(function(item){
     var body=item.querySelector('.ib-in'); if(!body) return;
@@ -1758,6 +1840,8 @@
     body.appendChild(covRow('Rooted in', EXP, exps));
     body.appendChild(covRow('Evidenced in', PROJ, projs));
     evs.forEach(function(t){ var p=document.createElement('p'); p.className='ev-text'; p.textContent=t; body.appendChild(p); });
+    var act=NEEDS.filter(function(n){ return document.getElementById(n[0]).querySelector('[data-jump="'+item.id+'"]'); }).map(function(n){ return n[0]; });
+    body.appendChild(covRow('Serves needs', NEEDS, act, true));
   });
   document.querySelectorAll('#p-experience .ap').forEach(function(ap){
     var ids=idsIn(ap); if(!ids.length) return;
