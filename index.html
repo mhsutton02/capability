@@ -482,10 +482,11 @@
   .deg-logo{flex:none; width:50px; height:50px; border-radius:9px; background:#fff; border:1px solid var(--line);
         display:flex; align-items:center; justify-content:center; padding:4px}
   .deg-logo img{display:block; max-width:100%; max-height:100%}
-  /* roles: a two-column Leader tile that links to two places, then the six roles */
+  /* roles: six roles in date order, then a two-column TDP tile; the accent tiles (now-role, lead-tile) are the AT&T-era roles */
   .tiles.roles{grid-template-columns:repeat(4,1fr)}
   .tile.lead-tile{grid-column:span 2; justify-content:space-between; gap:10px; padding:8px 12px; overflow:visible; height:auto; min-height:56px;
         border-color:var(--accent); background:linear-gradient(90deg, var(--accent-tint), transparent)}
+  .tile.now-role{border-color:var(--accent); background:linear-gradient(90deg, var(--accent-tint), transparent); font-weight:600}
   .lt-name{font-family:var(--disp); font-weight:600; font-size:14.5px; color:var(--ink)}
   .lt-links{display:flex; flex-wrap:wrap; gap:6px; justify-content:flex-end}
   .lt-lk{font:inherit; font-size:12.5px; color:var(--accent-ink); background:var(--surface); border:1px solid var(--line-strong);
@@ -910,10 +911,10 @@
             <button class="tile tap" data-jump="ap-roots">Software Engineer</button>
             <button class="tile tap" data-jump="ap-strategy">Consultant</button>
             <button class="tile tap" data-jump="p-frontdoor">Solution Architect</button>
-            <button class="tile tap" data-jump="p-sales">Sales Enablement Lead</button>
-            <button class="tile tap" data-jump="p-enable">Technical Mentor</button>
-            <button class="tile tap" data-jump="ap-current">Practice Owner</button>
-            <div class="tile lead-tile"><span class="lt-name">Leader (Associate Director)</span><span class="lt-links"><button class="lt-lk" data-jump="p-sales">Sales enablement</button><button class="lt-lk" data-jump="ap-current">Leading AI delivery</button></span></div>
+            <button class="tile tap" data-jump="p-sales">Transformation Manager</button>
+            <button class="tile tap now-role" data-jump="ap-current">Practice Owner</button>
+            <button class="tile tap now-role" data-jump="tl-career">Technology Orchestration</button>
+            <div class="tile lead-tile"><span class="lt-name">Technical Mentor - TDP</span><span class="lt-links"><button class="lt-lk" data-jump="ap-current">Leading AI delivery</button></span></div>
           </div>
         </div>
       </div>
@@ -1057,7 +1058,7 @@
     <h2 class="h-sec">How the experience applies to AI transformation</h2>
     <p class="sec-lead">25+ years of enterprise delivery, mapped to AI transformation.</p>
 
-    <div class="tl" aria-label="Career timeline from 2000">
+    <div class="tl" id="tl-career" aria-label="Career timeline from 2000">
       <div class="tl-cap">Career &middot; 2000 to now</div>
       <div class="tl-bar">
         <div class="tl-seg" style="flex:21"><span class="tl-yr">2000 – 2021</span><span class="tl-lab">Enterprise software transformation and outcome delivery</span></div>
@@ -1136,7 +1137,7 @@
 <section class="panel" id="p-projects" role="tabpanel" aria-labelledby="t-projects" tabindex="0">
   <div class="wrap" style="padding-top:44px">
     <p class="eyebrow">Projects</p>
-    <h2 class="h-sec">Selected projects</h2>
+    <h2 class="h-sec">Selected AI projects</h2>
     <p class="sec-lead">All the work behind the disciplines, ordered top-down by relevance to an AI-transformation role.</p>
     <div class="secbar"><button class="expandall" data-scope="p-projects" aria-expanded="false">Expand all</button></div>
 
@@ -1573,7 +1574,7 @@
         '<b>25+ yrs</b> · enterprise transformation &amp; engineering leadership',
         '<b>25</b> · people in the engineering practice led today',
         '<b>Hands-on</b> · designs and codes agentic systems, harnesses, evals, and RAG',
-        '<b>Roles held</b> · leader (Associate Director), engineer, consultant, architect, sales enablement lead, practice owner, mentor'
+        '<b>Roles held</b> · engineer, consultant, architect, transformation manager, practice owner, technology orchestration, technical mentor (TDP)'
       ]},
     transformation:{ ix:'06', tip:'The 11 needs of an enterprise AI program, each matched to the disciplines, projects and experience that cover it.', name:['AI Transformation','& Enablement'], tag:'the goal', r:100, sink:true, tabLabel:'AI Transformation',
       lede:'What an enterprise AI program needs, matched need by need to what the experience on this page brings.',
